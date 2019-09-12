@@ -440,6 +440,7 @@ class Post(models.Model):
 
     html = models.TextField(null=True)  # html rendition of the latest revision
     text = models.TextField(null=True)  # denormalized copy of latest revision
+    translate_text = models.TextField(null=True, blank=True)  # Text to be translated
     language_code = LanguageCodeField()
 
     # Denormalised data
