@@ -165,7 +165,7 @@ class ThreadManager(BaseQuerySetManager):
     def create_new(self, title, author, added_at, wiki, text, tagnames=None,
                    is_anonymous=False, is_private=False, group_id=None,
                    by_email=False, email_address=None, language=None,
-                   ip_addr=None):
+                   ip_addr=None, translate_text=None):
         """creates new thread"""
         # TODO: Some of this code will go to Post.objects.create_new
 
@@ -180,7 +180,7 @@ class ThreadManager(BaseQuerySetManager):
         from askbot.models.post import Post
         question = Post(post_type='question', thread=thread, author=author,
                         added_at=added_at, wiki=wiki, is_anonymous=is_anonymous,
-                        text=text, language_code=language)
+                        text=text, language_code=language, translate_text=translate_text)
         # html and summary fields are denormalized in .save() call
         if question.wiki:
             #DATED COMMENT

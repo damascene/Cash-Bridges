@@ -1023,6 +1023,7 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
             label = _('Add details')
 
         self.fields['text'] = QuestionEditorField(user=user, label=label)
+        self.fields['translate_text'] = QuestionEditorField(user=user, label="Translation Text")
 
         self.fields['ask_anonymously'] = forms.BooleanField(
             label=_('post anonymously'), required=False)

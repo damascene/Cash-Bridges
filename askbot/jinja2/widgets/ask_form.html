@@ -43,10 +43,26 @@
         {{ macros.edit_post(form, settings) }}
     {% endif %}
 
+    <!-- ------------------------------------------------------------------ -->
+    {% set translate_text_field_id = form.translate_text.field.widget.attrs.id %}
+        <div>
+            <label for="{{ translate_text_field_id }}"
+                class="js-text-label">{{ form.translate_text.label }}</label>
+            <div class="js-text-error js-error">
+                {% if form.translate_text.errors %}
+                    {{ form.translate_text.errors }}
+                {% endif %}
+            </div>
+            <div class="editor-proper">
+                {{form.translate_text}}
+            </div>
+        </div>
+    <!-- ------------------------------------------------------------------ -->
+
+
     {% include "widgets/tags_field.html" %}
 
     {{ form.group_id }}
-
     <div class="question-options">
         {% set post_form=form %}
         {% include "widgets/proxy_author_fields.html" %}
