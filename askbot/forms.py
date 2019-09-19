@@ -1381,6 +1381,10 @@ class EditUserForm(forms.Form):
         label=_('Real name'), required=False, max_length=255,
         widget=forms.TextInput(attrs={'size': 35}))
 
+    bch_address = forms.CharField(
+        label=_('BCH Address'), required=False, max_length=60,
+        widget=forms.TextInput(attrs={'size': 35}))
+
     website = forms.URLField(
         label=_('Website'), required=False, max_length=255,
         widget=forms.TextInput(attrs={'size': 35}))
@@ -1417,6 +1421,7 @@ class EditUserForm(forms.Form):
             self.fields['username'].initial = user.username
             self.fields['username'].user_instance = user
         self.fields['email'].initial = user.email
+        self.fields['bch_address'].initial = user.bch_address
         self.fields['realname'].initial = user.real_name
         self.fields['website'].initial = user.website
         self.fields['city'].initial = user.location
