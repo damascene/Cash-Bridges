@@ -98,6 +98,7 @@ def add_profile_properties(cls):
         'twitter_access_token',
         'twitter_handle',
         'website',
+        'bch_address',
     )
     for name in names:
         add_profile_property(cls, name)
