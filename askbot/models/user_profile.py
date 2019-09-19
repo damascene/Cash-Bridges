@@ -180,6 +180,10 @@ class UserProfile(models.Model):
                                 choices=const.SOCIAL_SHARING_MODE_CHOICES
                             )
 
+    # BCH wallet address
+    bch_address = models.CharField(max_length=55, blank=True, null=True)
+
+
     class Meta:
         app_label = 'askbot'
 
