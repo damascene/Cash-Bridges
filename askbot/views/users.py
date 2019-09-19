@@ -502,6 +502,7 @@ def edit_user(request, id):
                     thread.clear_cached_data()
 
             user.real_name = strip_all_tags(form.cleaned_data['realname'])
+            user.bch_address = strip_all_tags(form.cleaned_data['bch_address'])
             user.website = sanitize_html(form.cleaned_data['website'])
             user.location = sanitize_html(form.cleaned_data['city'])
             user.date_of_birth = form.cleaned_data.get('birthday', None)
