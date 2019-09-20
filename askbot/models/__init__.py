@@ -2011,7 +2011,9 @@ def user_post_question(
                     email_address=None,
                     language=None,
                     ip_addr=None,
-                    translate_text=None
+                    translate_text=None,
+                    translate_from=None,
+                    translate_to=None,
                 ):
     """makes an assertion whether user can post the question
     then posts it and returns the question object"""
@@ -2045,6 +2047,8 @@ def user_post_question(
                                     language=language,
                                     ip_addr=ip_addr,
                                     translate_text=translate_text,
+                                    translate_from=translate_from,
+                                    translate_to=translate_to
                                 )
     thread.reset_cached_data()
     question = thread._question_post()
