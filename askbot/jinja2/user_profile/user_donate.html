@@ -1,0 +1,9 @@
+{% extends "one_column_body.html" %}
+    {% block content %}
+        {% if view_user.bch_address %}
+            <p>{{view_user.username}}'s BCH address is: {{view_user.bch_address}}</p>
+        {% else %}
+            <p>User {{view_user.username}}, didn't enter any BCH address in the profile.</p>
+        {% endif %}
+    {% endblock %}
+

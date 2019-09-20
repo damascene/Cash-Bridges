@@ -534,7 +534,12 @@ def edit_user(request, id):
 
 @csrf.csrf_protect
 def donate_user(request, id):
-    pass
+    user = get_object_or_404(models.User, id=id)
+    data = {
+        'view_user': user,
+    }
+
+    return render(request, 'user_profile/user_donate.html', data)
 
 
 def user_stats(request, user, context):
