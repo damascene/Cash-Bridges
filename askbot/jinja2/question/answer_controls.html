@@ -1,3 +1,11 @@
+<span
+    class="action-link"
+    title="{% trans %}donate BCH to the user for the answer{% endtrans %}"
+>
+    <strong>
+        <a href="../../../users/{{answer.author.id}}/donate" target="_blank">Donate {{answer.author}} for the answer</a>
+    </strong>
+</span>
 <span class="action-link">
     <a id="js-edit-btn-post-body-{{ answer.pk }}" class="question-edit js-edit" href="{{ url('edit_answer',  answer.id ) }}">{% trans %}edit{% endtrans %}</a>
 </span>
