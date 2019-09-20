@@ -1006,11 +1006,11 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
     settings forbids anonymous asking
     """
     TRANSLATION_LANGUAGE_CHOICES = (
-        ('English', 'English'),
-        ('Spanish', 'Spanish'),
-        ('Turkish', 'Turkish'),
-        ('Arabic', 'Arabic'),
-        ('French', 'French'),
+        ('en', 'English'),
+        ('es', 'Spanish'),
+        ('tr', 'Turkish'),
+        ('ar', 'Arabic'),
+        ('fr', 'French'),
     )
 
     wiki = WikiField()
