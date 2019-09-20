@@ -48,6 +48,18 @@
                 <div class="js-editable-controls"></div>
             </div>
         </div>
+        {% if question.translate_text %}
+            <div class="post-body">
+                <div class="js-editable">
+                    <div class="js-editable-content">
+                        <p>
+                            <strong>Translation Text:</strong>
+                            <P><code>{{ question.translate_text }}</code></P>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div id="question-controls" class="post-controls">
             {% include "question/question_controls.html" %}
         </div>
