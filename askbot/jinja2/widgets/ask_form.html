@@ -57,6 +57,28 @@
                 {{form.translate_text}}
             </div>
         </div>
+        <div class="form-item form-group ask-form-bar">
+            <label for="id_title">{{ form.translate_from.label }}</label>
+            <div class="js-title-error js-error">
+                {% if form.translate_from.errors %}
+                    {{ form.translate_from.errors }}
+                {% endif %}
+            </div>
+            <div id="translateFrom">
+                {{form.translate_from}}
+            </div>
+        </div>
+        <div class="form-item form-group ask-form-bar">
+            <label for="id_title">{{ form.translate_to.label }}</label>
+            <div class="js-title-error js-error">
+                {% if form.translate_to.errors %}
+                    {{ form.translate_to.errors }}
+                {% endif %}
+            </div>
+            <div id="translateTo">
+                {{form.translate_to}}
+            </div>
+        </div>
     <!-- ------------------------------------------------------------------ -->
 
 

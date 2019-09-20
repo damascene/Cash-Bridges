@@ -1005,6 +1005,14 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
     in the cleaned data, and will evaluate to False if the
     settings forbids anonymous asking
     """
+    TRANSLATION_LANGUAGE_CHOICES = (
+        ('English', 'English'),
+        ('Spanish', 'Spanish'),
+        ('Turkish', 'Turkish'),
+        ('Arabic', 'Arabic'),
+        ('French', 'French'),
+    )
+
     wiki = WikiField()
     group_id = forms.IntegerField(required=False, widget=forms.HiddenInput)
     openid = forms.CharField(
@@ -1025,6 +1033,8 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
 
         self.fields['text'] = QuestionEditorField(user=user, label=label)
         self.fields['translate_text'] = QuestionEditorField(user=user, label="Translation Text")
+        self.fields['translate_from'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="Translation From")
+        self.fields['translate_to'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="Translation To")
 
         self.fields['ask_anonymously'] = forms.BooleanField(
             label=_('post anonymously'), required=False)

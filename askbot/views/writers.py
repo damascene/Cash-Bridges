@@ -222,6 +222,8 @@ def ask(request):#view used to ask a new question
             tagnames = form.cleaned_data['tags']
             text = form.cleaned_data['text']
             translate_text = form.cleaned_data['translate_text']
+            translate_from = form.cleaned_data['translate_from']
+            translate_to = form.cleaned_data['translate_to']
             ask_anonymously = form.cleaned_data['ask_anonymously']
             post_privately = form.cleaned_data['post_privately']
             group_id = form.cleaned_data.get('group_id', None)
@@ -256,6 +258,8 @@ def ask(request):#view used to ask a new question
                         language=language,
                         ip_addr=request.META.get('REMOTE_ADDR'),
                         translate_text=translate_text,
+                        translate_from=translate_from,
+                        translate_to=translate_to,
                     )
                     signals.new_question_posted.send(None,
                         question=question,
