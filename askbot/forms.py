@@ -17,6 +17,7 @@ from django.utils.translation import ungettext_lazy
 from askbot.utils.translation import get_language
 from django.utils.text import get_text_list, format_lazy
 from django.contrib.auth.models import User
+from django.core.validators import RegexValidator
 from django_countries import countries
 from askbot.utils.forms import NextUrlField, UserNameField
 from askbot.utils.forms import moderated_email_validator
@@ -1383,6 +1384,7 @@ class EditUserForm(forms.Form):
 
     bch_address = forms.CharField(
         label=_('BCH Address'), required=False, max_length=60,
+        validators=[RegexValidator("((bitcoincash|bhreg|bchtest):)?(q|p)[a-z0-9]{41}")],
         widget=forms.TextInput(attrs={'size': 35}))
 
     website = forms.URLField(
