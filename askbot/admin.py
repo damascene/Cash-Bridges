@@ -34,7 +34,7 @@ class PostAdmin(admin.ModelAdmin):
                 'offensive_flag_count',
                 ('last_edited_at', 'last_edited_by'),
                 'language_code',
-                ('html', 'text', 'translate_text'),
+                ('html', 'text', 'translate_text', 'translate_from', 'translate_to'),
                 'summary',
                 'is_anonymous',
             )
