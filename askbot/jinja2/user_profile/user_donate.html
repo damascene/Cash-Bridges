@@ -1,9 +1,24 @@
 {% extends "one_column_body.html" %}
     {% block content %}
         {% if view_user.bch_address %}
+            <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
             <p>{{view_user.username}}'s BCH address is: {{view_user.bch_address}}</p>
         {% else %}
             <p>User {{view_user.username}}, didn't enter any BCH address in the profile.</p>
         {% endif %}
+    {% endblock %}
+
+    {% block endjs %}
+        {% block compress %}
+            <script type="text/javascript" src="{{ 'jslib/qrcode.min.js'|media }}"></script>
+        {% endblock %}
+        <script type="text/javascript">
+            //QRCode generation
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                width: 200,
+                height: 200
+             });
+             qrcode.makeCode("{{view_user.bch_address}}");
+        </script>
     {% endblock %}
 
