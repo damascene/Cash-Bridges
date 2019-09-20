@@ -229,6 +229,11 @@ def ask(request):#view used to ask a new question
             group_id = form.cleaned_data.get('group_id', None)
             language = form.cleaned_data.get('language', None)
 
+            # TODO: move this to a lower layer
+            language_tag = f' {translate_from}-{translate_to}'
+            if language_tag[1:] not in tagnames:
+                tagnames += language_tag
+
             content = '{}\n\n{}\n\n{}'.format(title, tagnames, text)
             if akismet_check_spam(content, request):
                 message = _('Spam was detected on your post, sorry if it was a mistake')
