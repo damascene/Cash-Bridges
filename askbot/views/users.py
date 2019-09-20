@@ -531,6 +531,12 @@ def edit_user(request, id):
     }
     return render(request, 'user_profile/user_edit.html', data)
 
+
+@csrf.csrf_protect
+def donate_user(request, id):
+    pass
+
+
 def user_stats(request, user, context):
     question_filter = {}
     if request.user != user:

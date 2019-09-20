@@ -83,6 +83,11 @@ urlpatterns = [
         views.users.edit_user,
         name='edit_user'
     ),
+    url(
+        r'^%s(?P<id>\d+)/%s$' % (pgettext('urls', 'users/'), pgettext('urls', 'donate/')),
+        views.users.donate_user,
+        name='donate_user'
+    ),
     service_url(
         r'^%s(?P<id>\d+)/%s(?P<file_name>.+)/$' % (pgettext('urls', 'users/'), pgettext('urls', 'download-data/')),
         views.users.download_user_data,
