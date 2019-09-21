@@ -172,7 +172,7 @@ settings.register(
     livesettings.IntegerValue(
         FORUM_DATA_RULES,
         'MIN_QUESTION_BODY_LENGTH',
-        default=10,
+        default=0,
         description=_(
             'Minimum length of question body (number of characters)'
         )
