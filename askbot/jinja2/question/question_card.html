@@ -24,8 +24,8 @@
         </h1>
         {% include "question/question_tags.html" %}
         <div class="clearfix"></div>
-
-        <div class="post-body">
+        {% if question.text != " " %}
+            <div class="post-body">
             <div class="js-editable-hide-post-body-{{ question.pk }}">
                 <div class="post-update-info-container">
                     {% include "question/question_author_info.html" %}
@@ -48,9 +48,16 @@
                 <div class="js-editable-controls"></div>
             </div>
         </div>
+        {% endif %}
         {% if question.translate_text %}
             <div class="post-body">
                 <div class="js-editable">
+                    {{question.text is defined}}
+                    {% if question.text == " " %}
+                        <div class="post-update-info-container">
+                            {% include "question/question_author_info.html" %}
+                        </div>
+                    {% endif %}
                     <div class="js-editable-content">
                         <p>
                             <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong></br>
