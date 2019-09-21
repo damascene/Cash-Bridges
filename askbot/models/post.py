@@ -438,8 +438,8 @@ class Post(models.Model):
     last_edited_at = models.DateTimeField(null=True, blank=True)
     last_edited_by = models.ForeignKey(User, null=True, blank=True, related_name='last_edited_posts', on_delete=models.CASCADE)
 
-    html = models.TextField(null=True)  # html rendition of the latest revision
-    text = models.TextField(null=True)  # denormalized copy of latest revision
+    html = models.TextField(null=True, blank=True)  # html rendition of the latest revision
+    text = models.TextField(null=True, blank=True)  # denormalized copy of latest revision
     translate_text = models.TextField(null=True, blank=True)  # Text to be translated
     translate_from = models.CharField(max_length=8, null=True, blank=True)  # Text to be translated
     translate_to = models.CharField(max_length=8, null=True, blank=True)  # Text to be translated
