@@ -53,6 +53,10 @@
             </div>
         </div>
     <!-- ------------------------------------------------------------------ -->
+    <button onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+        Show details field
+    </button>
+    <div id="toggle-input" style="display: none;">
     {% set text_field_id = form.text.field.widget.attrs.id %}
     {% if editor_is_folded %}
         <a class="js-question-body-trigger">{{ form.text.label }}</a>
@@ -78,7 +82,7 @@
         </div>
         {{ macros.edit_post(form, settings) }}
     {% endif %}
-
+    </div>
     {% include "widgets/tags_field.html" %}
 
     {{ form.group_id }}

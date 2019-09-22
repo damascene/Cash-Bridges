@@ -140,3 +140,16 @@ Toggle.prototype.decorate = function (element) {
 
     setupButtonEventHandlers(element, this.getHandler());
 };
+
+
+function toggle_display(button, id, hiddenText, visibleText) {
+    element = document.getElementById(id);
+    if (element.style.display == "block"){
+        element.style.display = "none";
+        button.innerText = hiddenText
+    }
+    else {
+        element.style.display = "block";
+        button.innerText = visibleText
+    }
+}
