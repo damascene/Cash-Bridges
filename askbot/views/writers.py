@@ -673,7 +673,8 @@ def answer(request, id, form_class=forms.AnswerForm):#process a new answer
                 user = form.get_post_user(request.user)
                 try:
                     text = form.cleaned_data['text']
-                    if akismet_check_spam(text, request):
+                    translate_text = form.cleaned_data['translate_text']
+                    if akismet_check_spam(text, request) or akismet_check_spam(translate_text, request):
                         message = _('Spam was detected on your post, sorry if it was a mistake')
                         raise exceptions.PermissionDenied(message)
 

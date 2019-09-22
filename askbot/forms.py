@@ -1217,6 +1217,7 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         user = kwargs['user']
         # empty label on purpose
         self.fields['text'] = AnswerEditorField(label='', user=user)
+        self.fields['translate_text'] = AnswerEditorField(label='', user=user)
 
         if should_use_recaptcha(user):
             self.fields['recaptcha'] = AskbotReCaptchaField()
@@ -1224,12 +1225,13 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
     def save(self, question, user, ip_addr=None):
         wiki = self.cleaned_data['wiki']
         text = self.cleaned_data['text']
+        translate_text = self.cleaned_data['translate_text']
         is_private = self.cleaned_data['post_privately']
 
         return user.post_answer(
             question=question, body_text=text, wiki=wiki,
             is_private=is_private, timestamp=timezone.now(),
-            ip_addr=ip_addr)
+            ip_addr=ip_addr, translate_text=translate_text)
 
 
 class VoteForm(forms.Form):

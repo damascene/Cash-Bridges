@@ -214,7 +214,7 @@ class PostManager(BaseQuerySetManager):
 
     def create_new(self, thread, author, added_at, text, parent=None,
                    wiki=False, is_private=False, email_notify=False,
-                   post_type=None, by_email=False, ip_addr=None):
+                   post_type=None, by_email=False, ip_addr=None, translate_text=None):
         # TODO: Some of this code will go to Post.objects.create_new
 
         assert(post_type in const.POST_TYPES)
@@ -227,7 +227,7 @@ class PostManager(BaseQuerySetManager):
         # .html field is denormalized by the save() call
         post = Post(post_type=post_type, thread=thread, parent=parent,
                     author=author, added_at=added_at, wiki=wiki,
-                    text=text, language_code=language_code)
+                    text=text, language_code=language_code, translate_text=translate_text)
 
         if post.wiki:
             post.last_edited_by = post.author
@@ -272,10 +272,10 @@ class PostManager(BaseQuerySetManager):
     # TODO: instead of this, have Thread.add_answer()
     def create_new_answer(self, thread, author, added_at, text, wiki=False,
                           is_private=False, email_notify=False, by_email=False,
-                          ip_addr=None):
+                          ip_addr=None, translate_text=None):
         answer = self.create_new(thread, author, added_at, text, wiki=wiki,
                                  is_private=is_private, post_type='answer',
-                                 by_email=by_email, ip_addr=ip_addr)
+                                 by_email=by_email, ip_addr=ip_addr, translate_text=translate_text)
         # set notification/delete
         if email_notify:
             thread.followed_by.add(author)
