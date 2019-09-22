@@ -39,6 +39,14 @@
                 <div class="js-editable-controls"></div>
             </div>
         </div>
+        {% if answer.translate_text %}
+                <div class="clean"></div>
+                <p>
+                    <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong><br>
+                    <strong>Translated Text:</strong>
+                    <P><code>{{ answer.translate_text }}</code></P>
+                </p>
+            {% endif %}
         <div class="answer-controls post-controls">
             {% include "question/answer_controls.html" %}
         </div>
