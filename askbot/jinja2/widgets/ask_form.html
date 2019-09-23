@@ -57,10 +57,22 @@
         Show details field
     </button>
     <div id="toggle-input" style="display: none;">
-    {% set text_field_id = form.text.field.widget.attrs.id %}
-    {% if editor_is_folded %}
-        <a class="js-question-body-trigger">{{ form.text.label }}</a>
-        <div class="folded-editor">
+        {% set text_field_id = form.text.field.widget.attrs.id %}
+        {% if editor_is_folded %}
+            <a class="js-question-body-trigger">{{ form.text.label }}</a>
+            <div class="folded-editor">
+                <label for="{{ text_field_id }}"
+                    class="js-text-label">{{ form.text.label }}</label>
+                <div class="js-text-error js-error">
+                    {% if form.text.errors %}
+                        {{ form.text.errors }}
+                    {% endif %}
+                </div>
+                <div class="editor-proper">
+                    <div class="editor-placeholder"></div>
+                </div>
+            </div>
+        {% else %}
             <label for="{{ text_field_id }}"
                 class="js-text-label">{{ form.text.label }}</label>
             <div class="js-text-error js-error">
@@ -68,23 +80,11 @@
                     {{ form.text.errors }}
                 {% endif %}
             </div>
-            <div class="editor-proper">
-                <div class="editor-placeholder"></div>
-            </div>
-        </div>
-    {% else %}
-        <label for="{{ text_field_id }}"
-            class="js-text-label">{{ form.text.label }}</label>
-        <div class="js-text-error js-error">
-            {% if form.text.errors %}
-                {{ form.text.errors }}
-            {% endif %}
-        </div>
-        {{ macros.edit_post(form, settings) }}
-    {% endif %}
-    </div>
-    {% include "widgets/tags_field.html" %}
+            {{ macros.edit_post(form, settings) }}
+        {% endif %}
 
+        {% include "widgets/tags_field.html" %}
+    </div>
     {{ form.group_id }}
     <div class="question-options">
         {% set post_form=form %}
