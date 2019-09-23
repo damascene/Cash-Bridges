@@ -13,11 +13,11 @@
         {% include "question/answer_vote_buttons.html" %}
     </div>
     <div class="post-content">
+        <div class="post-update-info-container">
+            {% include "question/answer_author_info.html" %}
+        </div>
         <div class="post-body">
             <div class="js-editable-hide-post-body-{{ answer.pk }}">
-                <div class="post-update-info-container">
-                    {% include "question/answer_author_info.html" %}
-                </div>
                 {% if answer.id in published_answer_ids %}
                     <p><strong>{% trans %}This response is published{% endtrans %}</strong></p>
                 {% endif %}
@@ -39,6 +39,19 @@
                 <div class="js-editable-controls"></div>
             </div>
         </div>
+        {% if question.translate_text %}
+            <div class="post-body">
+                <div class="js-editable">
+                    <div class="js-editable-content">
+                        <p>
+                            <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong><br>
+                            <strong>Translation Text:</strong>
+                            <P><code>{{ question.translate_text }}</code></P>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
         <div class="answer-controls post-controls">
             {% include "question/answer_controls.html" %}
         </div>
