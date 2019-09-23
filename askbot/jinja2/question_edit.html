@@ -21,10 +21,19 @@
         </label>
         {{ form.title }}
     </div>
-
-    {{ macros.edit_post(form, settings, post_html=revision.text) }}
-
-    {% include "widgets/tags_field.html" %}
+    <div class="form-group">
+        <div class="wmd-container">
+            <label for="translate-text">Translation Text:</label>
+            <textarea id="translate-text" name="translate_text">{{revision.post.translate_text}}</textarea>
+        </div>
+    </div>
+    <a onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+        Show details field
+    </a>
+    <div id="toggle-input" style="display: none;">
+        {{ macros.edit_post(form, settings, post_html=revision.text) }}
+        {% include "widgets/tags_field.html" %}
+    </div>
     <div class="question-options">
         {% if settings.WIKI_ON and question.wiki == False %}
             {{ macros.checkbox_in_div(form.wiki) }}

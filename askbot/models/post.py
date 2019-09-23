@@ -1815,11 +1815,14 @@ class Post(models.Model):
                     by_email=False,
                     suppress_email=False,
                     ip_addr=None,
+                    translate_text=None
                 ):
         latest_rev = self.get_latest_revision()
 
         if text is None:
             text = latest_rev.text
+        if translate_text is None:
+            translate_text = latest_rev.translate_text
         if edited_at is None:
             edited_at = timezone.now()
         if edited_by is None:
@@ -1829,6 +1832,7 @@ class Post(models.Model):
         self.last_edited_by = edited_by
         # self.html is denormalized in save()
         self.text = text
+        self.translate_text = translate_text
         if edit_anonymously:
             self.is_anonymous = edit_anonymously
         # else:
@@ -1843,6 +1847,7 @@ class Post(models.Model):
             # if post has only 0 revision, we just update the
             # latest revision data
             latest_rev.text = text
+            latest_rev.translate_text = translate_text
             latest_rev.revised_at = edited_at
             latest_rev.save()
         else:
@@ -1854,7 +1859,8 @@ class Post(models.Model):
                 comment=comment,
                 by_email=by_email,
                 ip_addr=ip_addr,
-                is_anonymous=edit_anonymously
+                is_anonymous=edit_anonymously,
+                translate_text=translate_text
             )
 
         if latest_rev.revision > 0:
@@ -1890,7 +1896,8 @@ class Post(models.Model):
                     comment=None,
                     by_email=False,
                     ip_addr=None,
-                    is_anonymous=False
+                    is_anonymous=False,
+                    translate_text=None
                 ):
         #todo: this may be identical to Question.add_revision
         if None in (author, revised_at, text):
@@ -1903,13 +1910,14 @@ class Post(models.Model):
             summary=comment,
             by_email=by_email,
             ip_addr=ip_addr,
-            is_anonymous=is_anonymous
+            is_anonymous=is_anonymous,
+            translate_text=translate_text
         )
 
     def _question__add_revision(self, author=None, is_anonymous=False,
                                 text=None, comment=None, revised_at=None,
                                 by_email=False, email_address=None,
-                                ip_addr=None):
+                                ip_addr=None, translate_text=None):
         if None in (author, text):
             raise Exception('author, text and comment are required arguments')
 
@@ -1924,7 +1932,8 @@ class Post(models.Model):
             text=text,
             by_email=by_email,
             email_address=email_address,
-            ip_addr=ip_addr
+            ip_addr=ip_addr,
+            translate_text=translate_text
         )
 
     def add_revision(self, *kargs, **kwargs):
@@ -2155,6 +2164,7 @@ class PostRevision(models.Model):
     revised_at = models.DateTimeField()
     summary = models.CharField(max_length=300, blank=True)
     text = models.TextField(blank=True)
+    translate_text = models.TextField(blank=True, null=True)
 
     approved = models.BooleanField(default=False, db_index=True)
     approved_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)

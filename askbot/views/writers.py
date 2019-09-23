@@ -488,7 +488,8 @@ def edit_question(request, id):
                             edit_anonymously=form.cleaned_data['edit_anonymously'],
                             is_private=post_privately,
                             suppress_email=suppress_email,
-                            ip_addr=request.META.get('REMOTE_ADDR')
+                            ip_addr=request.META.get('REMOTE_ADDR'),
+                            translate_text=form.cleaned_data['translate_text']
                         )
 
                         if 'language' in form.cleaned_data:
@@ -584,7 +585,8 @@ def edit_answer(request, id):
                         is_private = form.cleaned_data.get('post_privately', False)
 
                         text = form.cleaned_data['text']
-                        if akismet_check_spam(text, request):
+                        translate_text = form.cleaned_data['translate_text']
+                        if akismet_check_spam(text, request) and akismet_check_spam(translate_text, request):
                             message = _('Spam was detected on your post, sorry if it was a mistake')
                             raise exceptions.PermissionDenied(message)
 
@@ -595,7 +597,8 @@ def edit_answer(request, id):
                             wiki=form.cleaned_data.get('wiki', answer.wiki),
                             is_private=is_private,
                             suppress_email=suppress_email,
-                            ip_addr=request.META.get('REMOTE_ADDR')
+                            ip_addr=request.META.get('REMOTE_ADDR'),
+                            translate_text=translate_text
                         )
 
                         signals.answer_edited.send(None,

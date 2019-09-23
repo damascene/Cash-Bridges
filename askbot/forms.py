@@ -1304,6 +1304,7 @@ class EditQuestionForm(PostAsSomeoneForm, PostPrivatelyForm):
         super(EditQuestionForm, self).__init__(*args, **kwargs)
         # it is important to add this field dynamically
         self.fields['text'] = QuestionEditorField(user=self.user)
+        self.fields['translate_text'] = QuestionEditorField(user=self.user)
         self.fields['title'] = TitleField()
         self.fields['title'].initial = revision.title
         self.fields['text'].initial = revision.text
@@ -1363,6 +1364,7 @@ class EditAnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         # it is important to add this field dynamically
         # label is empty on purpose
         self.fields['text'] = AnswerEditorField(label='', user=user)
+        self.fields['translate_text'] = AnswerEditorField(label='', user=user)
         self.fields['text'].initial = revision.text
         self.fields['wiki'].initial = answer.wiki
 

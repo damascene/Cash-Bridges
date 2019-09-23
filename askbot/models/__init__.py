@@ -2104,7 +2104,8 @@ def user_edit_post(self,
                    by_email=False,
                    is_private=False,
                    suppress_email=False,
-                   ip_addr=None):
+                   ip_addr=None,
+                   ):
     """Edits post body.
     Todo: unify it in the style of just a generic post
     this requires refactoring of underlying functions
@@ -2167,6 +2168,7 @@ def user_edit_question(
                 by_email=False,
                 suppress_email=False,
                 ip_addr=None,
+                translate_text=None
             ):
     if force == False:
         self.assert_can_edit_question(question)
@@ -2198,7 +2200,8 @@ def user_edit_question(
         is_private=is_private,
         by_email=by_email,
         suppress_email=suppress_email,
-        ip_addr=ip_addr
+        ip_addr=ip_addr,
+        translate_text=translate_text
     )
 
     # Update the Question tag associations
@@ -2237,6 +2240,7 @@ def user_edit_answer(
                     by_email=False,
                     suppress_email=False,
                     ip_addr=None,
+                    translate_text=None
                 ):
 
     if force == False:
@@ -2256,7 +2260,8 @@ def user_edit_answer(
                                  is_private=is_private,
                                  by_email=by_email,
                                  suppress_email=suppress_email,
-                                 ip_addr=ip_addr)
+                                 ip_addr=ip_addr,
+                                 translate_text=translate_text)
 
     answer.thread.set_last_activity_info(
         last_activity_at=timestamp,
