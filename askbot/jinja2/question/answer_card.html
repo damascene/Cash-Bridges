@@ -39,14 +39,14 @@
                 <div class="js-editable-controls"></div>
             </div>
         </div>
-        {% if question.translate_text %}
+        {% if answer.translate_text %}
             <div class="post-body">
                 <div class="js-editable">
                     <div class="js-editable-content">
                         <p>
-                            <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong><br>
+                            <strong>From {{ answer.translate_from }} to {{ answer.translate_to }}</strong><br>
                             <strong>Translation Text:</strong>
-                            <P><code>{{ question.translate_text }}</code></P>
+                            <P><code>{{ answer.translate_text }}</code></P>
                         </p>
                     </div>
                 </div>
