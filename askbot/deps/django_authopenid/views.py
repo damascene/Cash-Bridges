@@ -101,13 +101,16 @@ def get_next_url_from_session(session):
 def create_authenticated_user_account(
     username=None, email=None, password=None,
     user_identifier=None, login_provider_name=None,
-    request=None
+    request=None, bch_address=None
 ):
     """creates a user account, user association with
     the login method and the the default email subscriptions
     """
 
     user = User.objects.create_user(username, email)
+    if bch_address:
+        user.bch_address = bch_address
+        user.save()
     user_registered.send(None, user=user, request=request)
 
     logging.debug('creating new openid user association for %s', username)
@@ -1340,12 +1343,14 @@ def signup_with_password(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             email = form.cleaned_data['email']
+            bch_address = form.cleaned_data['bch_address']
 
             if askbot_settings.REQUIRE_VALID_EMAIL_FOR == 'nothing':
                 user = create_authenticated_user_account(
                     username=username,
                     email=email,
                     password=password,
+                    bch_address=bch_address,
                     request=request
                 )
                 login(request, user)

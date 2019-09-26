@@ -36,6 +36,7 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
 from django.conf import settings as django_settings
+from django.core.validators import RegexValidator
 from askbot.conf import settings as askbot_settings
 from askbot import const as askbot_const
 from askbot.forms import AskbotReCaptchaField
@@ -297,6 +298,10 @@ class RegistrationForm(forms.Form):
     """ openid signin form """
     next = NextUrlField()
     username = UserNameField(widget_attrs={'tabindex': 0})
+    bch_address = forms.CharField(
+        label=_('BCH Address'), required=False, max_length=60,
+        validators=[RegexValidator("((bitcoincash|bhreg|bchtest):)?(q|p)[a-z0-9]{41}")],
+        widget=forms.TextInput(attrs={'size': 35}))
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
