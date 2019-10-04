@@ -7,6 +7,10 @@
         ({{ macros.user_long_score_and_badge_summary(user) }})
     {%- endif -%}
     </span>
+    <a href="{{ url ('messages_inbox') }}">
+        {% trans %}inbox{% endtrans %} (unread: {{request.user.received_messages.filter(read_at=None).count()}})
+    </a>
+
     {% if settings.USE_ASKBOT_LOGIN_SYSTEM %}
          <a href="{{ settings.LOGOUT_URL }}?next={{ settings.LOGOUT_REDIRECT_URL }}">{% trans %}sign out{% endtrans %}</a>
     {% endif %}
