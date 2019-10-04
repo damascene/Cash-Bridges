@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    Message
+{% endblock %}
+{% block links %}
+    <ul class="subnavilist">
+        <li><a href="{{ url ('messages_inbox') }}">&raquo;&nbsp;{% trans %}Inbox{% endtrans %}</a></li>
+        <li><a href="{{ url ('messages_outbox') }}">&raquo;&nbsp;{% trans %}Sent Messages{% endtrans %}</a></li>
+        <li><a href="{{ url ('messages_compose') }}">&raquo;&nbsp;{% trans %}New Message{% endtrans %}</a></li>
+        <li><a href="{{ url ('messages_trash') }}">&raquo;&nbsp;{% trans %}Trash{% endtrans %}</a></li>
+    </ul>
+{% endblock %}
+{% block body %}
+{% endblock %}
+

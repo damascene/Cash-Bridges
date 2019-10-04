@@ -1,0 +1,35 @@
+{% extends "django_messages/base.html" %}
+
+{% block body %}
+    <h1>{% trans %}Inbox{% endtrans %}</h1>
+    {% if message_list %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{% trans %}Sender{% endtrans %}</th>
+                    <th>{% trans %}Subject{% endtrans %}</th>
+                    <th>{% trans %}Received{% endtrans %}</th>
+                    <th>{% trans %}Action{% endtrans %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in message_list %}
+                    <tr>
+                        <td>{{ message.sender }}</td>
+                        <td>
+                            {% if message.new %}<strong>{% endif %}
+                            {% if message.replied %}<em>{% endif %}
+                            <a href="{{ message.get_absolute_url() }}">{{ message.subject }}</a>
+                            {% if message.replied %}</em>{% endif %}
+                            {% if message.new %}</strong>{% endif %}
+                        </td>
+                        <td>{{ message.sent_at}}</td>
+                        <td><a href="{{ url ('messages_delete', message.id) }}">{% trans %}delete{% endtrans %}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>{% trans %}No messages.{% endtrans %}</p>
+    {% endif %}
+{% endblock %}

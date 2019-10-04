@@ -1,0 +1,57 @@
+{% extends "django_messages/base.html" %}
+
+{% block body %}
+    <h1>{% trans %}View Message{% endtrans %}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}Subject{% endtrans %}</th>
+                <th>{% trans %}Sender{% endtrans %}</th>
+                <th>{% trans %}Date{% endtrans %} </th>
+                <th>{% trans %}Recipient{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>{{ message.subject }}</strong></td>
+                <td>{{ message.sender }}</td>
+                <td>{{ message.sent_at}}</td>
+                <td>{{ message.recipient }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{% trans %}Message{% endtrans %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{ message.body|linebreaks }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% if message.recipient.pk == user.pk %}
+            <a class="button" href="{{ url ('messages_reply', message.id) }}">{% trans %}Reply message{% endtrans %}</a>
+    {% endif %}
+    <a class="button" href="{{ url ('messages_delete', message.id) }}">{% trans %}Delete message{% endtrans %}</a>
+    <br>
+    {% if reply_form %}
+        <h1>{% trans %}Compose reply{% endtrans %}</h1>
+        <form action="{{ url ('messages_reply', message.id) }}" method="post">
+            {{ csrf_input }}
+            <table>
+                {{ reply_form.as_table() }}
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="{% trans %}Send{% endtrans %}"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    {% endif %}
+{% endblock %}
