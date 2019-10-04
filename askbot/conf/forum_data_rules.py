@@ -183,7 +183,7 @@ settings.register(
     livesettings.IntegerValue(
         FORUM_DATA_RULES,
         'MIN_ANSWER_BODY_LENGTH',
-        default=10,
+        default=0,
         description=_(
             'Minimum length of answer body (number of characters)'
         )

@@ -148,7 +148,7 @@ askbot.validators.questionDetailsValidator = function (text) {
     text = $.trim(text);
     var minLength = askbot.settings.minQuestionBodyLength;
     if (minLength && (text.length < minLength)) {
-        /* todo - for tinymce text extract text from html 
+        /* todo - for tinymce text extract text from html
             otherwise html tags will be counted and user misled */
         throw interpolate(
                     ngettext(
@@ -239,7 +239,7 @@ var CPValidator = (function () {
         getAnswerFormRules: function () {
             return {
                 text: {
-                    required: true,
+                    required: false,
                     minlength: askbot.settings.minAnswerBodyLength
                 }
             };

@@ -411,6 +411,7 @@ class AnswerEditorField(EditorField):
     def __init__(self, *args, **kwargs):
         super(AnswerEditorField, self).__init__(*args, **kwargs)
         self.min_length = askbot_settings.MIN_ANSWER_BODY_LENGTH
+        self.required = False
 
 
 def clean_tag(tag_name, look_in_db=True):
