@@ -27,20 +27,24 @@
                         <td><a href="{{ url ('messages_delete', message.id) }}">{% trans %}delete{% endtrans %}</a></td>
                     </tr>
                 {% endfor %}
+                {% set rendered_msg = [] %}
                 {% for message in message_list.filter(parent_msg__sender=request.user) %}
                     {% if message.parent_msg.parent_msg == None and message.sender != request.user %}
-                        <tr>
-                            <td>{{ message.sender }}</td>
-                            <td>
-                                {% if message.new %}<strong>{% endif %}
-                                {% if message.replied %}<em>{% endif %}
-                                <a href="{{ message.parent_msg.get_absolute_url() }}">{{ message.subject }}</a>
-                                {% if message.replied %}</em>{% endif %}
-                                {% if message.new %}</strong>{% endif %}
-                            </td>
-                            <td>{{ message.sent_at}}</td>
-                            <td><a href="{{ url ('messages_delete', message.id) }}">{% trans %}delete{% endtrans %}</a></td>
-                        </tr>
+                        {% if message.parent_msg.id not in rendered_msg %}
+                            {{ rendered_msg.append(message.parent_msg.id) }}
+                            <tr>
+                                <td>{{ message.sender }}</td>
+                                <td>
+                                    {% if message.new %}<strong>{% endif %}
+                                    {% if message.replied %}<em>{% endif %}
+                                    <a href="{{ message.parent_msg.get_absolute_url() }}">{{ message.subject }}</a>
+                                    {% if message.replied %}</em>{% endif %}
+                                    {% if message.new %}</strong>{% endif %}
+                                </td>
+                                <td>{{ message.sent_at}}</td>
+                                <td><a href="{{ url ('messages_delete', message.id) }}">{% trans %}delete{% endtrans %}</a></td>
+                            </tr>
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
             </tbody>
