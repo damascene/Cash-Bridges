@@ -47,6 +47,7 @@
                 {% endif %}
             </button>
         {% endif %}
+        <a class="button large" href="{{ url ('messages_compose_to', view_user.username) }}" target="_blank">Message {{view_user.author}}</a>
     </div>
     <div class="col2">
         <table class="user-details">
