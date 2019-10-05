@@ -34,10 +34,10 @@
 		        </tr>
 		    </tbody>
 		</table>
-		{% if root.recipient.pk == user.pk %}
+		<!--{% if root.recipient.pk == user.pk %}
 		        <a class="button" href="{{ url ('messages_reply', root.id) }}">{% trans %}Reply message{% endtrans %}</a>
 		{% endif %}
-		<a class="button" href="{{ url ('messages_delete', root.id) }}">{% trans %}Delete message{% endtrans %}</a>
+		<a class="button" href="{{ url ('messages_delete', root.id) }}">{% trans %}Delete message{% endtrans %}</a> -->
         {% for message in root.next_messages.all().order_by('sent_at') %}
             {{ thread(message) }}
         {% endfor %}
@@ -45,19 +45,10 @@
 
     {{ thread(message) }}
 
-    {% if not reply_form %}
-        <h1>{% trans %}Compose reply{% endtrans %}</h1>
-        <form action="{{ url ('messages_reply', message.id) }}" method="post">
-            {{ csrf_input }}
-            <table>
-                {{ reply_form.as_table() }}
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="{% trans %}Send{% endtrans %}"/>
-                    </td>
-                </tr>
-            </table>
-        </form>
+    {% if not message.parent_msg %}
+        {% set reply_message = message %}
+    {% else %}
+        {% set reply_message = message.parent_msg %}
     {% endif %}
+    <a class="button" href="{{ url ('messages_reply', reply_message.id) }}">{% trans %}Reply message{% endtrans %}</a>
 {% endblock %}
