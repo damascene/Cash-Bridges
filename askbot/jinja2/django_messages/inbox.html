@@ -9,7 +9,6 @@
                     <th>{% trans %}Sender{% endtrans %}</th>
                     <th>{% trans %}Subject{% endtrans %}</th>
                     <th>{% trans %}Received{% endtrans %}</th>
-                    <th>{% trans %}Action{% endtrans %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,7 +23,6 @@
                             {% if message.new %}</strong>{% endif %}
                         </td>
                         <td>{{ message.sent_at}}</td>
-                        <td><a href="{{ url ('messages_delete', message.id) }}">{% trans %}delete{% endtrans %}</a></td>
                     </tr>
                 {% endfor %}
                 {% set rendered_msg = [] %}
@@ -42,7 +40,6 @@
                                     {% if message.new %}</strong>{% endif %}
                                 </td>
                                 <td>{{ message.sent_at}}</td>
-                                <td><a href="{{ url ('messages_delete', message.id) }}">{% trans %}delete{% endtrans %}</a></td>
                             </tr>
                         {% endif %}
                     {% endif %}
