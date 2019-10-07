@@ -2014,6 +2014,8 @@ def user_post_question(
                     translate_text=None,
                     translate_from=None,
                     translate_to=None,
+                    translation_budget=None,
+                    translation_budget_currency=None,
                 ):
     """makes an assertion whether user can post the question
     then posts it and returns the question object"""
@@ -2048,7 +2050,9 @@ def user_post_question(
                                     ip_addr=ip_addr,
                                     translate_text=translate_text,
                                     translate_from=translate_from,
-                                    translate_to=translate_to
+                                    translate_to=translate_to,
+                                    translation_budget=translation_budget,
+                                    translation_budget_currency=translation_budget_currency,
                                 )
     thread.reset_cached_data()
     question = thread._question_post()
