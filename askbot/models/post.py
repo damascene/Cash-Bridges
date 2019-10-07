@@ -443,6 +443,13 @@ class Post(models.Model):
     translate_text = models.TextField(null=True, blank=True)  # Text to be translated
     translate_from = models.CharField(max_length=8, null=True, blank=True)  # Text to be translated
     translate_to = models.CharField(max_length=8, null=True, blank=True)  # Text to be translated
+    translation_budget = models.DecimalField(max_digits=8, decimal_places=2,
+                                             null=True, blank=True)
+    translation_budget_currency = models.CharField(max_length=4,
+                                                   choices=[
+                                                       ('usd', 'USD',),
+                                                       ('eur', 'EUR',)],
+                                                   null=True, blank=True)
     language_code = LanguageCodeField()
 
     # Denormalised data
