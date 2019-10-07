@@ -52,6 +52,28 @@
                 {{form.translate_to}}
             </div>
         </div>
+          <div class="form-item form-group ask-form-bar">
+            <label for="id_title">{{ form.translation_budget.label }}</label>
+            <div class="js-title-error js-error">
+                {% if form.translation_budget.errors %}
+                    {{ form.translation_budget.errors }}
+                {% endif %}
+            </div>
+            <div id="translationBudget">
+                {{form.translation_budget}}
+            </div>
+        </div>
+        <div class="form-item form-group ask-form-bar">
+            <label for="id_title">{{ form.translation_budget_currency.label }}</label>
+            <div class="js-title-error js-error">
+                {% if form.translation_budget_currency.errors %}
+                    {{ form.translation_budget_currency.errors }}
+                {% endif %}
+            </div>
+            <div id="translationBudgetCurrency">
+                {{form.translation_budget_currency}} <strong>(Note: payment must be in BCH, the fiat type is only for showing value)</strong>
+            </div>
+        </div>
     <!-- ------------------------------------------------------------------ -->
     <button type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
         Show details field

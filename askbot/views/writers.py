@@ -224,6 +224,8 @@ def ask(request):#view used to ask a new question
             translate_text = form.cleaned_data['translate_text']
             translate_from = form.cleaned_data['translate_from']
             translate_to = form.cleaned_data['translate_to']
+            translation_budget = form.cleaned_data['translation_budget']
+            translation_budget_currency = form.cleaned_data['translation_budget_currency']
             ask_anonymously = form.cleaned_data['ask_anonymously']
             post_privately = form.cleaned_data['post_privately']
             group_id = form.cleaned_data.get('group_id', None)
@@ -265,6 +267,8 @@ def ask(request):#view used to ask a new question
                         translate_text=translate_text,
                         translate_from=translate_from,
                         translate_to=translate_to,
+                        translation_budget=translation_budget,
+                        translation_budget_currency=translation_budget_currency,
                     )
                     signals.new_question_posted.send(None,
                         question=question,
