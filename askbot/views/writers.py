@@ -322,6 +322,7 @@ def ask(request):#view used to ask a new question
         'post_privately': getattr(request,request.method).get('post_privately', False),
         'language': get_language(),
         'wiki': getattr(request,request.method).get('wiki', False),
+        'translation_budget': getattr(request,request.method).get('translation_budget', 1.0),
     }
     if 'group_id' in getattr(request,request.method):
         try:
