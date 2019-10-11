@@ -9,64 +9,79 @@
         <a href="{{ url ('messages_compose_to', answer.author.username) }}" target="_blank">Message {{answer.author}}</a>
     </strong>
 </span>
-<span class="action-link">
-    <a id="js-edit-btn-post-body-{{ answer.pk }}" class="question-edit js-edit" href="{{ url('edit_answer',  answer.id ) }}">{% trans %}edit{% endtrans %}</a>
-</span>
-{% if answer.offensive_flag_count > 0 %}
-<span
-    id="answer-offensive-remove-flag-{{ answer.id }}"
-    class="action-link offensive-flag"
-    title="{% trans %}remove offensive flag{% endtrans %}"
->
-    <a class="question-flag">{% trans %}remove flag{% endtrans %}</a>
-</span>
-<span
-    id="answer-offensive-flag-{{ answer.id }}"
-    class="action-link offensive-flag"
-    title="{% trans %}report as offensive (i.e containing spam, advertising, malicious text, etc.){% endtrans %}"
->
-    <a class="question-flag">{% trans %}flag offensive{% endtrans %} ({{ answer.offensive_flag_count }})</a>
-</span>
-{% else %}
-<span
-    id="answer-offensive-flag-{{ answer.id }}"
-    class="action-link offensive-flag"
-    title="{% trans %}report as offensive (i.e containing spam, advertising, malicious text, etc.){% endtrans %}"
->
-    <a class="question-flag">{% trans %}flag offensive{% endtrans %}</a>
-</span>
-{% endif %}
-<span id='post-{{answer.id}}-delete' class="action-link delete-post">
-    <a class="question-delete"
-    >{% if answer.deleted %}{% trans %}undelete{% endtrans %}{% else %}{% trans %}delete{% endtrans %}{% endif %}</a>
-</span>
-{% if thread.is_moderated() %}
-<span
-    id="post-{{answer.id}}-publish"
-    class="action-link"
->
-    {% if answer.id in published_answer_ids %}
-        <a
-            class="answer-unpublish"
-            data-answer-id="{{ answer.id }}"
-        >{% trans %}unpublish{% endtrans %}</a>
-    {% else %}
-        <a
-            class="answer-publish"
-            data-answer-id="{{ answer.id}}"
-        >{% trans %}publish{% endtrans %}</a>
-    {% endif %}
-</span>
-{% endif %}
-<span class="action-link">
-    <a  class="permant-link"
-        href="{{ answer.get_absolute_url(question_post=question) }}"
-        title="{% trans %}permanent link{% endtrans %}">
-        {% trans %}link{% endtrans %}
-    </a>
-</span>
+
 <span class="action-link dropdown-toggle">{% trans %}more{% endtrans %}
 <ul class="dropdown-menu">
+    <li>
+        <span class="action-link">
+            <a id="js-edit-btn-post-body-{{ answer.pk }}" class="question-edit js-edit" href="{{ url('edit_answer',  answer.id ) }}">{% trans %}edit{% endtrans %}</a>
+        </span>
+    </li>
+    {% if answer.offensive_flag_count > 0 %}
+    <li>
+       <span
+            id="answer-offensive-remove-flag-{{ answer.id }}"
+            class="action-link offensive-flag"
+            title="{% trans %}remove offensive flag{% endtrans %}"
+        >
+            <a class="question-flag">{% trans %}remove flag{% endtrans %}</a>
+        </span>
+    </li>
+    <li>
+         <span
+            id="answer-offensive-flag-{{ answer.id }}"
+            class="action-link offensive-flag"
+            title="{% trans %}report as offensive (i.e containing spam, advertising, malicious text, etc.){% endtrans %}"
+        >
+            <a class="question-flag">{% trans %}flag offensive{% endtrans %} ({{ answer.offensive_flag_count }})</a>
+        </span>
+    </li>
+    {% else %}
+    <li>
+        <span
+            id="answer-offensive-flag-{{ answer.id }}"
+            class="action-link offensive-flag"
+            title="{% trans %}report as offensive (i.e containing spam, advertising, malicious text, etc.){% endtrans %}"
+        >
+            <a class="question-flag">{% trans %}flag offensive{% endtrans %}</a>
+        </span>
+    </li>
+    {% endif %}
+    <li>
+        <span id='post-{{answer.id}}-delete' class="action-link delete-post">
+            <a class="question-delete"
+            >{% if answer.deleted %}{% trans %}undelete{% endtrans %}{% else %}{% trans %}delete{% endtrans %}{% endif %}</a>
+        </span>
+    </li>
+    {% if thread.is_moderated() %}
+    <li>
+        <span
+            id="post-{{answer.id}}-publish"
+            class="action-link"
+        >
+            {% if answer.id in published_answer_ids %}
+                <a
+                    class="answer-unpublish"
+                    data-answer-id="{{ answer.id }}"
+                >{% trans %}unpublish{% endtrans %}</a>
+            {% else %}
+                <a
+                    class="answer-publish"
+                    data-answer-id="{{ answer.id}}"
+                >{% trans %}publish{% endtrans %}</a>
+            {% endif %}
+        </span>
+    </li>
+    {% endif %}
+    <li>
+        <span class="action-link">
+            <a  class="permant-link"
+                href="{{ answer.get_absolute_url(question_post=question) }}"
+                title="{% trans %}permanent link{% endtrans %}">
+                {% trans %}link{% endtrans %}
+            </a>
+        </span>
+    </li>
     <li id='post-{{answer.id}}-convert'>
         <form
             class="answer-convert"
