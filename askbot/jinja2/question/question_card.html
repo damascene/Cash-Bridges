@@ -59,12 +59,11 @@
                     {% endif %}
                     <div class="js-editable-content">
                         <p>
-                            <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong><br>
+                            <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong> -
                             {% if question.translation_budget %}
-                                <strong>Translation Budget: {{question.translation_budget}}
+                                <strong>Reward: {{question.translation_budget}}
                                     {{question.translation_budget_currency.upper()}}</strong>
-                                (payment in BCH)
-                                <br>
+                                (payment in BCH) -
                             {% endif %}
                             <strong>Amount of words: {{question.translate_text.split()|length}}</strong><br>
                             <strong>Translation Text:</strong>
