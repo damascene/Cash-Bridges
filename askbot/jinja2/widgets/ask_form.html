@@ -75,9 +75,9 @@
             </div>
         </div>
     <!-- ------------------------------------------------------------------ -->
-    <button type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+    <a type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
         Show details field
-    </button>
+    </a>
     <div id="toggle-input" style="display: none;">
         {% set text_field_id = form.text.field.widget.attrs.id %}
         {% if editor_is_folded %}

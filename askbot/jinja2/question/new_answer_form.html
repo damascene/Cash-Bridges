@@ -29,9 +29,9 @@
             <div class="wmd-container">
                 <textarea name="translate_text" style="height: 188px;"></textarea>
             </div>
-            <button type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+            <a type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
                 Show details field
-            </button>
+            </a>
             <div id="toggle-input" style="display: none;">
                 <div class="form-group editor-placeholder"
                     {% if draft_answer %}data-draft-answer="{{ draft_answer|escape }}"{% endif %}>

@@ -21,9 +21,9 @@
                 <textarea id="translate-text" name="translate_text">{{revision.post.translate_text}}</textarea>
             </div>
         </div>
-        <button type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+        <a type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
             Show details field
-        </button>
+        </a>
         <div id="toggle-input" style="display: none;">
             {{ macros.edit_post(form, settings, post_html=revision.text) }}
         </div>
