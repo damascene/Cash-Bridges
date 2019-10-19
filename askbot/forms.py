@@ -1041,7 +1041,7 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
                                                                        choices=(
                                                                          ('usd', 'USD',),
                                                                          ('eur', 'EUR')
-                                                                       ), label="Translation Budget Currency")
+                                                                       ), label="Budget Currency")
 
         self.fields['ask_anonymously'] = forms.BooleanField(
             label=_('post anonymously'), required=False)
