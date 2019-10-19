@@ -59,14 +59,12 @@
                     {% endif %}
                     <div class="js-editable-content">
                         <p>
-                            <strong>From {{ question.translate_from }} to {{ question.translate_to }}</strong> -
+                            <strong>🌐 {{ question.translate_from }} ➡️ {{ question.translate_to }}</strong> -
                             {% if question.translation_budget %}
-                                <strong>Reward: {{question.translation_budget}}
-                                    {{question.translation_budget_currency.upper()}}</strong>
-                                (payment in BCH) -
+                                <strong>💰 {{question.translation_budget}}{% if question.translation_budget_currency == "usd" %}$ {% endif %}{% if question.translation_budget_currency == "eur" %}€{% endif %}</strong>
                             {% endif %}
-                            <strong>Amount of words: {{question.translate_text.split()|length}}</strong><br>
-                            <strong>Translation Text:</strong>
+                            <strong>📝 {{question.translate_text.split()|length}}</strong><br>
+                            <strong>Source text:</strong>
                             <P><blockquote>{{ question.translate_text }}</blockquote></P>
                         </p>
                     </div>

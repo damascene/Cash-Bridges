@@ -3,13 +3,17 @@
     title="{% trans %}donate BCH to the user for the answer{% endtrans %}"
 >
     <strong>
-        <a href="../../../users/{{answer.author.id}}/donate" target="_blank">Donate {{answer.author}} for the answer</a>
-    </strong>
-    <strong>
-        <a href="{{ url ('messages_compose_to', answer.author.username) }}" target="_blank">Message {{answer.author}}</a>
+        <a href="../../../users/{{answer.author.id}}/donate" target="_blank">🎁</a>
     </strong>
 </span>
-
+<span
+    class="action-link"
+    title="{% trans %}Message the user{% endtrans %}"
+>
+    <strong>
+        <a href="{{ url ('messages_compose_to', answer.author.username) }}" target="_blank">✉️</a>
+    </strong>
+</span>
 <span class="action-link dropdown-toggle">{% trans %}more{% endtrans %}
 <ul class="dropdown-menu">
     <li>
