@@ -30,7 +30,7 @@
                 {{form.translate_text}}
             </div>
         </div>
-        <div class="form-item form-group ask-form-bar">
+        <div class="form-item form-group ask-form-bar" style="width: 50%;float: left;">
             <label for="id_title">{{ form.translate_from.label }}</label>
             <div class="js-title-error js-error">
                 {% if form.translate_from.errors %}
@@ -41,7 +41,7 @@
                 {{form.translate_from}}
             </div>
         </div>
-        <div class="form-item form-group ask-form-bar">
+        <div class="form-item form-group ask-form-bar" style="width: 50%;float: right;">
             <label for="id_title">{{ form.translate_to.label }}</label>
             <div class="js-title-error js-error">
                 {% if form.translate_to.errors %}
@@ -52,7 +52,7 @@
                 {{form.translate_to}}
             </div>
         </div>
-          <div class="form-item form-group ask-form-bar">
+          <div class="form-item form-group ask-form-bar" style="width: 50%;float: left;">
             <label for="id_title">{{ form.translation_budget.label }}</label>
             <div class="js-title-error js-error">
                 {% if form.translation_budget.errors %}
@@ -63,7 +63,7 @@
                 {{form.translation_budget}}
             </div>
         </div>
-        <div class="form-item form-group ask-form-bar">
+        <div class="form-item form-group ask-form-bar" style="width: 50%;float: right;">
             <label for="id_title">{{ form.translation_budget_currency.label }}</label>
             <div class="js-title-error js-error">
                 {% if form.translation_budget_currency.errors %}
@@ -71,7 +71,7 @@
                 {% endif %}
             </div>
             <div id="translationBudgetCurrency">
-                {{form.translation_budget_currency}} <strong>(Note: payment must be in BCH, the fiat type is only for showing value)</strong>
+                {{form.translation_budget_currency}} <strong>(Note: payment must be in BCH.)</strong>
             </div>
         </div>
     <!-- ------------------------------------------------------------------ -->
