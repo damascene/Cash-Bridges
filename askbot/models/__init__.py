@@ -78,6 +78,8 @@ from askbot import mail
 from askbot import signals
 from jsonfield import JSONField
 
+from askbot.models.contract import Contract
+
 register_user_signal = partial(signals.register_generic_signal, sender=User)
 
 
@@ -4584,4 +4586,6 @@ __all__ = [
         'ImportedObjectInfo',
 
         'get_model',
+
+        'Contract',
 ]
