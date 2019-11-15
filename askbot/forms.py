@@ -1034,14 +1034,14 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
 
         self.fields['text'] = QuestionEditorField(user=user, label=label)
         self.fields['translate_text'] = QuestionEditorField(user=user, label="Translation Text")
-        self.fields['translate_from'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="Translation From")
-        self.fields['translate_to'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="Translation To")
-        self.fields['translation_budget'] = forms.DecimalField(required=False, max_digits=8, decimal_places=2, label="Translation Budget")
+        self.fields['translate_from'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="From")
+        self.fields['translate_to'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="To")
+        self.fields['translation_budget'] = forms.DecimalField(required=False, max_digits=8, decimal_places=2, label="Budget")
         self.fields['translation_budget_currency'] = forms.ChoiceField(required=False,
                                                                        choices=(
                                                                          ('usd', 'USD',),
                                                                          ('eur', 'EUR')
-                                                                       ), label="Budget Currency")
+                                                                       ), label="Currency")
 
         self.fields['ask_anonymously'] = forms.BooleanField(
             label=_('post anonymously'), required=False)

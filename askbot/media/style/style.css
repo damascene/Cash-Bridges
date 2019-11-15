@@ -1857,6 +1857,29 @@ ul.js-related-tags li {
   border-color: #1e7e34;
   text-decoration: none;
 }
+.ask-form--editor-container {
+  margin-bottom: 20px;
+}
+.translation-form-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: -5px -10px;
+  margin-bottom: 10px;
+}
+.translation-form-container select,
+.translation-form-container input {
+  box-sizing: border-box;
+  line-height: 1.68;
+  font-size: 13px;
+  width: 100px;
+}
+.translation-form-container .form-item {
+  margin: 5px 10px;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+}
 #askFormBar {
   display: inline-block;
   padding: 4px 0 0 0;
@@ -2190,6 +2213,8 @@ a.js-question-body-trigger {
   width: 100%;
   height: 100%;
   padding: 6px;
+  resize: vertical;
+  border: 1px solid #ccc;
 }
 .ask-page .retagger-buttons button,
 .question-page .retagger-buttons button,
@@ -5273,6 +5298,13 @@ td.setting-input textarea {
   .user-profile-edit-page select,
   .user-profile-page select {
     width: 100%;
+  }
+}
+@media screen and (max-width: 520px) {
+  .translation-form-container {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
   }
 }
 @media screen and (max-width: 480px) {
