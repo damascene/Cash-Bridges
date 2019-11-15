@@ -105,6 +105,9 @@ textarea,
 textarea {
   padding: 5px;
 }
+.folded-editor {
+  padding: 5px;
+}
 .js-editable .wmd-container {
   height: auto;
   background: white;
@@ -2034,6 +2037,39 @@ ul.js-related-tags li {
 .mock-editor .js-folded-editor-trigger {
   margin: 5px 4px;
   display: block;
+}
+.folded-editor .js-folded-editor-trigger a,
+.mock-editor .js-folded-editor-trigger a {
+  padding: 5px;
+  border: #28a745 1px solid;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #FFF;
+  font-weight: normal;
+  height: 27px;
+  margin-right: 10px;
+  text-align: center;
+  text-decoration: none;
+  background-color: #28a745;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border-radius: 4px;
+  -ms-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -khtml-border-radius: 4px;
+}
+.folded-editor .js-folded-editor-trigger a:focus,
+.mock-editor .js-folded-editor-trigger a:focus {
+  outline: none !important;
+}
+.folded-editor .js-folded-editor-trigger a:hover,
+.mock-editor .js-folded-editor-trigger a:hover {
+  color: #FFF;
+  background-color: #218838;
+  border-color: #1e7e34;
+  text-decoration: none;
 }
 .ask-page .folded-editor {
   border: none;
