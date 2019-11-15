@@ -25,7 +25,7 @@ class Contract(models.Model):
     employer_priv_key = models.TextField()
     # these two get filled on offer acception, comming from client, ENCRYPTED
     employee_pub_key = models.CharField(max_length=67, blank=True, null=True)
-    employer_priv_key = models.TextField(blank=True, null=True)
+    employee_priv_key = models.TextField(blank=True, null=True)
 
     judge_pub_key = models.CharField(max_length=67)
 
@@ -34,6 +34,7 @@ class Contract(models.Model):
 
     fee_taken = models.BooleanField(default=False)  # bool
 
+    # TODO add field for saving the dispute winner
     # relations
     maker = models.ForeignKey(
         settings.AUTH_USER_MODEL,
