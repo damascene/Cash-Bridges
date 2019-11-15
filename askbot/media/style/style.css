@@ -151,7 +151,7 @@ p {
   margin-bottom: 6px;
 }
 a {
-  color: #1b79bd;
+  color: #28a745;
   text-decoration: none;
   cursor: pointer;
 }
@@ -232,6 +232,7 @@ html {
   text-decoration: underline;
 }
 a:hover {
+  color: #218838;
   text-decoration: underline;
 }
 .js-avatar-box {
@@ -880,13 +881,12 @@ input[type="button"],
 input[type="reset"],
 .button,
 .btn {
-  border: 0 !important;
-  border-top: #eaf2f3 1px solid;
+  border: #28a745 1px solid;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   cursor: pointer;
-  color: #4a757f;
+  color: #FFF;
   font-family: 'Open Sans Condensed', Arial, sans-serif;
   font-size: 14px;
   font-weight: bold;
@@ -894,25 +894,13 @@ input[type="reset"],
   margin-right: 10px;
   text-align: center;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #c6d9dd;
-  -moz-text-shadow: 0px 1px 0px #c6d9dd;
-  -webkit-text-shadow: 0px 1px 0px #c6d9dd;
-  background-color: #d1e2e5;
-  background-repeat: no-repeat;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d1e2e5), color-stop(25%, #d1e2e5), to(#a9c2c7));
-  background-image: -webkit-linear-gradient(#d1e2e5, #d1e2e5 25%, #a9c2c7);
-  background-image: -moz-linear-gradient(top, #d1e2e5, #d1e2e5 25%, #a9c2c7);
-  background-image: -ms-linear-gradient(#d1e2e5, #d1e2e5 25%, #a9c2c7);
-  background-image: -o-linear-gradient(#d1e2e5, #d1e2e5 25%, #a9c2c7);
-  background-image: linear-gradient(#d1e2e5, #d1e2e5 25%, #a9c2c7);
+  background-color: #28a745;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   border-radius: 4px;
   -ms-border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -khtml-border-radius: 4px;
-  -webkit-box-shadow: 1px 1px 2px #636363;
-  -moz-box-shadow: 1px 1px 2px #636363;
-  box-shadow: 1px 1px 2px #636363;
 }
 button:focus,
 input[type="submit"]:focus,
@@ -937,18 +925,10 @@ input[type="submit"]:hover,
 .button:hover,
 .btn:hover {
   background-position: 0 0 !important;
-  background-color: #cde5e9;
-  background-repeat: no-repeat;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#cde5e9), color-stop(25%, #cde5e9), to(#94b3ba));
-  background-image: -webkit-linear-gradient(#cde5e9, #cde5e9 25%, #94b3ba);
-  background-image: -moz-linear-gradient(top, #cde5e9, #cde5e9 25%, #94b3ba);
-  background-image: -ms-linear-gradient(#cde5e9, #cde5e9 25%, #94b3ba);
-  background-image: -o-linear-gradient(#cde5e9, #cde5e9 25%, #94b3ba);
-  background-image: linear-gradient(#cde5e9, #cde5e9 25%, #94b3ba);
+  color: #FFF;
+  background-color: #218838;
+  border-color: #1e7e34;
   text-decoration: none;
-  text-shadow: 0px 1px 0px #c6d9dd;
-  -moz-text-shadow: 0px 1px 0px #c6d9dd;
-  -webkit-text-shadow: 0px 1px 0px #c6d9dd;
 }
 .user-profile-page input[name="send_message"] {
   margin: 10px 0 20px;
@@ -1260,7 +1240,7 @@ body.anon.ask-page .search-drop-menu {
 .tabsA a,
 .tabsC a {
   border-left: 1px solid #d0e1e4;
-  color: #7ea9b3;
+  color: #7CB286;
   display: block;
   float: left;
   height: 20px;
@@ -1272,7 +1252,7 @@ body.anon.ask-page .search-drop-menu {
 .tabsC a.on,
 .tabsA a:hover,
 .tabsC a:hover {
-  color: #4a757f;
+  color: #497F53;
 }
 .tabsA .label,
 .tabsC .label {
@@ -1316,7 +1296,7 @@ body.anon.ask-page .search-drop-menu {
 #questionCount {
   font-weight: bold;
   font-size: 20px;
-  color: #7ea9b3;
+  color: #7CB286;
   float: left;
   margin-bottom: 6px;
   padding-top: 6px;
@@ -1325,7 +1305,7 @@ body.anon.ask-page .search-drop-menu {
 #questionCount .count {
   font-weight: bold;
   font-size: 20px;
-  color: #7ea9b3;
+  color: #7CB286;
   margin-bottom: 0;
   padding-top: 0;
   font-family: 'Open Sans Condensed', Arial, sans-serif;
@@ -1358,7 +1338,7 @@ ul#searchTags {
 }
 .search-tips a {
   text-decoration: underline;
-  color: #1b79bd;
+  color: #28a745;
 }
 /* ----- Question list , check main_page/content.html and macros/macros.html----- */
 #question-list {
@@ -1389,6 +1369,9 @@ ul#searchTags {
 }
 .short-summary a {
   color: #464646;
+}
+.short-summary a:hover {
+  color: #218838;
 }
 .short-summary .userinfo {
   text-align: right;
@@ -1492,7 +1475,7 @@ ul#searchTags {
 }
 .evenMore a {
   text-decoration: underline;
-  color: #1b79bd;
+  color: #28a745;
 }
 .pager {
   margin: 10px 0;
@@ -1518,17 +1501,17 @@ ul#searchTags {
   padding: 0 0.25em;
 }
 .paginator a {
-  color: #7ea9b3;
+  color: #7CB286;
 }
 .paginator .prev,
 .paginator .next {
-  margin-right: .5em;
+  margin-right: 0.5em;
 }
 .paginator .page a,
 .paginator .page a:visited,
 .paginator .curr {
-  padding: 0 .25em;
-  margin: 0em .15em 0 0;
+  padding: 0 0.25em;
+  margin: 0em 0.15em 0 0;
 }
 .paginator .curr {
   /*background-color: #8ebcc7;*/
@@ -1554,7 +1537,7 @@ ul#searchTags {
 }
 .paginator .text {
   color: #777;
-  padding: .3em;
+  padding: 0.3em;
 }
 .paginator .paginator-container-left {
   padding: 5px 0 10px 0;
@@ -1669,7 +1652,7 @@ ul.js-related-tags li {
 .js-tag-name {
   cursor: pointer;
   background: #f3f6f6;
-  border: #fff 1px solid ;
+  border: #fff 1px solid;
   border-top: #fff 2px solid;
   outline: #cfdbdb 1px solid !important;
   -webkit-box-shadow: 0px 0px 5px #d3d6d7;
@@ -1813,7 +1796,7 @@ ul.js-related-tags li {
 }
 /* ----- Ask and Edit Question Form template----- */
 .section-title {
-  color: #7ea9b3;
+  color: #7CB286;
   font-family: 'Open Sans Condensed', Arial, sans-serif;
   font-weight: bold;
   font-size: 24px;
@@ -1866,7 +1849,7 @@ ul.js-related-tags li {
 .edit-question-page div#question-list h2 {
   font-size: 13px;
   padding-bottom: 0;
-  color: #1b79bd;
+  color: #28a745;
   border-top: #f0f0ec 1px solid;
   border-left: #f0f0ec 1px solid;
   min-height: 30px;
@@ -2161,7 +2144,7 @@ a.js-question-body-trigger {
   max-width: 600px;
 }
 .wmd-preview a {
-  color: #1b79bd;
+  color: #28a745;
 }
 .wmd-preview li {
   margin-bottom: 7px;
@@ -2411,7 +2394,7 @@ tr.mceLast {
   padding-bottom: 5px;
 }
 .question-page .post-body a {
-  color: #1b79bd;
+  color: #28a745;
 }
 .question-page .post-body img {
   max-width: 685px;
@@ -2643,7 +2626,7 @@ tr.mceLast {
   background: url(../images/vote-favorite-on.png);
 }
 .question-page h2.comment-title {
-  color: #7ea9b3;
+  color: #7CB286;
   font-weight: bold;
   font-size: 23px;
   font-family: 'Open Sans Condensed', Arial, sans-serif;
@@ -2707,7 +2690,7 @@ tr.mceLast {
 }
 .question-page .comments a {
   background-color: inherit;
-  color: #1b79bd;
+  color: #28a745;
   padding: 0;
 }
 .question-page .comments form.post-comments {
@@ -2786,7 +2769,7 @@ tr.mceLast {
 }
 .question-page .comments a.author {
   background-color: inherit;
-  color: #1b79bd;
+  color: #28a745;
   padding: 0;
 }
 .question-page .comments a.author:hover {
@@ -2977,7 +2960,7 @@ tr.mceLast {
 }
 .question-page #fmanswer h2 {
   font-family: 'Open Sans Condensed', Arial, sans-serif;
-  color: #7ea9b3;
+  color: #7CB286;
   font-size: 24px;
 }
 .question-page #fmanswer label {
@@ -4617,7 +4600,7 @@ textarea.tipped-input {
   padding: 0 6px;
 }
 .category-selector input[type="text"] {
-  width: calc(30%);
+  width: calc(100% - 70px);
   padding: 0 5px;
   margin: 3px 0 3px -3px;
   height: 24px;
@@ -4909,9 +4892,9 @@ td.setting-input textarea {
   border: 1px solid WindowFrame;
   background-color: #fff;
   overflow: hidden;
-  -webkit-box-shadow: 0px  1px 1px #A7A7A7;
-  -moz-box-shadow: 0px  1px 1px #BFBFBF;
-  box-shadow: 0px  1px 1px #BFBFBF;
+  -webkit-box-shadow: 0px 1px 1px #A7A7A7;
+  -moz-box-shadow: 0px 1px 1px #BFBFBF;
+  box-shadow: 0px 1px 1px #BFBFBF;
 }
 .acResults ul {
   width: 100%;

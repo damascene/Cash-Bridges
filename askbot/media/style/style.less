@@ -234,6 +234,7 @@ html {
 }
 
 a:hover {
+    color: @link-hover;
     text-decoration: underline;
 }
 
@@ -954,11 +955,10 @@ input[type="button"],
 input[type="reset"],
 .button,
 .btn {
-    border: 0 !important;
-    border-top: #eaf2f3 1px solid;
+    border: #28a745 1px solid;
     .border-box;
     cursor: pointer;
-    color: @button-label;
+    color: #FFF;
     font-family: @main-font;
     font-size: 14px;
     font-weight: bold;
@@ -966,10 +966,12 @@ input[type="reset"],
     margin-right: 10px;
     text-align: center;
     text-decoration: none;
-    .text-shadow(0px,1px,0px,#c6d9dd);
-    .linear-gradient(#d1e2e5,#a9c2c7);
+    background-color: #28a745;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    // .text-shadow(0px,1px,0px,#c6d9dd);
+    // .linear-gradient(#d1e2e5,#a9c2c7);
     .rounded-corners(4px);
-    .box-shadow(1px, 1px, 2px, #636363);
+    // .box-shadow(1px, 1px, 2px, #636363);
     &:focus {
         outline: none !important;
     }
@@ -991,9 +993,12 @@ input[type="submit"]:hover,
 .button:hover,
 .btn:hover {
     background-position: 0 0 !important;
-    .linear-gradient(#cde5e9,#94b3ba);
+    color: #FFF;
+    background-color: #218838;
+    border-color: #1e7e34;
+    // .linear-gradient(#cde5e9,#94b3ba);
     text-decoration:none;
-    .text-shadow(0px, 1px, 0px, #c6d9dd);
+    // .text-shadow(0px, 1px, 0px, #c6d9dd);
 }
 
 .user-profile-page input[name="send_message"] {
@@ -1479,7 +1484,11 @@ ul#searchTags {
     }
     
     a {
-        color:@question-link;
+        color: @question-link;
+
+        &:hover {
+            color: @link-hover;
+        }
     }
 
     .userinfo {
