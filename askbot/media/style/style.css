@@ -1407,7 +1407,8 @@ ul#searchTags {
 .short-summary .counts .votes div,
 .short-summary .counts .views div,
 .short-summary .counts .answers div,
-.short-summary .counts .favorites div {
+.short-summary .counts .favorites div,
+.short-summary .counts .budget div {
   margin-top: 3px;
   font-size: 14px;
   line-height: 14px;
@@ -1419,7 +1420,8 @@ ul#searchTags {
 .short-summary .votes,
 .short-summary .answers,
 .short-summary .favorites,
-.short-summary .views {
+.short-summary .views,
+.short-summary .budget {
   text-align: center;
   margin: 0 3px;
   padding: 8px 2px 0px 2px;
@@ -1428,9 +1430,16 @@ ul#searchTags {
   height: 44px;
   border: #dbdbd4 1px solid;
 }
+.short-summary .budget {
+  width: 150px;
+}
+.short-summary .budget .item-count {
+  line-height: 36px;
+}
 .short-summary .votes,
 .short-summary .answers,
-.short-summary .views {
+.short-summary .views,
+.short-summary .budget {
   background-color: #f3f3f3;
 }
 .short-summary .no-votes .item-count {
@@ -1449,6 +1458,12 @@ ul#searchTags {
   color: #b1b5b6;
 }
 .short-summary .some-views .item-count {
+  color: #d33f00;
+}
+.short-summary .no-budget .item-count {
+  color: #b1b5b6;
+}
+.short-summary .some-budget .item-count {
   color: #d33f00;
 }
 .short-summary .accepted .item-count {
@@ -4945,7 +4960,8 @@ td.setting-input textarea {
   }
   .short-summary .answers,
   .short-summary .views,
-  .short-summary .votes {
+  .short-summary .votes,
+  .short-summary .budget {
     height: 51px;
   }
   .question-page .vote-buttons {
@@ -5005,6 +5021,7 @@ td.setting-input textarea {
   .copyright,
   .counts .views,
   .counts .votes,
+  .counts .budget,
   .help,
   .rss,
   .scope-selector,
@@ -5325,7 +5342,8 @@ body.lang-es .groups-input {
 }
 body.lang-es .short-summary .counts .answers div,
 body.lang-es .short-summary .counts .views div,
-body.lang-es .short-summary .counts .votes div {
+body.lang-es .short-summary .counts .votes div,
+body.lang-es .short-summary .counts .budget div {
   font-size: 10px;
 }
 body.lang-de .scope-selector {
@@ -5419,7 +5437,8 @@ body.lang-eu .box .inputs #ab-tag-search {
 body.lang-tr .short-summary .votes,
 body.lang-tr .short-summary .answers,
 body.lang-tr .short-summary .favorites,
-body.lang-tr .short-summary .views {
+body.lang-tr .short-summary .views,
+body.lang-tr .short-summary .budget {
   overflow: hidden;
 }
 body.lang-tr .box .inputs #interestingTagInput,
@@ -5431,7 +5450,8 @@ body.lang-tr .box .inputs #ab-tag-search {
 body.lang-cs-cz .short-summary .votes,
 body.lang-cs-cz .short-summary .answers,
 body.lang-cs-cz .short-summary .favorites,
-body.lang-cs-cz .short-summary .views {
+body.lang-cs-cz .short-summary .views,
+body.lang-cs-cz .short-summary .budget {
   overflow: hidden;
 }
 body.lang-cs-cz .box .inputs #interestingTagInput,

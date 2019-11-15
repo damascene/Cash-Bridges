@@ -1532,7 +1532,8 @@ ul#searchTags {
     .counts .votes div,
     .counts .views div,
     .counts .answers div,
-    .counts .favorites div
+    .counts .favorites div,
+    .counts .budget div
     {
         margin-top:3px;
         font-size: 14px;
@@ -1544,7 +1545,7 @@ ul#searchTags {
         margin: 0 0 0 1px;
     }
     
-    .votes, .answers, .favorites, .views {
+    .votes, .answers, .favorites, .views, .budget {
         text-align: center;
         margin: 0 3px;
         padding: 8px 2px 0px 2px;
@@ -1552,6 +1553,14 @@ ul#searchTags {
         float: right;
         height:44px;
         border:#dbdbd4 1px solid;
+    }
+
+    .budget {
+        width: 150px;
+
+        .item-count {
+            line-height: 36px;
+        }
     }
 
     .votes{
@@ -1566,7 +1575,7 @@ ul#searchTags {
         // background:url(../images/view-background.png) repeat-x;
     }
 
-    .votes, .answers, .views {
+    .votes, .answers, .views, .budget {
         background-color: #f3f3f3;
     }
 
@@ -1588,6 +1597,14 @@ ul#searchTags {
         color: #b1b5b6;
     }
     .some-views .item-count {
+        color: #d33f00;
+    }
+
+    .no-budget .item-count {
+        color: #b1b5b6;
+    }
+
+    .some-budget .item-count {
         color: #d33f00;
     }
     
@@ -5283,7 +5300,8 @@ td.setting-input {
         width: 100%;
         .answers,
         .views,
-        .votes {
+        .votes,
+        .budget {
             height: 51px;
         }
     }
@@ -5343,6 +5361,7 @@ td.setting-input {
     .copyright,
     .counts .views,
     .counts .votes,
+    .counts .budget,
     .help,
     .rss,
     .scope-selector,
@@ -5645,7 +5664,8 @@ body.lang-es {
   }
   .short-summary .counts .answers div,
   .short-summary .counts .views div,
-  .short-summary .counts .votes div {
+  .short-summary .counts .votes div,
+  .short-summary .counts .budget div {
     font-size: 10px; 
   }
 }
@@ -5809,7 +5829,8 @@ body.lang-tr {
     .short-summary .votes,
     .short-summary .answers,
     .short-summary .favorites,
-    .short-summary .views {
+    .short-summary .views,
+    .short-summary .budget {
         overflow: hidden;
     }
     .box {
@@ -5828,7 +5849,8 @@ body.lang-cs-cz {
     .short-summary .votes,
     .short-summary .answers,
     .short-summary .favorites,
-    .short-summary .views {
+    .short-summary .views,
+    .short-summary .budget {
         overflow: hidden;
     }
     .box {
