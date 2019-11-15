@@ -5043,6 +5043,15 @@ td.setting-input textarea {
     line-height: 32px;
   }
 }
+/** django messages */
+.django-messages-wrapper {
+  margin: 0 auto;
+  margin-bottom: 60px;
+  max-width: 600px;
+}
+.django-messages-wrapper .row {
+  margin: 0 auto;
+}
 @media screen and (max-width: 800px) {
   body {
     padding: 0;
