@@ -2038,8 +2038,15 @@ ul.js-related-tags li {
   margin: 5px 4px;
   display: block;
 }
+.folded-editor a.folded-editor--show-details,
+.mock-editor a.folded-editor--show-details {
+  margin: 5px 4px;
+  display: inline-block;
+}
 .folded-editor .js-folded-editor-trigger a,
-.mock-editor .js-folded-editor-trigger a {
+.mock-editor .js-folded-editor-trigger a,
+.folded-editor a.folded-editor--show-details,
+.mock-editor a.folded-editor--show-details {
   padding: 5px;
   border: #28a745 1px solid;
   -webkit-box-sizing: border-box;
@@ -2061,11 +2068,15 @@ ul.js-related-tags li {
   -khtml-border-radius: 4px;
 }
 .folded-editor .js-folded-editor-trigger a:focus,
-.mock-editor .js-folded-editor-trigger a:focus {
+.mock-editor .js-folded-editor-trigger a:focus,
+.folded-editor a.folded-editor--show-details:focus,
+.mock-editor a.folded-editor--show-details:focus {
   outline: none !important;
 }
 .folded-editor .js-folded-editor-trigger a:hover,
-.mock-editor .js-folded-editor-trigger a:hover {
+.mock-editor .js-folded-editor-trigger a:hover,
+.folded-editor a.folded-editor--show-details:hover,
+.mock-editor a.folded-editor--show-details:hover {
   color: #FFF;
   background-color: #218838;
   border-color: #1e7e34;
