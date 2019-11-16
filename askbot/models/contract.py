@@ -35,7 +35,8 @@ class Contract(models.Model):
 
     fee_taken = models.BooleanField(default=False)  # bool
 
-    dispute_text = models.TextField(blank=True, null=True)
+    dispute_complain = models.TextField(blank=True, null=True)
+    judge_dispute_rule = models.TextField(blank=True, null=True)
 
     # relations
     maker = models.ForeignKey(
