@@ -19,6 +19,7 @@ class Contract(models.Model):
 
     state = models.CharField(max_length=25, choices=STATE_CHOICES)
     amount = models.PositiveIntegerField()  # in satoshi
+    accept_offer = models.CharField(max_length=3, choices=(("yes", "Yes"), ("no", "No")))
 
     # these two get filled on making an offer, comming from client, ENCRYPTED
     employer_pub_key = models.CharField(max_length=67)
