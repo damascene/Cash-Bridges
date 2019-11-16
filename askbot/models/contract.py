@@ -35,7 +35,8 @@ class Contract(models.Model):
 
     fee_taken = models.BooleanField(default=False)  # bool
 
-    # TODO add field for saving the dispute winner
+    dispute_text = models.TextField(blank=True, null=True)
+
     # relations
     maker = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -45,5 +46,11 @@ class Contract(models.Model):
     taker = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="offers_accepted",
+        on_delete=models.CASCADE
+    )
+    dispute_winner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True, null=True,
+        related_name="disputes_won",
         on_delete=models.CASCADE
     )
