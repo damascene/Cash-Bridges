@@ -78,3 +78,15 @@ class Contract(models.Model):
         self.accept_offer = "no"
         self.state = self.STATE_CHOICES[2][0]
         self.save()
+
+    def escrow_funded(self):
+        url = "https://rest.bitcoin.com/v2/address/details/%s" % self.escrow_address
+        escrow_address_data = requests.get(url)
+
+        if escrow_address_data.status_code == 200 and escrow_address_data.json()['balanceSat'] >= self.amount:
+            funded = True
+            if funded:
+                self.state = self.STATE_CHOICES[3][0]
+                self.save()
+            return True
+        return False
