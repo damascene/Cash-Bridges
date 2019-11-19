@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 import requests
 
+
 class Contract(models.Model):
     STATE_CHOICES = (
         ("offer_made", "Offer Made"),
@@ -56,7 +57,7 @@ class Contract(models.Model):
         on_delete=models.CASCADE
     )
 
-    def accept_offer(self, user, public_key, private_key):  # combine the keys and message in one variable
+    def accept_offer(self, public_key, private_key):  # combine the keys and message in one variable
         self.employee_pub_key = public_key
         self.employee_priv_key = private_key
 
@@ -68,6 +69,12 @@ class Contract(models.Model):
         assert res.status_code == 200
         self.escrow_address = res.json()["address"]
 
+        self.accept_offer = "yes"
         self.state = self.STATE_CHOICES[1][0]
         self.save()
         return True
+
+    def deny_offer(self, user):
+        self.accept_offer = "no"
+        self.state = self.STATE_CHOICES[2][0]
+        self.save()
