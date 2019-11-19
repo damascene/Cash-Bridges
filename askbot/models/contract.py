@@ -20,7 +20,9 @@ class Contract(models.Model):
 
     state = models.CharField(max_length=25, choices=STATE_CHOICES)
     amount = models.PositiveIntegerField()  # in satoshi
-    accept_offer = models.CharField(max_length=3, choices=(("yes", "Yes"), ("no", "No")))
+    accepted_offer = models.CharField(max_length=3,
+                                      choices=(("yes", "Yes"), ("no", "No")),
+                                      verbose_name="Accept Offer")
 
     # these two get filled on making an offer, comming from client, ENCRYPTED
     employer_pub_key = models.CharField(max_length=67)
@@ -69,13 +71,13 @@ class Contract(models.Model):
         assert res.status_code == 200
         self.escrow_address = res.json()["address"]
 
-        self.accept_offer = "yes"
+        self.accepted_offer = "yes"
         self.state = self.STATE_CHOICES[1][0]
         self.save()
         return True
 
     def deny_offer(self, user):
-        self.accept_offer = "no"
+        self.accepted_offer = "no"
         self.state = self.STATE_CHOICES[2][0]
         self.save()
 
