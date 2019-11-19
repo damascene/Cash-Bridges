@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-
+import requests
 
 class Contract(models.Model):
     STATE_CHOICES = (
@@ -55,3 +55,19 @@ class Contract(models.Model):
         related_name="disputes_won",
         on_delete=models.CASCADE
     )
+
+    def accept_offer(self, user, public_key, private_key):  # combine the keys and message in one variable
+        self.employee_pub_key = public_key
+        self.employee_priv_key = private_key
+
+        data = {
+            "employer_public_key": self.employer_pub_key,
+            "employee_public_key": self.employee_pub_key
+        }
+        res = requests.post('http://127.0.0.1:3000/api/create_escrow_address/', data=data)
+        assert res.status_code == 200
+        self.escrow_address = res.json()["address"]
+
+        self.state = self.STATE_CHOICES[1][0]
+        self.save()
+        return True
