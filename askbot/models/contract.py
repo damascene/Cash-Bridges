@@ -90,3 +90,17 @@ class Contract(models.Model):
                 self.save()
             return True
         return False
+
+    def release_escrow(self, to):
+        data = {"taker": to}
+        res = requests.post('http://127.0.0.1:3000/api/sign_escrow/', data=data)
+        if res.status_code == 200:
+            self.judgeSignature = res.json()['judgeSignature']
+            self.fee_taken = res.json()['feeTaken']
+            if to == "employee":
+                self.state = self.STATE_CHOICES[4][0]
+            if to == "employer" or self.state == self.STATE_CHOICES[5][0]:
+                self.state = self.STATE_CHOICES[6][0]
+            self.save()
+            return True
+        return False
