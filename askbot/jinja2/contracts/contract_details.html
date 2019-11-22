@@ -1,10 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+    Contract Detail
+{% endblock %}
+{% block body %}
 <!-- details view -->
-{% if contract %}
-    {{contract}}
-    <a href="{{ url('accept_offer',  contract.pk ) }}">accept/deny offer</a>
-    <a href="{{ url('escrow_funded',  contract.pk ) }}">escrow funded - CONVERT TO AJAX</a>
-    <a href="{{ url('release_escrow',  contract.pk ) }}">release/refund escrow</a>
-    <a href="{{ url('open_dispute',  contract.pk ) }}">open dispute</a>
-    <strong>withdraw_funds_all_JS!</strong>
-
-{% endif %}
+    {% if contract %}
+        {{contract}}
+        <a href="{{ url('accept_offer',  contract.pk ) }}">accept/deny offer</a>
+        <a href="{{ url('escrow_funded',  contract.pk ) }}">escrow funded - CONVERT TO AJAX</a>
+        <a href="{{ url('release_escrow',  contract.pk ) }}">release/refund escrow</a>
+        <a href="{{ url('open_dispute',  contract.pk ) }}">open dispute</a>
+        <strong>withdraw_funds_all_JS!</strong>
+    {% endif %}
+{% endblock %}

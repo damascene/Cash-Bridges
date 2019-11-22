@@ -1,6 +1,11 @@
-<form method="post" action="#">
-    {{ csrf_input }}
-    {{form}}
-    <button type="submit">submit</button>
-</form>
-
+{% extends "base.html" %}
+{% block title %}
+    Create Offer
+{% endblock %}
+{% block body %}
+    <form method="post" action="#">
+        {{ csrf_input }}
+        {{form}}
+        <button type="submit">submit</button>
+    </form>
+{% endblock %}
