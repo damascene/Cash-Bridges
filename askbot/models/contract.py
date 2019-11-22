@@ -65,6 +65,15 @@ class Contract(models.Model):
         on_delete=models.CASCADE
     )
 
+    def __str__(self):
+        return "%s, %d, %s, %s, state: %s" % (
+            self.contract_title,
+            self.amount,
+            self.maker,
+            self.taker,
+            self.state
+        )
+
     def accept_offer(self, public_key, private_key):  # combine the keys and message in one variable
         self.employee_pub_key = public_key
         self.employee_priv_key = private_key
