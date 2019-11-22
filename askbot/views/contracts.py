@@ -70,7 +70,7 @@ class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM
     success_url = reverse_lazy("contracts_list")
 
     def form_valid(self, form):
-        contract = super().form_valid(form, commit=False)
+        contract = form.save(commit=False)
         print(form.cleaned_data)
         accepted_offer = form.cleaned_data["accepted_offer"]
         if accepted_offer == "yes":
@@ -91,7 +91,7 @@ class EscrowFundedView(ContractQuerysetMixin, UpdateView):
     fields = ()
 
     def form_valid(self, form):
-        contract = super().form_valid(form, commit=False)
+        contract = form.save(commit=False)
         funded = contract.escrow_funded()
         if funded:
             return HttpResponseRedirect(reverse_lazy("contract_details", contract.pk))
