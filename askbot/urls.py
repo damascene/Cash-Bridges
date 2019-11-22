@@ -789,4 +789,9 @@ if 'avatar' in settings.INSTALLED_APPS:
             views.contracts.AcceptOfferView.as_view(),
             name='accept_offer'
         ),
+        url(
+            r'^contracts/(?P<pk>\d)/escrow_funded/$',
+            views.contracts.EscrowFundedView.as_view(),
+            name='escrow_funded'
+        ),
     ]

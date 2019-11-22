@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Q
@@ -82,3 +83,16 @@ class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM
         return self.get_success_url()
 
     template_name = "contracts/accept_offer.html"
+
+
+@method_decorator(login_required, name="dispatch")
+class EscrowFundedView(ContractQuerysetMixin, UpdateView):
+    model = Contract
+    fields = ()
+
+    def form_valid(self, form):
+        contract = super().form_valid(form, commit=False)
+        funded = contract.escrow_funded()
+        if funded:
+            return HttpResponseRedirect(reverse_lazy("contract_details", contract.pk))
+        return HttpResponseRedirect("")
