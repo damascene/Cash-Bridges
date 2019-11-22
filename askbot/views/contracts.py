@@ -125,6 +125,7 @@ class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it bein
     model = Contract
     fields = (
         "dispute_complain",
+        "dispute_evidence",
     )
 
     template_name = "contracts/accept_offer.html"
