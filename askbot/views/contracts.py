@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.db.models import Q
@@ -16,5 +16,11 @@ class ContractQuerysetMixin:
 
 @method_decorator(login_required, name="dispatch")
 class ContractListView(ContractQuerysetMixin, ListView):
+    model = Contract
+    template_name = "contracts/contracts.html"
+
+
+@method_decorator(login_required, name="dispatch")
+class ContractDetailView(ContractQuerysetMixin, DetailView):
     model = Contract
     template_name = "contracts/contracts.html"

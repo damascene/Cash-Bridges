@@ -774,4 +774,9 @@ if 'avatar' in settings.INSTALLED_APPS:
             views.contracts.ContractListView.as_view(),
             name='contracts_list'
         ),
+        url(
+            r'^contracts/(?P<pk>\d)/$',
+            views.contracts.ContractDetailView.as_view(),
+            name='contract_details'
+        ),
     ]
