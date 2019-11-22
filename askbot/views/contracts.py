@@ -82,7 +82,7 @@ class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM
         else:
             contract.deny_offer(None)
 
-        return self.get_success_url()
+        return HttpResponseRedirect(self.get_success_url())
 
     template_name = "contracts/accept_offer.html"
 
@@ -113,7 +113,7 @@ class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it be
             success = contract.release_escrow("employee")
         if success:
             messages.success(self.request, messages.SUCCESS, "Escrow successfully released!")
-            return self.get_success_url()
+            return HttpResponseRedirect(self.get_success_url())
 
         messages.success(self.request, messages.ERROR, "Something went wrong during the process!")
         return HttpResponseRedirect("")
