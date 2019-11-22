@@ -3,14 +3,32 @@
     Contract List
 {% endblock %}
 {% block body %}
-    {% for contract in object_list %}
-        {{contract}}
-        <a href="{{ url('contract_details',  contract.pk ) }}">details</a>
-        <a href="{{ url('accept_offer',  contract.pk ) }}">accept/deny offer</a>
-        <a href="{{ url('escrow_funded',  contract.pk ) }}">escrow funded - CONVERT TO AJAX</a>
-        <a href="{{ url('release_escrow',  contract.pk ) }}">release/refund escrow</a>
-        <a href="{{ url('open_dispute',  contract.pk ) }}">open dispute</a>
-        <strong>withdraw_funds_all_JS!</strong>
-        <br>
-    {% endfor %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Amount</th>
+                <th>Employee</th>
+                <th>Employer</th>
+                <th>State</th>
+                <th>Show Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for contract in object_list %}
+                <tr>
+                    <td>{{contract.contract_title}}</td>
+                    <td>{{contract.amount}}</td>
+                    <td>{{contract.maker}}</td>
+                    <td>{{contract.taker}}</td>
+                    <td>{{contract.state}}</td>
+                    <td>
+                        <a href="{{ url('contract_details',  contract.pk ) }}">
+                            <button>Show Details</button>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
