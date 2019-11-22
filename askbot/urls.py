@@ -799,4 +799,9 @@ if 'avatar' in settings.INSTALLED_APPS:
             views.contracts.ReleaseEscrowView.as_view(),
             name='release_escrow'
         ),
+        url(
+            r'^contracts/(?P<pk>\d)/open_dispute/$',
+            views.contracts.OpenDisputeView.as_view(),
+            name='open_dispute'
+        ),
     ]

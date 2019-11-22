@@ -117,3 +117,13 @@ class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it be
         return HttpResponseRedirect("")
 
     template_name = "contracts/accept_offer.html"
+
+
+@method_decorator(login_required, name="dispatch")
+class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it being callable only once!
+    model = Contract
+    fields = (
+        "dispute_complain",
+    )
+
+    template_name = "contracts/accept_offer.html"
