@@ -17,8 +17,8 @@ class Contract(models.Model):
     modified = models.DateTimeField(auto_now_add=True)
 
     duration = models.PositiveIntegerField()
-
     state = models.CharField(max_length=25, choices=STATE_CHOICES, default=STATE_CHOICES[0][0])
+    offer_text = models.TextField()
     amount = models.PositiveIntegerField()  # in satoshi
     accepted_offer = models.CharField(max_length=3,
                                       choices=(("yes", "Yes"), ("no", "No")),
