@@ -28,7 +28,7 @@ class ContractListView(ContractQuerysetMixin, ListView):
 @method_decorator(login_required, name="dispatch")
 class ContractDetailView(ContractQuerysetMixin, DetailView):
     model = Contract
-    template_name = "contracts/contracts.html"
+    template_name = "contracts/contract_details.html"
 
 
 @method_decorator(login_required, name="dispatch")
