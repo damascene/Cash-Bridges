@@ -1,7 +1,8 @@
-from django.db import models
-from django.conf import settings
 import requests
 
+from django.db import models
+from django.conf import settings
+from django.core.validators import FileExtensionValidator
 
 class Contract(models.Model):
     STATE_CHOICES = (
@@ -39,6 +40,10 @@ class Contract(models.Model):
     fee_taken = models.BooleanField(default=False)  # bool
 
     dispute_complain = models.TextField(blank=True, null=True)
+    dispute_evidence = models.FileField(
+        blank=True, null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["zip", "rar"])]
+    )
     judge_dispute_rule = models.TextField(blank=True, null=True)
 
     # relations
