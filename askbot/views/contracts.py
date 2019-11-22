@@ -96,3 +96,24 @@ class EscrowFundedView(ContractQuerysetMixin, UpdateView):
         if funded:
             return HttpResponseRedirect(reverse_lazy("contract_details", contract.pk))
         return HttpResponseRedirect("")
+
+
+@method_decorator(login_required, name="dispatch")
+class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it being callable only once!
+    model = Contract
+    fields = ()
+
+    def form_valid(self, form):
+        contract = form.save(commit=False)
+        if self.request.user == contract.maker:
+            success = contract.release_escrow("employee")
+        elif self.request.user == contract.taker:
+            success = contract.release_escrow("employee")
+        if success:
+            messages.success(self.request, messages.SUCCESS, "Escrow successfully released!")
+            return self.get_success_url()
+
+        messages.success(self.request, messages.ERROR, "Something went wrong during the process!")
+        return HttpResponseRedirect("")
+
+    template_name = "contracts/accept_offer.html"
