@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
@@ -56,3 +56,29 @@ class CreateOfferView(CreateView):
         return result
 
     template_name = "contracts/create_offer.html"
+
+
+@method_decorator(login_required, name="dispatch")
+class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM VIEW
+    model = Contract
+    fields = (
+        "employee_pub_key",
+        "employee_priv_key",
+        "accepted_offer",
+    )
+    success_url = reverse_lazy("contracts_list")
+
+    def form_valid(self, form):
+        contract = super().form_valid(form, commit=False)
+        print(form.cleaned_data)
+        accepted_offer = form.cleaned_data["accepted_offer"]
+        if accepted_offer == "yes":
+            public_key = form.cleaned_data["employee_pub_key"]
+            private_key = form.cleaned_data["employee_priv_key"]
+            contract.accept_offer(public_key, private_key)
+        else:
+            contract.deny_offer(None)
+
+        return self.get_success_url()
+
+    template_name = "contracts/accept_offer.html"
