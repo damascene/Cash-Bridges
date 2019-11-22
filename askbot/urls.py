@@ -767,5 +767,11 @@ if 'avatar' in settings.INSTALLED_APPS:
             '^avatar/enable-default-avatar/(?P<user_id>[\d]+)/$',
             views.avatar_views.enable_default_avatar,
             name='askbot_avatar_enable_default_avatar'
-        )
+        ),
+        # CONTRACT URLS
+        url(
+            r'^contracts/$',
+            views.contracts.ContractListView.as_view(),
+            name='contracts_list'
+        ),
     ]
