@@ -37,6 +37,7 @@ class CreateOfferView(CreateView):
     fields = (
         "duration",
         "amount",
+        "contract_title",
         "offer_text",
         "employer_pub_key",
         "employer_priv_key",
