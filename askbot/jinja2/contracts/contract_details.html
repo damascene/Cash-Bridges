@@ -5,11 +5,87 @@
 {% block body %}
 <!-- details view -->
     {% if contract %}
-        {{contract}}
-        <a href="{{ url('accept_offer',  contract.pk ) }}">accept/deny offer</a>
-        <a href="{{ url('escrow_funded',  contract.pk ) }}">escrow funded - CONVERT TO AJAX</a>
-        <a href="{{ url('release_escrow',  contract.pk ) }}">release/refund escrow</a>
-        <a href="{{ url('open_dispute',  contract.pk ) }}">open dispute</a>
-        <strong>withdraw_funds_all_JS!</strong>
+        <p>
+            <p><strong>Contract Title:</strong> {{contract.contract_title}}</p>
+            <p><strong>Offer Text:</strong> {{contract.offer_text}}</p>
+            <p><strong>Offer amount:</strong> {{contract.amount}}</p>
+            <p><strong>Employer:</strong> {{contract.maker}}</p>
+            <p><strong>Employee:</strong> {{contract.taker}}</p>
+        </p>
+        {% if contract.state == "offer_made" %}
+            {% if request.user == contract.maker %}
+                <p>
+                    <strong style="color: red;">Please wait while {{contract.taker}} either accepts or denies your offer.</strong>
+                </p>
+            {% elif request.user == contract.taker %}
+                <a href="{{ url('accept_offer',  contract.pk ) }}"><button>Accept/Deny offer</button></a>
+            {% endif %}
+        {% endif %}
+        {% if contract.state == "offer_accepted" %}
+            {% if request.user == contract.maker %}
+                <p>
+                    Please sent {{contract.amount}} satoshies to the address below and then press the "Escrow Funded" button:
+                    <br>Address: {{contract.escrow_address}}
+                </p>
+                <a href="{{ url('escrow_funded',  contract.pk ) }}"><button>Escrow Funded</button></a>
+            {% elif request.user == contract.taker %}
+                <p>
+                    <strong style="color: red;">Please wait while {{contract.maker}} funds the escrow.</strong>
+                </p>
+            {% endif %}
+        {% endif %}
+        {% if contract.state == "offer_denied" %}
+            {% if request.user == contract.maker %}
+                <p>
+                    <strong style="color: red;">Unfortunately {{contract.taker}} has turned down your offer.</strong>
+                </p>
+            {% elif request.user == contract.taker %}
+                <p>
+                    <strong style="color: red;">You turned down {{contract.maker}}'s offer.</strong>
+                </p>
+            {% endif %}
+        {% endif %}
+        {% if contract.state == "escrow_funded" %}
+            <a href="{{ url('release_escrow',  contract.pk ) }}">
+                <button>
+                    {% if request.user == contract.maker %}
+                        Release Escrow
+                    {% elif request.user == contract.taker %}
+                    Refund Escrow
+                    {% endif %}
+                </button>
+            </a>
+            <a href="{{ url('open_dispute',  contract.pk ) }}"><button>Open Dispute</button></a>
+        {% endif %}
+        {% if contract.state == "escrow_released" %}
+            <p>
+                <strong>
+                    Contract is Done.
+                </strong>
+            </p>
+            <button onclick="withdraw()">Withdraw Funds</button>
+        {% endif %}
+        {% if contract.state == "dispute" %}
+                <p>
+                    <strong style="color: red;">Please wait while a judge handles the dispute.</strong>
+                </p>
+        {% endif %}
+        {% if contract.state == "escrow_released_by_judge" %}
+            <p>
+                <strong style="color: red;">Escrow released by judge to {{contract.dispute_winner}}</strong>
+                <br><strong>Judges rule:</strong> {{contract.judge_dispute_rule}}
+            </p>
+            {% if request.user == contract.dispute_winner %}
+                <button onclick="withdraw()">Withdraw Funds</button>
+            {% endif %}
+        {% endif %}
     {% endif %}
+{% endblock %}
+
+{% block endjs %}
+    <script>
+        function withdraw() {
+            window.alert(":|")
+        }
+    </script>
 {% endblock %}
