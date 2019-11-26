@@ -114,7 +114,7 @@ class Contract(models.Model):
             return True
         return False
 
-    def release_escrow(self, to):
+    def release_escrow(self, to, user=None):
         data = {"taker": to}
         res = requests.post('http://127.0.0.1:3000/api/sign_escrow/', data=data)
         if res.status_code == 200:
@@ -124,6 +124,8 @@ class Contract(models.Model):
                 self.state = self.STATE_CHOICES[4][0]
             if to == "employer" or self.state == self.STATE_CHOICES[5][0]:
                 self.state = self.STATE_CHOICES[6][0]
+            if user:
+                self.user_whom_released_escrow = user
             self.save()
             return True
         return False

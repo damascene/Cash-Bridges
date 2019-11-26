@@ -108,9 +108,9 @@ class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it be
     def form_valid(self, form):
         contract = form.save(commit=False)
         if self.request.user == contract.maker:
-            success = contract.release_escrow("employee")
+            success = contract.release_escrow("employee", self.request.user)
         elif self.request.user == contract.taker:
-            success = contract.release_escrow("employee")
+            success = contract.release_escrow("employee", self.request.user)
         if success:
             messages.success(self.request, messages.SUCCESS, "Escrow successfully released!")
             return HttpResponseRedirect(self.get_success_url())
