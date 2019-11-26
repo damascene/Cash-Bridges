@@ -64,6 +64,12 @@ class Contract(models.Model):
         related_name="disputes_won",
         on_delete=models.CASCADE
     )
+    user_whom_released_escrow = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        blank=True, null=True,
+        related_name="escrows_released",
+        on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return "%s, %d, %s, %s, state: %s" % (
