@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Q
+from django import forms
 
 from askbot.models import Contract
 
@@ -92,6 +93,13 @@ class CreateOfferView(CreateView):
         get_object_or_404(get_user_model(), username=taker_username)
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields["employer_pub_key"].widget = forms.HiddenInput()
+        form.fields["employer_priv_key"].widget = forms.HiddenInput()
+
+        return form
+
     def form_valid(self, form):
         form.instance.maker = self.request.user
         taker_username = self.kwargs['taker_user']
@@ -113,6 +121,13 @@ class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM
         "accepted_offer",
     )
     success_url = reverse_lazy("contracts_list")
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields["employee_pub_key"].widget = forms.HiddenInput()
+        form.fields["employee_priv_key"].widget = forms.HiddenInput()
+
+        return form
 
     def form_valid(self, form):
         contract = form.save(commit=False)
