@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
@@ -23,6 +24,16 @@ class ContractQuerysetMixin:
 class ContractListView(ContractQuerysetMixin, ListView):
     model = Contract
     template_name = "contracts/contracts.html"
+
+
+@method_decorator(login_required, name="dispatch")
+class ContractWithDisputeStatusListView(PermissionRequiredMixin, ListView):
+    model = Contract
+    template_name = "contracts/contracts.html"
+    permission_required = "is_staff"
+
+    def get_queryset(self):
+        return Contract.objects.filter(state="dispute")
 
 
 @method_decorator(login_required, name="dispatch")
