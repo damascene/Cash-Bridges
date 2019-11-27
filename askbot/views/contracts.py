@@ -37,6 +37,38 @@ class ContractWithDisputeStatusListView(PermissionRequiredMixin, ListView):
 
 
 @method_decorator(login_required, name="dispatch")
+class HandleDisputeView(PermissionRequiredMixin, UpdateView):
+    model = Contract
+    permission_required = "is_staff"
+
+    fields = (
+        "judge_dispute_rule",
+        "dispute_winner"
+    )
+    success_url = reverse_lazy("index")
+
+    def get_queryset(self):
+        return Contract.objects.filter(state="dispute")
+
+    def form_valid(self, form):
+        contract = form.save(commit=False)
+        dispute_winner = form.cleaned_data["dispute_winner"]
+        if dispute_winner == contract.maker:
+            success = contract.release_escrow("employer", self.request.user)
+        elif dispute_winner == contract.taker:
+            success = contract.release_escrow("employee", self.request.user)
+
+        if success:
+            messages.success(self.request, messages.SUCCESS, "Escrow successfully released!")
+            return HttpResponseRedirect(self.get_success_url())
+
+        messages.success(self.request, messages.ERROR, "Something went wrong during the process!")
+        return HttpResponseRedirect("")
+
+    template_name = "contracts/accept_offer.html"
+
+
+@method_decorator(login_required, name="dispatch")
 class ContractDetailView(ContractQuerysetMixin, DetailView):
     model = Contract
     template_name = "contracts/contract_details.html"

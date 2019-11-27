@@ -780,6 +780,11 @@ if 'avatar' in settings.INSTALLED_APPS:
             name='open_disputes_list'
         ),
         url(
+            r'^contracts/(?P<pk>\d)/handle_dispute/$',
+            views.contracts.HandleDisputeView.as_view(),
+            name='handle_dispute'
+        ),
+        url(
             r'^contracts/(?P<pk>\d)/$',
             views.contracts.ContractDetailView.as_view(),
             name='contract_details'
