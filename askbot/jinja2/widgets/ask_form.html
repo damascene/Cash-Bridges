@@ -81,7 +81,7 @@
 
 
     <!-- ------------------------------------------------------------------ -->
-    <a type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+    <a class="js-ask-form--show-details" type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
         Show details field
     </a>
     <div id="toggle-input" style="display: none;">
@@ -143,7 +143,7 @@
     {% if request.user.is_anonymous and not settings.ALLOW_ASK_UNREGISTERED %}
         <input type="submit" name="post_anon" value="{% trans %}Login/Signup to Post{% endtrans %}" />
     {% else %}
-      <input type="submit" name="post" value="{{ settings.WORDS_ASK_YOUR_QUESTION|escape }}" />
+      <input type="submit" class="large" name="post" value="{{ settings.WORDS_ASK_YOUR_QUESTION|escape }}" />
     {% endif %}
     <div class="clean"></div>
 </form>
