@@ -43,6 +43,7 @@
         </div>
         <div class="clearfix"></div>
         <div class="userinfo">
+            <span class="userinfo--views">{{ thread.view_count|humanize_counter }} &#128065;</span>
             {{ timeago(thread.last_activity_at) }}
             {% set latest_revision = thread.get_latest_revision(user=visitor) %}
             {% if latest_revision and latest_revision.is_anonymous %}
