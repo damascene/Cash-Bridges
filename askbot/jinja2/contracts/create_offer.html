@@ -2,10 +2,19 @@
 {% block title %}
     Create Offer
 {% endblock %}
+{% block forestyle %}
+    <link rel="stylesheet" href="{{ '/vex/css/vex.css'| media }}" />
+    <link rel="stylesheet" href="{{ '/vex/css/vex-theme-os.css'| media }}" />
+{% endblock %}
 {% block body %}
-    <form method="post" action="#">
+    <form method="POST" id="create-offer-form" action="#">
         {{ csrf_input }}
         {{form}}
-        <button type="submit">submit</button>
+        <button type="submit">Submit</button>
     </form>
+{% endblock %}
+{% block endjs %}
+    <script src="{{ '/vex/js/vex.combined.min.js'| media }}"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-os'</script>
+    <script src="{{ '/js/contract/create_offer.js'| media }}"></script>
 {% endblock %}
