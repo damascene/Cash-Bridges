@@ -2,6 +2,10 @@
 {% block title %}
     Contract Detail
 {% endblock %}
+{% block forestyle %}
+    <link rel="stylesheet" href="{{ '/vex/css/vex.css'| media }}" />
+    <link rel="stylesheet" href="{{ '/vex/css/vex-theme-os.css'| media }}" />
+{% endblock %}
 {% block body %}
 <!-- details view -->
     {% if contract %}
@@ -95,9 +99,33 @@
 {% endblock %}
 
 {% block endjs %}
+    <script src="{{ '/vex/js/vex.combined.min.js'| media }}"></script>
+    <script>vex.defaultOptions.className = 'vex-theme-os'</script>
+    <script src="{{ '/js/contract/contract_details.js'| media }}"></script>
     <script>
-        function withdraw() {
-            window.alert(":|")
+        {% if request.user == contract.maker %}
+            var isMaker = true;
+            var isTaker = false;
+            var priv_key = "{{ contract.employer_priv_key }}";
+        {% elif request.user == contract.taker %}
+            var isMaker = false;
+            var isTaker = true;
+            var priv_key = "{{ contract.employee_priv_key }}";
+        {% endif %}
+
+        var contract = {
+            escrow_address: "{{ contract.escrow_address }}",
+            judgeSignature: "{{ contract.judgeSignature }}",
+            priv_key: priv_key,
+            judge_pub_key: "{{ contract.judge_pub_key }}",
+            employer_pub_key: "{{ contract.employer_pub_key }}",
+            employee_pub_key: "{{ contract.employee_pub_key }}"
+        };
+    
+        var contract_details_script = new contractDetailsScript(contract, isMaker, isTaker);
+    
+        function withdraw(){
+            contract_details_script.withdraw();
         }
     </script>
 {% endblock %}
