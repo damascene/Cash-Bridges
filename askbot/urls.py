@@ -814,4 +814,9 @@ if 'avatar' in settings.INSTALLED_APPS:
             views.contracts.OpenDisputeView.as_view(),
             name='open_dispute'
         ),
+        url(
+            r'^contracts/broadcast/$',
+            views.contracts.broadcast,
+            name='broadcast'
+        ),
     ]

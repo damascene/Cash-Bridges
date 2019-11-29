@@ -1,10 +1,12 @@
+import requests
+
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Q
@@ -190,3 +192,15 @@ class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it bein
     )
 
     template_name = "contracts/accept_offer.html"
+
+
+@login_required
+def broadcast(request):
+    if request.is_ajax():
+        if request.method == "post":
+            url = "https://rest.bitcoin.com/v2/rawtransactions/sendRawTransaction"
+            data = request.body
+            res = requests.post(url, data=data)
+            response = HttpResponse(res.text)
+            response.status_code = res.status_code
+            return response
