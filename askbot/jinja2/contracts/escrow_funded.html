@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}
+    Fund Escrow
+{% endblock %}
+{% block forestyle %}
+    <link rel="stylesheet" href="{{ '/vex/css/vex.css'| media }}" />
+    <link rel="stylesheet" href="{{ '/vex/css/vex-theme-os.css'| media }}" />
+{% endblock %}
+{% block body %}
+    {{ object }}
+    <form method="POST" action="#">
+        {{ csrf_input }}
+        {{form}}
+        <button type="submit">submit</button>
+    </form>
+{% endblock %}

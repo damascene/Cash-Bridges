@@ -157,6 +157,8 @@ class EscrowFundedView(ContractQuerysetMixin, UpdateView):
             return HttpResponseRedirect(reverse_lazy("contract_details", contract.pk))
         return HttpResponseRedirect("")
 
+    template_name = "contracts/escrow_funded.html"
+
 
 @method_decorator(login_required, name="dispatch")
 class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it being callable only once!
@@ -176,7 +178,7 @@ class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it be
         messages.success(self.request, messages.ERROR, "Something went wrong during the process!")
         return HttpResponseRedirect("")
 
-    template_name = "contracts/accept_offer.html"
+    template_name = "contracts/release_escrow.html"
 
 
 @method_decorator(login_required, name="dispatch")
