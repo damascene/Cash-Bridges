@@ -93,7 +93,7 @@ class Contract(models.Model):
         self.escrow_address = res.json()["address"]
 
         self.accepted_offer = "yes"
-        self.state = self.STATE_CHOICES[1][1]
+        self.state = self.STATE_CHOICES[1][0]
         self.save()
         return True
 
