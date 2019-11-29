@@ -62937,7 +62937,7 @@
 	const Transaction = jeton.Transaction;
 	const PublicKey = jeton.PublicKey;
 
-	function contractDetailsScript(contract, isMaker, isTaker){
+	function contractDetailsScript(contract, isMaker, isTaker, broadcastUrl){
 	    this.escrowAddress = contract.escrow_address;
 	    this.judgeSignatureString = contract.judgeSignature;
 	    this.PrivKey = contract.priv_key;
@@ -63013,7 +63013,7 @@
 	                    transactionHexes.push(spendTransaction.toString());
 	                }
 
-	                const postUrl = "https://rest.bitcoin.com/v2/rawtransactions/sendRawTransaction";
+	                const postUrl = broadcastUrl;
 	                fetch(postUrl, {
 	                    method: "POST",
 	                    headers: {

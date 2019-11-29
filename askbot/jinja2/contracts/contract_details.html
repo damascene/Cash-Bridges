@@ -121,8 +121,10 @@
             employer_pub_key: "{{ contract.employer_pub_key }}",
             employee_pub_key: "{{ contract.employee_pub_key }}"
         };
+
+        var broadcastUrl = "{{ request.scheme + '://' + request.META['HTTP_HOST'] + url('broadcast') }}";
     
-        var contract_details_script = new contractDetailsScript(contract, isMaker, isTaker);
+        var contract_details_script = new contractDetailsScript(contract, isMaker, isTaker, broadcastUrl);
     
         function withdraw(){
             contract_details_script.withdraw();
