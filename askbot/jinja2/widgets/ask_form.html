@@ -1,5 +1,5 @@
 {% import "macros.html" as macros %}
-<form class="js-ask-form" action="{{ url('ask') }}" method="post"
+<form class="js-ask-form ask-form" action="{{ url('ask') }}" method="post"
     data-validated-fields="title,text"
     data-title-validator="askbot.validators.titleValidator"
     data-text-validator="askbot.validators.questionDetailsValidator"
@@ -18,7 +18,7 @@
     </div>
         <!-- ------------------------------------------------------------------ -->
     {% set translate_text_field_id = form.translate_text.field.widget.attrs.id %}
-        <div>
+        <div class="ask-form--editor-container">
             <label for="{{ translate_text_field_id }}"
                 class="js-text-label">{{ form.translate_text.label }}</label>
             <div class="js-text-error js-error">
@@ -30,58 +30,55 @@
                 {{form.translate_text}}
             </div>
         </div>
-        <div style="width: 50%; float: left;">
-            <div class="form-item form-group ask-form-bar" style="width: 50%;float: left;">
-            <label for="id_title">{{ form.translate_from.label }}</label>
-            <div class="js-title-error js-error">
-                {% if form.translate_from.errors %}
-                    {{ form.translate_from.errors }}
-                {% endif %}
+        <div class="translation-form-container">
+            <div class="form-item form-group ask-form-bar">
+                <label for="id_title">{{ form.translate_from.label }}</label>
+                <div class="js-title-error js-error">
+                    {% if form.translate_from.errors %}
+                        {{ form.translate_from.errors }}
+                    {% endif %}
+                </div>
+                <div id="translateFrom">
+                    {{form.translate_from}}
+                </div>
             </div>
-            <div id="translateFrom">
-                {{form.translate_from}}
+            <div class="form-item form-group ask-form-bar">
+                <label for="id_title">{{ form.translate_to.label }}</label>
+                <div class="js-title-error js-error">
+                    {% if form.translate_to.errors %}
+                        {{ form.translate_to.errors }}
+                    {% endif %}
+                </div>
+                <div id="translateTo">
+                    {{form.translate_to}}
+                </div>
+            </div>
+            <div class="form-item form-group ask-form-bar">
+                <label for="id_title">{{ form.translation_budget.label }}</label>
+                <div class="js-title-error js-error">
+                    {% if form.translation_budget.errors %}
+                        {{ form.translation_budget.errors }}
+                    {% endif %}
+                </div>
+                <div id="translationBudget">
+                    {{form.translation_budget}}
+                </div>
+            </div>
+            <div class="form-item form-group ask-form-bar">
+                <label for="id_title">{{ form.translation_budget_currency.label }}</label>
+                <div class="js-title-error js-error">
+                    {% if form.translation_budget_currency.errors %}
+                        {{ form.translation_budget_currency.errors }}
+                    {% endif %}
+                </div>
+                <div id="translationBudgetCurrency">
+                    {{form.translation_budget_currency}} <strong><abbr title="(Note: payment must be in BCH.)">?</abbr></strong>
+                </div>
             </div>
         </div>
-            <div class="form-item form-group ask-form-bar" style="width: 50%;float: right;">
-            <label for="id_title">{{ form.translate_to.label }}</label>
-            <div class="js-title-error js-error">
-                {% if form.translate_to.errors %}
-                    {{ form.translate_to.errors }}
-                {% endif %}
-            </div>
-            <div id="translateTo">
-                {{form.translate_to}}
-            </div>
-        </div>
-        </div>
-        <div style="width: 50%; float: left;">
-            <div class="form-item form-group ask-form-bar" style="width: 50%;float: left;">
-            <label for="id_title">{{ form.translation_budget.label }}</label>
-            <div class="js-title-error js-error">
-                {% if form.translation_budget.errors %}
-                    {{ form.translation_budget.errors }}
-                {% endif %}
-            </div>
-            <div id="translationBudget">
-                {{form.translation_budget}}
-            </div>
-        </div>
-            <div class="form-item form-group ask-form-bar" style="width: 50%;float: right;">
-            <label for="id_title">{{ form.translation_budget_currency.label }}</label>
-            <div class="js-title-error js-error">
-                {% if form.translation_budget_currency.errors %}
-                    {{ form.translation_budget_currency.errors }}
-                {% endif %}
-            </div>
-            <div id="translationBudgetCurrency">
-                {{form.translation_budget_currency}} <strong>(Note: payment must be in BCH.)</strong>
-            </div>
-        </div>
-        </div>
-
 
     <!-- ------------------------------------------------------------------ -->
-    <a type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+    <a class="js-ask-form--show-details" type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
         Show details field
     </a>
     <div id="toggle-input" style="display: none;">
@@ -143,7 +140,7 @@
     {% if request.user.is_anonymous and not settings.ALLOW_ASK_UNREGISTERED %}
         <input type="submit" name="post_anon" value="{% trans %}Login/Signup to Post{% endtrans %}" />
     {% else %}
-      <input type="submit" name="post" value="{{ settings.WORDS_ASK_YOUR_QUESTION|escape }}" />
+      <input type="submit" class="large" name="post" value="{{ settings.WORDS_ASK_YOUR_QUESTION|escape }}" />
     {% endif %}
     <div class="clean"></div>
 </form>
