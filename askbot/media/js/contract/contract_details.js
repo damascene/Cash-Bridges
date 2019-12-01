@@ -62946,6 +62946,9 @@
 	    this.employerPubKey = contract.employer_pub_key;
 	    this.employeePubKey = contract.employee_pub_key;
 
+	    this.amount = contract.amount || 0;
+	    this.state = contract.state;
+
 	    this.judgePubKey = PublicKey(this.judgePubKey);
 	    this.employerPubKey = PublicKey(this.employerPubKey);
 	    this.employeePubKey = PublicKey(this.employeePubKey);
@@ -62972,6 +62975,18 @@
 	    this.outScript = new OutputScript(this.outputScriptData);
 
 	    var _this = this;
+
+	    this.init = function(){
+	        if(_this.state === "offer_accepted" && isTaker){
+	            offerAcceptedCheckBalance();
+	        }
+
+	        if(_this.state === "escrow_funded" && isTaker){
+	            escrowFundedCheckBalance();
+	        }
+	    };
+
+	    this.init();
 
 	    this.withdraw = function(){
 	        openPasswordAndAddressDialog(function(data){
@@ -63033,6 +63048,106 @@
 	            });
 	        });
 	    };
+
+	    function showOfferAcceptedMessage(balance, unconfirmedBalance){
+	        const balanceMessageElement = document.querySelector("#offer-accepted-balance-message");
+	        if(balanceMessageElement){
+	            balanceMessageElement.innerHTML = "";
+	            let confirmedBalanceMessage;
+	            let unconfirmedBalanceMessage;
+	            if(balance){
+	                confirmedBalanceMessage = document.createElement("span");
+	                confirmedBalanceMessage.innerHTML = "confirmed satushi balance: " + "<strong style='color: red'>" + balance + "</strong>";
+	                balanceMessageElement.append(confirmedBalanceMessage);
+	            }
+	            if(balance && unconfirmedBalance){
+	                balanceMessageElement.append(document.createElement("br"));
+	            }
+	            if(unconfirmedBalance){
+	                unconfirmedBalanceMessage = document.createElement("span");
+	                unconfirmedBalanceMessage.innerHTML = "unconfirmed satushi balance: " + "<strong style='color: red'>" + unconfirmedBalance + "</strong>";
+	                balanceMessageElement.append(unconfirmedBalanceMessage);
+	            }
+	        }
+	    }
+
+	    function showEscrowFundedMessage(balance, unconfirmedBalance){
+	        const balanceMessageElement = document.querySelector("#escrow-funded-balance-message");
+	        if(balanceMessageElement){
+	            balanceMessageElement.innerHTML = "";
+	            let confirmedBalanceMessage;
+	            let unconfirmedBalanceMessage;
+	            if(balance){
+	                confirmedBalanceMessage = document.createElement("span");
+	                confirmedBalanceMessage.innerHTML = "confirmed Satoshi balance: " + "<strong style='color: red'>" + balance + "</strong>";
+	                balanceMessageElement.append(confirmedBalanceMessage);
+	            }
+	            if(balance && unconfirmedBalance){
+	                balanceMessageElement.append(document.createElement("br"));
+	            }
+	            if(unconfirmedBalance){
+	                unconfirmedBalanceMessage = document.createElement("span");
+	                unconfirmedBalanceMessage.innerHTML = "unconfirmed Satoshi balance: " + "<strong style='color: red'>" + unconfirmedBalance + "</strong>";
+	                balanceMessageElement.append(unconfirmedBalanceMessage);
+	            }
+	        }
+	    }
+
+	    function offerAcceptedCheckBalance(){
+	        const remoteUrl = "https://rest.bitcoin.com/v2/address/details/" + _this.escrowAddress;
+	        const getAmountPromise = fetch(remoteUrl, {
+	            method: "GET"
+	        });
+	    
+	        return getAmountPromise.then(function(result){
+	            return result.json();
+	        }).then(function(data){
+	            if(data){
+	                const amount = _this.amount;
+	                const balanceSat = (data && data.balanceSat) || 0;
+	                const unconfirmedBalanceSat = (data && data.unconfirmedBalanceSat) || 0;
+	                const totalBalanceSat = balanceSat + unconfirmedBalanceSat;
+
+	                showOfferAcceptedMessage(balanceSat, unconfirmedBalanceSat);
+
+	                if(totalBalanceSat >= amount){
+	                    setTimeout(function(){
+	                        window.location.reload();
+	                    }, 10000);
+	                } else {
+	                    setTimeout(function(){
+	                        offerAcceptedCheckBalance();
+	                    }, 30000);
+	                }
+	            }
+	        });
+	    }
+
+	    function escrowFundedCheckBalance(){
+	        const remoteUrl = "https://rest.bitcoin.com/v2/address/details/" + _this.escrowAddress;
+	        const getAmountPromise = fetch(remoteUrl, {
+	            method: "GET"
+	        });
+	    
+	        return getAmountPromise.then(function(result){
+	            return result.json();
+	        }).then(function(data){
+	            if(data){
+	                const amount = _this.amount;
+	                const balanceSat = (data && data.balanceSat) || 0;
+	                const unconfirmedBalanceSat = (data && data.unconfirmedBalanceSat) || 0;
+	                const totalBalanceSat = balanceSat + unconfirmedBalanceSat;
+
+	                showEscrowFundedMessage(balanceSat, unconfirmedBalanceSat);
+
+	                if(totalBalanceSat < amount){
+	                    setTimeout(function(){
+	                        escrowFundedCheckBalance();
+	                    }, 30000);
+	                }
+	            }
+	        });
+	    }
 	}
 
 	function openSuccessDialog(){

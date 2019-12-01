@@ -36,6 +36,8 @@
                 <p>
                     <strong style="color: red;">Please wait while {{contract.maker}} funds the escrow.</strong>
                 </p>
+                <p id="offer-accepted-balance-message">
+                </p>
             {% endif %}
         {% endif %}
         {% if contract.state == "offer_denied" %}
@@ -59,6 +61,8 @@
                     {% endif %}
                 </button>
             </a>
+            <p id="escrow-funded-balance-message">
+            </p>
             <a href="{{ url('open_dispute',  contract.pk ) }}"><button>Open Dispute</button></a>
         {% endif %}
         {% if contract.state == "escrow_released" %}
@@ -119,7 +123,9 @@
             priv_key: priv_key,
             judge_pub_key: "{{ contract.judge_pub_key }}",
             employer_pub_key: "{{ contract.employer_pub_key }}",
-            employee_pub_key: "{{ contract.employee_pub_key }}"
+            employee_pub_key: "{{ contract.employee_pub_key }}",
+            amount: "{{ contract.amount }}",
+            state: "{{ contract.state }}"
         };
 
         var broadcastUrl = "{{ request.scheme + '://' + request.META['HTTP_HOST'] + url('broadcast') }}";
