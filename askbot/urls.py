@@ -780,12 +780,12 @@ if 'avatar' in settings.INSTALLED_APPS:
             name='open_disputes_list'
         ),
         url(
-            r'^contracts/(?P<pk>\d)/handle_dispute/$',
+            r'^contracts/(?P<pk>\d+)/handle_dispute/$',
             views.contracts.HandleDisputeView.as_view(),
             name='handle_dispute'
         ),
         url(
-            r'^contracts/(?P<pk>\d)/$',
+            r'^contracts/(?P<pk>\d+)/$',
             views.contracts.ContractDetailView.as_view(),
             name='contract_details'
         ),
@@ -795,22 +795,22 @@ if 'avatar' in settings.INSTALLED_APPS:
             name='create_offer'
         ),
         url(
-            r'^contracts/(?P<pk>\d)/accept_offer/$',
+            r'^contracts/(?P<pk>\d+)/accept_offer/$',
             views.contracts.AcceptOfferView.as_view(),
             name='accept_offer'
         ),
         url(
-            r'^contracts/(?P<pk>\d)/escrow_funded/$',
+            r'^contracts/(?P<pk>\d+)/escrow_funded/$',
             views.contracts.EscrowFundedView.as_view(),
             name='escrow_funded'
         ),
         url(
-            r'^contracts/(?P<pk>\d)/release_escrow/$',
+            r'^contracts/(?P<pk>\d+)/release_escrow/$',
             views.contracts.ReleaseEscrowView.as_view(),
             name='release_escrow'
         ),
         url(
-            r'^contracts/(?P<pk>\d)/open_dispute/$',
+            r'^contracts/(?P<pk>\d+)/open_dispute/$',
             views.contracts.OpenDisputeView.as_view(),
             name='open_dispute'
         ),
