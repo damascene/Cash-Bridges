@@ -205,7 +205,9 @@ def broadcast(request):
     if request.method == "POST":
         url = "https://rest.bitcoin.com/v2/rawtransactions/sendRawTransaction"
         data = json.loads(request.body)
-        res = requests.post(url, data=data)
+        headers = dict()
+        headers["Content-Type"] = "application/json"
+        res = requests.post(url, data=json.dumps(data), headers=headers)
         response = HttpResponse(res.text)
         response.status_code = res.status_code
         return response
