@@ -71,7 +71,9 @@
                     Contract is Done.
                 </strong>
             </p>
-            <button onclick="withdraw()">Withdraw Funds</button>
+            {% if request.user == contract.taker %}
+                <button onclick="withdraw()">Withdraw Funds</button>
+            {% endif %}
         {% endif %}
         {% if contract.state == "dispute" %}
                 <p>
@@ -129,9 +131,9 @@
         };
 
         var broadcastUrl = "{{ request.scheme + '://' + request.META['HTTP_HOST'] + url('broadcast') }}";
-    
+
         var contract_details_script = new contractDetailsScript(contract, isMaker, isTaker, broadcastUrl);
-    
+
         function withdraw(){
             contract_details_script.withdraw();
         }
