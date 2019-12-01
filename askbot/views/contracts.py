@@ -1,9 +1,11 @@
 import requests
+import json
 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
@@ -194,13 +196,13 @@ class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it bein
     template_name = "contracts/accept_offer.html"
 
 
+@csrf_exempt
 @login_required
 def broadcast(request):
-    if request.is_ajax():
-        if request.method == "post":
-            url = "https://rest.bitcoin.com/v2/rawtransactions/sendRawTransaction"
-            data = request.body
-            res = requests.post(url, data=data)
-            response = HttpResponse(res.text)
-            response.status_code = res.status_code
-            return response
+    if request.method == "POST":
+        url = "https://rest.bitcoin.com/v2/rawtransactions/sendRawTransaction"
+        data = json.loads(request.body)
+        res = requests.post(url, data=data)
+        response = HttpResponse(res.text)
+        response.status_code = res.status_code
+        return response
