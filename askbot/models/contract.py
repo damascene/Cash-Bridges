@@ -104,14 +104,16 @@ class Contract(models.Model):
 
     def escrow_funded(self):
         url = "https://rest.bitcoin.com/v2/address/details/%s" % self.escrow_address
-        escrow_address_data = requests.get(url)
+        escrow_address_data_res = requests.get(url)
+        address_data = escrow_address_data_res.json()
 
-        if escrow_address_data.status_code == 200 and escrow_address_data.json()['balanceSat'] >= self.amount:
-            funded = True
-            if funded:
-                self.state = self.STATE_CHOICES[3][0]
-                self.save()
-            return True
+        if escrow_address_data_res.status_code == 200:
+            if address_data["balanceSat"] + address_data["unconfirmedBalanceSat"] >= self.amount:
+                funded = True
+                if funded:
+                    self.state = self.STATE_CHOICES[3][0]
+                    self.save()
+                return True
         return False
 
     def release_escrow(self, to, user=None):
