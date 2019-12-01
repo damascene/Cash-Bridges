@@ -153,6 +153,7 @@ class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM
 class EscrowFundedView(ContractQuerysetMixin, UpdateView):
     model = Contract
     fields = ()
+    success_url = reverse_lazy("contracts_list")
 
     def form_valid(self, form):
         contract = form.save(commit=False)
@@ -168,6 +169,7 @@ class EscrowFundedView(ContractQuerysetMixin, UpdateView):
 class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it being callable only once!
     model = Contract
     fields = ()
+    success_url = reverse_lazy("contracts_list")
 
     def form_valid(self, form):
         contract = form.save(commit=False)
@@ -188,6 +190,7 @@ class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it be
 @method_decorator(login_required, name="dispatch")
 class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it being callable only once!
     model = Contract
+    success_url = reverse_lazy("contracts_list")
     fields = (
         "dispute_complain",
         "dispute_evidence",
