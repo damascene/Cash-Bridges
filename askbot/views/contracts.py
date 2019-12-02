@@ -159,7 +159,11 @@ class EscrowFundedView(ContractQuerysetMixin, UpdateView):
         contract = form.save(commit=False)
         funded = contract.escrow_funded()
         if funded:
-            return HttpResponseRedirect(reverse_lazy("contract_details", contract.pk))
+            return HttpResponseRedirect(
+                reverse_lazy(
+                    "contract_details", kwargs={"pk": contract.pk}
+                )
+            )
         return HttpResponseRedirect("")
 
     template_name = "contracts/escrow_funded.html"
