@@ -8,6 +8,10 @@
 {% endblock %}
 {% block body %}
     {{ object }}
+    <p>
+        Please send {{contract.amount}} satoshies to the address below and then press the submit button:
+        <br>Address: {{contract.escrow_address}}
+    </p>
     <form method="POST" action="#">
         {{ csrf_input }}
         {{form}}

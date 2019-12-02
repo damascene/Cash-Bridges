@@ -28,7 +28,7 @@
         {% if contract.state == "offer_accepted" %}
             {% if request.user == contract.maker %}
                 <p>
-                    Please sent {{contract.amount}} satoshies to the address below and then press the "Escrow Funded" button:
+                    Please send {{contract.amount}} satoshies to the address below and then press the "Escrow Funded" button:
                     <br>Address: {{contract.escrow_address}}
                 </p>
                 <a href="{{ url('escrow_funded',  contract.pk ) }}"><button>Escrow Funded</button></a>
