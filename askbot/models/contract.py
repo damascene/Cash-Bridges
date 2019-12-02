@@ -122,6 +122,7 @@ class Contract(models.Model):
         if res.status_code == 200:
             self.judgeSignature = res.json()['judgeSignature']
             self.fee_taken = res.json()['feeTaken']
+            self.judge_pub_key = res.json()['judgePubKey']
             if to == "employee":
                 self.state = self.STATE_CHOICES[4][0]
             if to == "employer" or self.state == self.STATE_CHOICES[5][0]:
