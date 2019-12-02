@@ -104,14 +104,14 @@ class CreateOfferView(CreateView):
 
         return form
 
-    def form_valid(self, form):
-        form.instance.maker = self.request.user
+    def get_form_kwargs(self):
+        form_kwargs = super().get_form_kwargs()
+        form_kwargs["instance"] = Contract()
+        form_kwargs["instance"].maker = self.request.user
         taker_username = self.kwargs['taker_user']
         taker = get_object_or_404(get_user_model(), username=taker_username)
-        form.instance.taker = taker
-        result = super().form_valid(form)
-        messages.success(self.request, messages.SUCCESS, "Offer created successfully!")
-        return result
+        form_kwargs["instance"].taker = taker
+        return form_kwargs
 
     template_name = "contracts/create_offer.html"
 

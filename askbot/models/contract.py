@@ -2,7 +2,8 @@ import requests
 
 from django.db import models
 from django.conf import settings
-from django.core.validators import FileExtensionValidator
+from django.core.validators import FileExtensionValidator, ValidationError
+
 
 class Contract(models.Model):
     STATE_CHOICES = (
@@ -79,6 +80,10 @@ class Contract(models.Model):
             self.taker,
             self.state
         )
+
+    def clean(self):
+        if self.maker == self.taker:
+            raise ValidationError("A contract can't be created with one user used as both parties.")
 
     def accept_offer(self, public_key, private_key):  # combine the keys and message in one variable
         self.employee_pub_key = public_key
