@@ -13,8 +13,19 @@
             <p><strong>Contract Title:</strong> {{contract.contract_title}}</p>
             <p><strong>Offer Text:</strong> {{contract.offer_text}}</p>
             <p><strong>Offer amount:</strong> {{contract.amount}}</p>
-            <p><strong>Employer:</strong> {{contract.maker}}</p>
-            <p><strong>Employee:</strong> {{contract.taker}}</p>
+            {% if request.user.is_staff %}
+                <p><strong>Employer:</strong> {{contract.maker}}</p>
+                <p><strong>Employee:</strong> {{contract.taker}}</p>
+            {% else %}
+                <p>
+                    <strong>Partner:</strong>
+                    {% if request.user == contract.maker %}
+                        {{contract.taker}}
+                    {% elif request.user == contract.taker %}
+                        {{contract.maker}}
+                    {% endif %}
+                </p>
+            {% endif %}
         </p>
         {% if contract.state == "offer_made" %}
             {% if request.user == contract.maker %}
