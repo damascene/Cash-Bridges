@@ -29,6 +29,7 @@
             {% if request.user == contract.maker %}
                 <p>
                     Please send {{contract.amount}} satoshies to the address below and then press the "Escrow Funded" button:
+                    <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
                     <br>Address: {{contract.escrow_address}}
                 </p>
                 <a href="{{ url('escrow_funded',  contract.pk ) }}"><button>Escrow Funded</button></a>
@@ -105,6 +106,17 @@
 {% endblock %}
 
 {% block endjs %}
+    {% block compress %}
+        <script type="text/javascript" src="{{ 'jslib/qrcode.min.js'|media }}"></script>
+    {% endblock %}
+    <script type="text/javascript">
+        //QRCode generation
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            width: 200,
+            height: 200
+         });
+         qrcode.makeCode("{{contract.escrow_address}}?amount={{contract.amount}}&message=escrow");
+    </script>
     <script src="{{ '/vex/js/vex.combined.min.js'| media }}"></script>
     <script>vex.defaultOptions.className = 'vex-theme-os'</script>
     <script src="{{ '/js/contract/contract_details.js'| media }}"></script>
