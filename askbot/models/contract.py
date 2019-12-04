@@ -81,6 +81,9 @@ class Contract(models.Model):
             self.state
         )
 
+    class Meta:
+        ordering = ("-created",)
+
     def clean(self):
         if self.maker == self.taker:
             raise ValidationError("A contract can't be created with one user used as both parties.")
