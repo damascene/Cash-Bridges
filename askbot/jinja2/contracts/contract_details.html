@@ -41,7 +41,7 @@
                 <p>
                     Please send {{contract.amount}} satoshies to the address below and then press the "Escrow Funded" button:
                     <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
-                    <br>Address: {{contract.escrow_address}}
+                    <br>Address: {{contract.escrow_address}}?amount={{contract.amount}}&message=escrow
                 </p>
                 <a href="{{ url('escrow_funded',  contract.pk ) }}"><button>Escrow Funded</button></a>
             {% elif request.user == contract.taker %}
