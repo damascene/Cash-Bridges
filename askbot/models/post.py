@@ -450,6 +450,9 @@ class Post(models.Model):
                                                        ('usd', 'USD',),
                                                        ('eur', 'EUR',)],
                                                    null=True, blank=True)
+    pub_key = models.CharField(max_length=67, blank=True, null=True)
+    priv_key = models.TextField(blank=True, null=True)
+
     language_code = LanguageCodeField()
 
     # Denormalised data
