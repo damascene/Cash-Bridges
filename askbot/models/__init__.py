@@ -2332,7 +2332,9 @@ def user_post_answer(self,
                      timestamp=None,
                      by_email=False,
                      ip_addr=None,
-                     translate_text=None):
+                     translate_text=None,
+                     pub_key=None,
+                     priv_key=None):
 
     #todo: move this to assertion - user_assert_can_post_answer
     if self.pk == question.author_id and not self.is_administrator():
@@ -2395,7 +2397,10 @@ def user_post_answer(self,
                                                  is_private=is_private,
                                                  by_email=by_email,
                                                  ip_addr=ip_addr,
-                                                 translate_text=translate_text)
+                                                 translate_text=translate_text,
+                                                 pub_key=pub_key,
+                                                 priv_key=priv_key
+                                                 )
     #add to the answerer's group
     answer_post.add_to_groups([self.get_personal_group()])
 

@@ -1218,6 +1218,8 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
     openid = forms.CharField(
         required=False, max_length=255,
         widget=forms.TextInput(attrs={'size': 40, 'class': 'openid-input'}))
+    pub_key = forms.CharField(max_length=67, widget=forms.HiddenInput())
+    priv_key = forms.CharField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         super(AnswerForm, self).__init__(*args, **kwargs)
@@ -1233,12 +1235,17 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         wiki = self.cleaned_data['wiki']
         text = self.cleaned_data['text']
         translate_text = self.cleaned_data['translate_text']
+        pub_key = self.cleaned_data['pub_key']
+        priv_key = self.cleaned_data['priv_key']
+
         is_private = self.cleaned_data['post_privately']
 
         return user.post_answer(
             question=question, body_text=text, wiki=wiki,
             is_private=is_private, timestamp=timezone.now(),
-            ip_addr=ip_addr, translate_text=translate_text)
+            ip_addr=ip_addr, translate_text=translate_text,
+            pub_key=pub_key, priv_key=priv_key
+        )
 
 
 class VoteForm(forms.Form):
