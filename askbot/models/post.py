@@ -456,6 +456,8 @@ class Post(models.Model):
                                                    null=True, blank=True)
     pub_key = models.CharField(max_length=67, blank=True, null=True)
     priv_key = models.TextField(blank=True, null=True)
+    duration = models.PositiveIntegerField(blank=True, null=True)
+    amount = models.PositiveIntegerField(blank=True, null=True)
 
     language_code = LanguageCodeField()
 
