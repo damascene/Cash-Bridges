@@ -88,9 +88,7 @@ class Contract(models.Model):
         if self.maker == self.taker:
             raise ValidationError("A contract can't be created with one user used as both parties.")
 
-    def accept_offer(self, public_key, private_key):  # combine the keys and message in one variable
-        self.employee_pub_key = public_key
-        self.employee_priv_key = private_key
+    def create_escrow_address(self):
 
         data = {
             "employer_public_key": self.employer_pub_key,

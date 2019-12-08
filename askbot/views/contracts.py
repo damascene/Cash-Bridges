@@ -14,7 +14,7 @@ from django.contrib import messages
 from django.db.models import Q
 from django import forms
 
-from askbot.models import Contract
+from askbot.models import Contract, Post
 
 
 class ContractQuerysetMixin:
@@ -83,19 +83,22 @@ class ContractDetailView(ContractQuerysetMixin, DetailView):
 class CreateOfferView(CreateView):
     model = Contract
     fields = (
-        "duration",
-        "amount",
-        "contract_title",
-        "offer_text",
         "employer_pub_key",
         "employer_priv_key",
     )
     success_url = reverse_lazy("contracts_list")
 
     def dispatch(self, request, *args, **kwargs):
-        taker_username = kwargs['taker_user']
-        get_object_or_404(get_user_model(), username=taker_username)
+        answer_pk = kwargs['answer_pk']
+        get_object_or_404(Post, pk=answer_pk)
         return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        answer_pk = self.kwargs['answer_pk']
+        answer = get_object_or_404(Post, pk=answer_pk)
+        context_data['answer'] = answer
+        return context_data
 
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)
@@ -108,10 +111,25 @@ class CreateOfferView(CreateView):
         form_kwargs = super().get_form_kwargs()
         form_kwargs["instance"] = Contract()
         form_kwargs["instance"].maker = self.request.user
-        taker_username = self.kwargs['taker_user']
-        taker = get_object_or_404(get_user_model(), username=taker_username)
-        form_kwargs["instance"].taker = taker
+        answer_pk = self.kwargs['answer_pk']
+        answer = get_object_or_404(Post, pk=answer_pk)
+        form_kwargs["instance"].taker = answer.author
+        form_kwargs["instance"].employee_pub_key = answer.pub_key
+        form_kwargs["instance"].employee_priv_key = answer.priv_key
+        form_kwargs["instance"].duration = answer.duration
+        form_kwargs["instance"].amount = answer.amount
+        form_kwargs["instance"].contract_title = answer.thread.title
+
         return form_kwargs
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.create_escrow_address()
+        return HttpResponseRedirect(
+            reverse_lazy(
+                "contract_details", kwargs={"pk": self.object.pk}
+            )
+        )
 
     template_name = "contracts/create_offer.html"
 

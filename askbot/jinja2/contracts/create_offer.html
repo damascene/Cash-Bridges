@@ -7,10 +7,22 @@
     <link rel="stylesheet" href="{{ '/vex/css/vex-theme-os.css'| media }}" />
 {% endblock %}
 {% block body %}
+    <p>
+        <strong>Contract Amount:</strong>  {{answer.amount}}
+    </p>
+    <p>
+        <strong>Contract Duration:</strong> {{answer.duration}} days
+    </p>
+    <p>
+        <strong>Contract Title:</strong> {{answer.thread.title}}
+    </p>
+    <p>
+        <strong>Contract Partner:</strong> {{answer.author}}
+    </p>
     <form method="POST" id="create-offer-form" action="#">
         {{ csrf_input }}
         {{form}}
-        <button type="submit">Submit</button>
+        <button type="submit">Create Contract</button>
     </form>
 {% endblock %}
 {% block endjs %}

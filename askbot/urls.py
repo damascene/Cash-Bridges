@@ -790,7 +790,7 @@ if 'avatar' in settings.INSTALLED_APPS:
             name='contract_details'
         ),
         url(
-            r'^contracts/create_offer/(?P<taker_user>[\w\d\.\-_]+)/$',
+            r'^contracts/create_offer/(?P<answer_pk>\d+)/$',
             views.contracts.CreateOfferView.as_view(),
             name='create_offer'
         ),
