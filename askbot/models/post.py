@@ -215,7 +215,7 @@ class PostManager(BaseQuerySetManager):
     def create_new(self, thread, author, added_at, text, parent=None,
                    wiki=False, is_private=False, email_notify=False,
                    post_type=None, by_email=False, ip_addr=None, translate_text=None,
-                   pub_key=None, priv_key=None):
+                   pub_key=None, priv_key=None, amount=None, duration=None):
         # TODO: Some of this code will go to Post.objects.create_new
 
         assert(post_type in const.POST_TYPES)
@@ -229,7 +229,7 @@ class PostManager(BaseQuerySetManager):
         post = Post(post_type=post_type, thread=thread, parent=parent,
                     author=author, added_at=added_at, wiki=wiki,
                     text=text, language_code=language_code, translate_text=translate_text,
-                    pub_key=pub_key, priv_key=priv_key)
+                    pub_key=pub_key, priv_key=priv_key, amount=amount, duration=duration)
 
         if post.wiki:
             post.last_edited_by = post.author
@@ -275,11 +275,12 @@ class PostManager(BaseQuerySetManager):
     def create_new_answer(self, thread, author, added_at, text, wiki=False,
                           is_private=False, email_notify=False, by_email=False,
                           ip_addr=None, translate_text=None,
-                          pub_key=None, priv_key=None):
+                          pub_key=None, priv_key=None,
+                          amount=None, duration=None):
         answer = self.create_new(thread, author, added_at, text, wiki=wiki,
                                  is_private=is_private, post_type='answer',
                                  by_email=by_email, ip_addr=ip_addr, translate_text=translate_text,
-                                 pub_key=pub_key, priv_key=priv_key)
+                                 pub_key=pub_key, priv_key=priv_key, amount=amount, duration=duration)
         # set notification/delete
         if email_notify:
             thread.followed_by.add(author)

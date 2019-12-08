@@ -1227,6 +1227,8 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         # empty label on purpose
         self.fields['text'] = AnswerEditorField(label='', user=user)
         self.fields['translate_text'] = AnswerEditorField(label='', user=user)
+        self.fields['amount'] = forms.IntegerField()
+        self.fields['duration'] = forms.IntegerField()
 
         if should_use_recaptcha(user):
             self.fields['recaptcha'] = AskbotReCaptchaField()
@@ -1237,6 +1239,8 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         translate_text = self.cleaned_data['translate_text']
         pub_key = self.cleaned_data['pub_key']
         priv_key = self.cleaned_data['priv_key']
+        amount = self.cleaned_data['amount']
+        duration = self.cleaned_data['duration']
 
         is_private = self.cleaned_data['post_privately']
 
@@ -1244,7 +1248,8 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
             question=question, body_text=text, wiki=wiki,
             is_private=is_private, timestamp=timezone.now(),
             ip_addr=ip_addr, translate_text=translate_text,
-            pub_key=pub_key, priv_key=priv_key
+            pub_key=pub_key, priv_key=priv_key, amount=amount,
+            duration=duration
         )
 
 
