@@ -55,6 +55,13 @@ class HandleDisputeView(PermissionRequiredMixin, UpdateView):
     def get_queryset(self):
         return Contract.objects.filter(state="dispute")
 
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields["dispute_winner"].queryset = form.fields["dispute_winner"].queryset.filter(
+            Q(pk=self.object.maker.pk) | Q(pk=self.object.taker.pk)
+        )
+        return form
+
     def form_valid(self, form):
         contract = form.save(commit=False)
         dispute_winner = form.cleaned_data["dispute_winner"]
