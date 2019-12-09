@@ -150,7 +150,8 @@
             employer_pub_key: "{{ contract.employer_pub_key }}",
             employee_pub_key: "{{ contract.employee_pub_key }}",
             amount: "{{ contract.amount * 10**8}}",
-            state: "{{ contract.state }}"
+            state: "{{ contract.state }}",
+            withdraw_address: "{{request.user.bch_address}}",
         };
 
         var broadcastUrl = "{{ request.scheme + '://' + request.META['HTTP_HOST'] + url('broadcast') }}";

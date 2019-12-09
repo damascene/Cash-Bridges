@@ -62939,6 +62939,7 @@
 
 	function contractDetailsScript(contract, isMaker, isTaker, broadcastUrl){
 	    this.escrowAddress = contract.escrow_address;
+	    this.withdrawAddress = contract.withdraw_address;
 	    this.judgeSignatureString = contract.judgeSignature;
 	    this.PrivKey = contract.priv_key;
 
@@ -62990,7 +62991,6 @@
 
 	    this.withdraw = function(){
 	        openPasswordAndAddressDialog(function(data){
-	            const withdrawAddress = data && data.withdraw_address;
 	            const secret = data && data.password;
 
 	            const getUrl = "https://rest.bitcoin.com/v2/address/utxo/" + _this.escrowAddress;
@@ -63014,7 +63014,7 @@
 
 	                for(let transactionIndex in transactions) {
 	                    let spendAmount = transactions[transactionIndex].satoshis - 600;
-	                    let spendTransaction = new Transaction().from(transactions[transactionIndex]).to(withdrawAddress, spendAmount); // address to send to is here!
+	                    let spendTransaction = new Transaction().from(transactions[transactionIndex]).to(_this.withdrawAddress, spendAmount); // address to send to is here!
 
 	                    spendTransaction.signEscrow(
 	                        0,
@@ -63165,9 +63165,8 @@
 
 	function openPasswordAndAddressDialog(callback){
 	    vex.dialog.open({
-	        message: 'Enter Withdraw Address and Password:',
+	        message: 'Enter Password:',
 	        input: [
-	            '<input name="withdraw_address" type="text" placeholder="Withdraw Address" required />',
 	            '<input name="password" type="password" placeholder="Password" required />'
 	        ].join(''),
 	        buttons: [
