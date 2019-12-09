@@ -30,15 +30,6 @@
         {% if contract.state == "offer_made" %}
             {% if request.user == contract.maker %}
                 <p>
-                    <strong style="color: red;">Please wait while {{contract.taker}} either accepts or denies your offer.</strong>
-                </p>
-            {% elif request.user == contract.taker %}
-                <a href="{{ url('accept_offer',  contract.pk ) }}"><button>Accept/Deny offer</button></a>
-            {% endif %}
-        {% endif %}
-        {% if contract.state == "offer_accepted" %}
-            {% if request.user == contract.maker %}
-                <p>
                     Please send {{contract.amount}} BCH to the address below and then press the "Escrow Funded" button:
                     <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
                     <br>Address: {{contract.escrow_address}}?amount={{contract.amount * 10**8}}&message=escrow

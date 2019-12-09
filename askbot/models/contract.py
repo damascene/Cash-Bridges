@@ -8,7 +8,6 @@ from django.core.validators import FileExtensionValidator, ValidationError
 class Contract(models.Model):
     STATE_CHOICES = (
         ("offer_made", "Offer Made"),
-        ("offer_accepted", "Offer Accepted"),
         ("offer_denied", "Offer Denied"),
         ("escrow_funded", "Escrow Funded"),
         ("escrow_released", "Escrow Released"),
@@ -99,13 +98,13 @@ class Contract(models.Model):
         self.escrow_address = res.json()["address"]
 
         self.accepted_offer = "yes"
-        self.state = self.STATE_CHOICES[1][0]
+        self.state = self.STATE_CHOICES[0][0]
         self.save()
         return True
 
     def deny_offer(self, user):
         self.accepted_offer = "no"
-        self.state = self.STATE_CHOICES[2][0]
+        self.state = self.STATE_CHOICES[1][0]
         self.save()
 
     def escrow_funded(self):
@@ -117,7 +116,7 @@ class Contract(models.Model):
             if address_data["balanceSat"] + address_data["unconfirmedBalanceSat"] >= (self.amount * 10**8):
                 funded = True
                 if funded:
-                    self.state = self.STATE_CHOICES[3][0]
+                    self.state = self.STATE_CHOICES[2][0]
                     self.save()
                 return True
         return False
@@ -130,9 +129,9 @@ class Contract(models.Model):
             self.fee_taken = res.json()['feeTaken']
             self.judge_pub_key = res.json()['judgePubKey']
             if to == "employee":
-                self.state = self.STATE_CHOICES[4][0]
-            if to == "employer" or self.state == self.STATE_CHOICES[5][0]:
-                self.state = self.STATE_CHOICES[6][0]
+                self.state = self.STATE_CHOICES[3][0]
+            if to == "employer" or self.state == self.STATE_CHOICES[4][0]:
+                self.state = self.STATE_CHOICES[5][0]
             if user:
                 self.user_whom_released_escrow = user
             self.save()

@@ -62978,7 +62978,7 @@
 	    var _this = this;
 
 	    this.init = function(){
-	        if(_this.state === "offer_accepted" && isTaker){
+	        if(_this.state === "offer_made" && isTaker){
 	            offerAcceptedCheckBalance();
 	        }
 

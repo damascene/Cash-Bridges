@@ -135,39 +135,6 @@ class CreateOfferView(CreateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class AcceptOfferView(ContractQuerysetMixin, UpdateView):  # TODO CHANGE TO FORM VIEW
-    model = Contract
-    fields = (
-        "employee_pub_key",
-        "employee_priv_key",
-        "accepted_offer",
-    )
-    success_url = reverse_lazy("contracts_list")
-
-    def get_form(self, *args, **kwargs):
-        form = super().get_form(*args, **kwargs)
-        form.fields["employee_pub_key"].widget = forms.HiddenInput()
-        form.fields["employee_priv_key"].widget = forms.HiddenInput()
-
-        return form
-
-    def form_valid(self, form):
-        contract = form.save(commit=False)
-        print(form.cleaned_data)
-        accepted_offer = form.cleaned_data["accepted_offer"]
-        if accepted_offer == "yes":
-            public_key = form.cleaned_data["employee_pub_key"]
-            private_key = form.cleaned_data["employee_priv_key"]
-            contract.accept_offer(public_key, private_key)
-        else:
-            contract.deny_offer(None)
-
-        return HttpResponseRedirect(self.get_success_url())
-
-    template_name = "contracts/accept_offer.html"
-
-
-@method_decorator(login_required, name="dispatch")
 class EscrowFundedView(ContractQuerysetMixin, UpdateView):
     model = Contract
     fields = ()
