@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             {% for contract in object_list %}
-                <tr>
+                <tr {% if contract.state == "dispute" %}style="color: red;"{% endif %}>
                     <td>{{contract.contract_title}}</td>
                     <td>{{contract.amount}}</td>
                     <td>{{contract.maker}}</td>
