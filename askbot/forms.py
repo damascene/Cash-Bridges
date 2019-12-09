@@ -1227,7 +1227,7 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         # empty label on purpose
         self.fields['text'] = AnswerEditorField(label='', user=user)
         self.fields['translate_text'] = AnswerEditorField(label='', user=user)
-        self.fields['amount'] = forms.IntegerField()
+        self.fields['amount'] = forms.DecimalField(max_digits=12, decimal_places=7)
         self.fields['duration'] = forms.IntegerField()
 
         if should_use_recaptcha(user):

@@ -22,7 +22,7 @@ class Contract(models.Model):
     state = models.CharField(max_length=25, choices=STATE_CHOICES, default=STATE_CHOICES[0][0])
     contract_title = models.CharField(max_length=300)
     offer_text = models.TextField()
-    amount = models.PositiveIntegerField()  # in satoshi
+    amount = models.DecimalField(max_digits=12, decimal_places=8)
     accepted_offer = models.CharField(max_length=3,
                                       choices=(("yes", "Yes"), ("no", "No")),
                                       verbose_name="Accept Offer")
@@ -114,7 +114,7 @@ class Contract(models.Model):
         address_data = escrow_address_data_res.json()
 
         if escrow_address_data_res.status_code == 200:
-            if address_data["balanceSat"] + address_data["unconfirmedBalanceSat"] >= self.amount:
+            if address_data["balanceSat"] + address_data["unconfirmedBalanceSat"] >= (self.amount * 10**8):
                 funded = True
                 if funded:
                     self.state = self.STATE_CHOICES[3][0]

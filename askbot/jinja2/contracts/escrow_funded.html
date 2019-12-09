@@ -9,9 +9,9 @@
 {% block body %}
     {{ object }}
     <p>
-        Please send {{contract.amount}} satoshies to the address below and then press the submit button:
+        Please send {{contract.amount}} BCH to the address below and then press the submit button:
         <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
-        <br>Address: {{contract.escrow_address}}?amount={{contract.amount}}&message=escrow"
+        <br>Address: {{contract.escrow_address}}?amount={{contract.amount * 10**8}}&message=escrow"
     </p>
     <form method="POST" action="#">
         {{ csrf_input }}
@@ -29,6 +29,6 @@
                 width: 200,
                 height: 200
              });
-             qrcode.makeCode("{{contract.escrow_address}}?amount={{contract.amount}}&message=escrow");
+             qrcode.makeCode("{{contract.escrow_address}}?amount={{contract.amount * 10**8}}&message=escrow");
         </script>
 {% endblock %}
