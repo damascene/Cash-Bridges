@@ -30,6 +30,16 @@ class ContractListView(ContractQuerysetMixin, ListView):
     model = Contract
     template_name = "contracts/contracts.html"
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        contract_type = self.request.GET.get('contract_type')
+        if contract_type:
+            if contract_type == "offers_made":
+                queryset = queryset.filter(maker=self.request.user)
+            elif contract_type == "offers_received":
+                queryset = queryset.filter(taker=self.request.user)
+        return queryset
+
 
 @method_decorator(login_required, name="dispatch")
 class ContractWithDisputeStatusListView(PermissionRequiredMixin, ListView):

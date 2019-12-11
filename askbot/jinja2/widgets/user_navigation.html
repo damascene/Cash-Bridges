@@ -10,8 +10,11 @@
     <a href="{{ url ('messages_inbox') }}">
         {% trans %}inbox{% endtrans %} (unread: {{request.user.received_messages.filter(read_at=None).count()}})
     </a>
-    <a href="{{ url ('contracts_list') }}">
-        {% trans %}contracts{% endtrans %} (open offers: {{ request.user.offers_accepted.filter(state="offer_made").count() }})
+    <a href="{{ url ('contracts_list') }}?contract_type=offers_made">
+        {% trans %}contract offers made{% endtrans %}
+    </a>
+<a href="{{ url ('contracts_list') }}?contract_type=offers_received">
+        {% trans %}contract offers received{% endtrans %}
     </a>
 
     {% if settings.USE_ASKBOT_LOGIN_SYSTEM %}
