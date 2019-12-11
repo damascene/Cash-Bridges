@@ -13,7 +13,7 @@
         <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
         <br>Address: {{contract.escrow_address}}?amount={{contract.amount * 10**8}}&message=escrow"
     </p>
-    <form method="POST" action="#">
+    <form id="escrowFunded" method="POST" action="#">
         {{ csrf_input }}
         {{form}}
         <button type="submit">submit</button>
@@ -30,5 +30,34 @@
                 height: 200
              });
              qrcode.makeCode("{{contract.escrow_address}}?amount={{contract.amount * 10**8}}&message=escrow");
+        </script>
+        <script type="text/javascript">
+            function escrowFundedCheckBalanceAutoFormSubmit(){
+                const remoteUrl = "https://rest.bitcoin.com/v2/address/details/" + "{{contract.escrow_address}}";
+                const getAmountPromise = fetch(remoteUrl, {
+                    method: "GET"
+                });
+
+                return getAmountPromise.then(function(result){
+                    return result.json();
+                }).then(function(data){
+                    if(data){
+                        const amount = {{contract.amount * 10**8}};
+                        const balanceSat = (data && data.balanceSat) || 0;
+                        const unconfirmedBalanceSat = (data && data.unconfirmedBalanceSat) || 0;
+                        const totalBalanceSat = balanceSat + unconfirmedBalanceSat;
+
+                        if(totalBalanceSat >= amount){
+                            escrowFundedForm = document.querySelector('#escrowFunded')
+                            escrowFundedForm.submit()
+                        } else {
+                            setTimeout(function(){
+                                escrowFundedCheckBalanceAutoFormSubmit();
+                            }, 5000);
+                        }
+                    }
+                });
+            }
+            escrowFundedCheckBalanceAutoFormSubmit()
         </script>
 {% endblock %}
