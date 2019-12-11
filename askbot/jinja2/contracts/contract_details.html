@@ -79,9 +79,13 @@
             {% endif %}
         {% endif %}
         {% if contract.state == "dispute" %}
+            {% if request.user.is_staff %}
+                <a href="{{ url('handle_dispute',  contract.pk ) }}"><button>Handle Dispute</button></a>
+            {% else %}
                 <p>
                     <strong style="color: red;">Please wait while a judge handles the dispute.</strong>
                 </p>
+            {% endif %}
         {% endif %}
         {% if contract.state == "escrow_released_by_judge" %}
             <p>
