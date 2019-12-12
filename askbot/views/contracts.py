@@ -87,7 +87,7 @@ class HandleDisputeView(PermissionRequiredMixin, UpdateView):
         messages.success(self.request, messages.ERROR, "Something went wrong during the process!")
         return HttpResponseRedirect("")
 
-    template_name = "contracts/accept_offer.html"
+    template_name = "contracts/handle_dispute.html"
 
 
 @method_decorator(login_required, name="dispatch")
@@ -202,7 +202,7 @@ class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it bein
         "dispute_evidence",
     )
 
-    template_name = "contracts/accept_offer.html"
+    template_name = "contracts/open_dispute.html"
 
 
 @csrf_exempt

@@ -1,7 +1,4 @@
 {% extends "base.html" %}
-{% block title %}
-    Accept Offer
-{% endblock %}
 {% block forestyle %}
     <link rel="stylesheet" href="{{ '/vex/css/vex.css'| media }}" />
     <link rel="stylesheet" href="{{ '/vex/css/vex-theme-os.css'| media }}" />
@@ -13,9 +10,4 @@
         {{form}}
         <button type="submit">submit</button>
     </form>
-{% endblock %}
-{% block endjs %}
-    <script src="{{ '/vex/js/vex.combined.min.js'| media }}"></script>
-    <script>vex.defaultOptions.className = 'vex-theme-os'</script>
-    <script src="{{ '/js/contract/accept_offer.js'| media }}"></script>
 {% endblock %}
