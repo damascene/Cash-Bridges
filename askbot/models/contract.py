@@ -122,7 +122,11 @@ class Contract(models.Model):
         return False
 
     def release_escrow(self, to, user=None):
-        data = {"taker": to}
+        data = {
+            "taker": to,
+            "employer_public_key": self.employer_pub_key,
+            "employee_public_key": self.employee_pub_key
+        }
         res = requests.post('http://127.0.0.1:3000/api/sign_escrow/', data=data)
         if res.status_code == 200:
             self.judgeSignature = res.json()['judgeSignature']
