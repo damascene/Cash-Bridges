@@ -144,7 +144,7 @@ class CreateOfferView(CreateView):
         self.object.create_escrow_address()
         return HttpResponseRedirect(
             reverse_lazy(
-                "contract_details", kwargs={"pk": self.object.pk}
+                "escrow_funded", kwargs={"pk": self.object.pk}
             )
         )
 
