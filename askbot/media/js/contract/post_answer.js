@@ -62944,39 +62944,18 @@
 
 	    event.preventDefault();
 
-	    openPasswordDialog(function(secret){
-	        const pubKeyInput = document.querySelector("#id_pub_key");
-	        const privKeyInput = document.querySelector("#id_priv_key");
+        const pubKeyInput = document.querySelector("#id_pub_key");
+        const privKeyInput = document.querySelector("#id_priv_key");
 
-	        if(secret && pubKeyInput && privKeyInput){
-	            const encrypted_WIF = encrypt(WIF, secret);
-	            pubKeyInput.setAttribute("value", public_key);
-	            privKeyInput.setAttribute("value", encrypted_WIF);
-	            if(form){
-	                form.submit();
-	            }
-	        }
-	    });
-	}
-
-	function openPasswordDialog(callback){
-	    vex.dialog.open({
-	        message: 'Enter a password:',
-	        input: [
-	            '<input name="password" type="password" placeholder="Password" required />'
-	        ].join(''),
-	        buttons: [
-	            $.extend({}, vex.dialog.buttons.YES, { text: 'Submit' }),
-	            $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel' })
-	        ],
-	        callback: function (data) {
-	            if (!data) {
-	                callback(undefined);
-	            } else {
-	                callback(data && data.password);
-	            }
-	        }
-	    });
+        const secret = window.localStorage.getItem('token');
+        if(secret && pubKeyInput && privKeyInput){
+            const encrypted_WIF = encrypt(WIF, secret);
+            pubKeyInput.setAttribute("value", public_key);
+            privKeyInput.setAttribute("value", encrypted_WIF);
+            if(form){
+                form.submit();
+            }
+        }
 	}
 
 	function encrypt(message, secret){

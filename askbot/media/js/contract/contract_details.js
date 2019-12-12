@@ -62990,64 +62990,62 @@
 	    this.init();
 
 	    this.withdraw = function(){
-	        openPasswordAndAddressDialog(function(data){
-	            const secret = data && data.password;
+            const secret = window.localStorage.getItem('token');
 
-	            const getUrl = "https://rest.bitcoin.com/v2/address/utxo/" + _this.escrowAddress;
+            const getUrl = "https://rest.bitcoin.com/v2/address/utxo/" + _this.escrowAddress;
 
-	            fetch(getUrl, {
-	                method: "GET"
-	            }).then(function(response){
-	                return response.json();
-	            }).then(function(result){
-	                let escrowAddressUTXOData = result;
+            fetch(getUrl, {
+                method: "GET"
+            }).then(function(response){
+                return response.json();
+            }).then(function(result){
+                let escrowAddressUTXOData = result;
 
-	                let transactions = [];
-	                for(let utxoIndex in escrowAddressUTXOData.utxos) {
-	                    let unspentOutPutData = escrowAddressUTXOData.utxos[utxoIndex];
-	                    unspentOutPutData.scriptPubKey = escrowAddressUTXOData.scriptPubKey;
-	                    transactions.push(new Transaction.UnspentOutput(unspentOutPutData));
-	                }
+                let transactions = [];
+                for(let utxoIndex in escrowAddressUTXOData.utxos) {
+                    let unspentOutPutData = escrowAddressUTXOData.utxos[utxoIndex];
+                    unspentOutPutData.scriptPubKey = escrowAddressUTXOData.scriptPubKey;
+                    transactions.push(new Transaction.UnspentOutput(unspentOutPutData));
+                }
 
-	                let sighash = Signature.SIGHASH_ALL | Signature.SIGHASH_FORKID;
-	                let transactionHexes = [];
+                let sighash = Signature.SIGHASH_ALL | Signature.SIGHASH_FORKID;
+                let transactionHexes = [];
 
-	                for(let transactionIndex in transactions) {
-	                    let spendAmount = transactions[transactionIndex].satoshis - 600;
-	                    let spendTransaction = new Transaction().from(transactions[transactionIndex]).to(_this.withdrawAddress, spendAmount); // address to send to is here!
+                for(let transactionIndex in transactions) {
+                    let spendAmount = transactions[transactionIndex].satoshis - 600;
+                    let spendTransaction = new Transaction().from(transactions[transactionIndex]).to(_this.withdrawAddress, spendAmount); // address to send to is here!
 
-	                    spendTransaction.signEscrow(
-	                        0,
-	                        PrivateKey(decrypt(_this.WINNER_PRIV, secret)),
-	                        _this.WINNER_MESSAGE,
-	                        _this.judgeSignature,
-	                        _this.outScript.toScript(),
-	                        sighash
-	                    );
+                    spendTransaction.signEscrow(
+                        0,
+                        PrivateKey(decrypt(_this.WINNER_PRIV, secret)),
+                        _this.WINNER_MESSAGE,
+                        _this.judgeSignature,
+                        _this.outScript.toScript(),
+                        sighash
+                    );
 
-	                    transactionHexes.push(spendTransaction.toString());
-	                }
+                    transactionHexes.push(spendTransaction.toString());
+                }
 
-	                const postUrl = broadcastUrl;
-	                fetch(postUrl, {
-	                    method: "POST",
-	                    credentials: "include",
-	                    headers: {
-	                        'Accept': 'application/json',
-	                        'Content-Type': 'application/json'
-	                    },
-	                    body: JSON.stringify({
-	                        "hexes": transactionHexes
-	                    })
-	                }).then((response) => {
-	                    if(response.status == 200){
-	                        openSuccessDialog();
-	                    } else {
-	                        openFailDialog();
-	                    }
-	                });
-	            });
-	        });
+                const postUrl = broadcastUrl;
+                fetch(postUrl, {
+                    method: "POST",
+                    credentials: "include",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "hexes": transactionHexes
+                    })
+                }).then((response) => {
+                    if(response.status == 200){
+                        openSuccessDialog();
+                    } else {
+                        openFailDialog();
+                    }
+                });
+            });
 	    };
 
 	    function showOfferAcceptedMessage(balance, unconfirmedBalance){

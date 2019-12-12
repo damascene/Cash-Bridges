@@ -25200,7 +25200,7 @@
 	    });
 	  } else if (_.isString(buf)) {
 	    var b = Buffer.from(buf, 'hex');
-	    if (b.length * 2 != buf.length) 
+	    if (b.length * 2 != buf.length)
 	      throw new TypeError('Invalid hex string');
 
 	    this.set({
@@ -25414,7 +25414,7 @@
 	var sighashForForkId = function(transaction, sighashType, inputNumber, subscript, satoshisBN) {
 	  var input = transaction.inputs[inputNumber];
 	  $.checkArgument(
-	    satoshisBN instanceof BN, 
+	    satoshisBN instanceof BN,
 	    'For ForkId=0 signatures, satoshis or complete input must be provided'
 	  );
 
@@ -25453,7 +25453,7 @@
 	    } else {
 	      tx.outputs[n].toBufferWriter(writer);
 	    }
-	   
+
 	    var buf = writer.toBuffer();
 	    var ret = Hash.sha256sha256(buf);
 	    return ret;
@@ -25500,8 +25500,8 @@
 
 	  // value of the output spent by this input (8-byte little endian)
 	  writer.writeUInt64LEBN(satoshisBN);
-	  
-	  // nSequence of the input (4-byte little endian) 
+
+	  // nSequence of the input (4-byte little endian)
 	  var sequenceNumber = input.sequenceNumber;
 	  writer.writeUInt32LE(sequenceNumber);
 
@@ -25511,7 +25511,7 @@
 	  // Locktime
 	  writer.writeUInt32LE(transaction.nLockTime);
 
-	  // sighashType 
+	  // sighashType
 	  writer.writeUInt32LE(sighashType >>>0);
 
 	  var buf = writer.toBuffer();
@@ -34203,7 +34203,7 @@
 	Transaction.prototype.sort = function() {
 	  this.sortInputs(function(inputs) {
 	    var copy = Array.prototype.concat.apply([], inputs);
-	    let i = 0; 
+	    let i = 0;
 	    copy.forEach((x) => { x.i = i++;});
 	    copy.sort(function(first, second) {
 	      return compare(first.prevTxId, second.prevTxId)
@@ -34214,7 +34214,7 @@
 	  });
 	  this.sortOutputs(function(outputs) {
 	    var copy = Array.prototype.concat.apply([], outputs);
-	    let i = 0; 
+	    let i = 0;
 	    copy.forEach((x) => { x.i = i++;});
 	    copy.sort(function(first, second) {
 	      return first.satoshis - second.satoshis
@@ -39253,7 +39253,7 @@
 	/***
 	 * Decodes the given base32-encoded string into an array of 5-bit integers.
 	 *
-	 * @param {string} base32 
+	 * @param {string} base32
 	 */
 	function decode(base32) {
 	  $.checkArgument(typeof base32 === 'string', 'Must be base32-encoded string');
@@ -40616,7 +40616,7 @@
 	    if (!Interpreter.castToBool(stackCopy[stackCopy.length - 1])) {
 	      this.errstr = 'SCRIPT_ERR_EVAL_FALSE_IN_P2SH_STACK';
 	      return false;
-	    } 
+	    }
 	  }
 
 	  // The CLEANSTACK check is only performed after potential P2SH evaluation,
@@ -40637,7 +40637,7 @@
 	      }
 	  }
 
-	 
+
 
 	  return true;
 	};
@@ -40815,14 +40815,14 @@
 	      this.errstr = 'SCRIPT_ERR_SIG_DER_HIGH_S';
 	      return false;
 	    }
-	  } 
-	 
+	  }
+
 	  return true;
 	};
 
 
 	// Back compat
-	Interpreter.prototype.checkSignatureEncoding = 
+	Interpreter.prototype.checkSignatureEncoding =
 	Interpreter.prototype.checkTxSignatureEncoding = function(buf) {
 
 	    // Empty signature. Not strictly DER encoded, but allowed to provide a
@@ -40834,7 +40834,7 @@
 	    if (!this.checkRawSignatureEncoding(buf.slice(0,buf.length-1))) {
 	      return false;
 	    }
-	 
+
 	    if ((this.flags & Interpreter.SCRIPT_VERIFY_STRICTENC) !== 0) {
 	      var sig = Signature.fromTxFormat(buf);
 	      if (!sig.hasDefinedHashtype()) {
@@ -41057,7 +41057,7 @@
 	 * Checks a sequence parameter with the transaction's sequence.
 	 * @param {BN} nSequence the sequence read from the script
 	 * @return {boolean} true if the transaction's sequence is less than or equal to
-	 *                   the transaction's sequence 
+	 *                   the transaction's sequence
 	 */
 	Interpreter.prototype.checkSequence = function(nSequence) {
 
@@ -41094,7 +41094,7 @@
 	    // of nSequenceMasked being tested is the same as the nSequenceMasked in the
 	    // transaction.
 	    var SEQUENCE_LOCKTIME_TYPE_FLAG_BN = new BN(Interpreter.SEQUENCE_LOCKTIME_TYPE_FLAG);
-	    
+
 	    if (!((txToSequenceMasked.lt(SEQUENCE_LOCKTIME_TYPE_FLAG_BN)  &&
 	           nSequenceMasked.lt(SEQUENCE_LOCKTIME_TYPE_FLAG_BN)) ||
 	          (txToSequenceMasked.gte(SEQUENCE_LOCKTIME_TYPE_FLAG_BN) &&
@@ -41110,7 +41110,7 @@
 	    return true;
 	  };
 
-	/** 
+	/**
 	 * Based on the inner loop of bitcoind's EvalScript function
 	 * bitcoind commit: b5d1b1092998bc95313856d535c632ea5a8f9104
 	 */
@@ -41684,7 +41684,7 @@
 	      //
 	      case Opcode.OP_AND:
 	      case Opcode.OP_OR:
-	      case Opcode.OP_XOR: 
+	      case Opcode.OP_XOR:
 	        {
 	          // (x1 x2 - out)
 	          if (this.stack.length < 2) {
@@ -41721,7 +41721,7 @@
 
 	          // And pop vch2.
 	          this.stack.pop();
-	        } 
+	        }
 	        break;
 
 	      case Opcode.OP_EQUAL:
@@ -42028,7 +42028,7 @@
 	        break;
 
 	      case Opcode.OP_CHECKDATASIG:
-	      case Opcode.OP_CHECKDATASIGVERIFY: 
+	      case Opcode.OP_CHECKDATASIGVERIFY:
 	        {
 
 	          // Make sure this remains an error before activation.
@@ -42248,7 +42248,7 @@
 	          }
 	          this.stack[this.stack.length - 2] = Buffer.concat([buf1,buf2]);
 	          this.stack.pop();
-	        } 
+	        }
 	        break;
 
 	        case Opcode.OP_SPLIT: {
@@ -42273,7 +42273,7 @@
 	          // Replace existing stack values by the new values.
 	          this.stack[this.stack.length - 2] = n1.slice(0, position);
 	          this.stack[this.stack.length - 1] = n1.slice(position);
-	        } 
+	        }
 	        break;
 
 	        //
@@ -42330,7 +42330,7 @@
 	          num[l]=signbit;
 
 	          this.stack[this.stack.length-1] = num;
-	        } 
+	        }
 	        break;
 
 
@@ -42352,8 +42352,8 @@
 	            this.errstr = 'SCRIPT_ERR_INVALID_NUMBER_RANGE';
 	            return false;
 	          }
-	        } 
-	        break;        
+	        }
+	        break;
 
 
 
@@ -43961,7 +43961,7 @@
 	 *
 	 * @param {string} message
 	 * @param {PrivateKey} privateKey
-	 * 
+	 *
 	 * @returns {Signature}
 	 */
 	Signature.signCDS = function (message, privateKey) {
@@ -43990,7 +43990,7 @@
 	 * @param {string} message
 	 * @param {PublicKey} pubKey
 	 * @param {Signature} signature
-	 * 
+	 *
 	 * @returns {object}
 	 */
 	Signature.verify = function (message, pubKey, signature) {
@@ -44027,11 +44027,11 @@
 	 * @param {string} data.message
 	 * @param {Script} data.winnerScript - a P2PKH scriptSig for the transaction signed by escrow beneficiary
 	 * @param {Script} data.outputScript - The original (non-P2SH) scriptPubKey for this input
-	 * 
+	 *
 	 * @constructor
 	 */
 	var InputScript = function (data) {
-	    
+
 	    this.refereeSig = data.refereeSig;
 	    this.message = data.message;
 	    this.winnerScript = data.winnerScript;
@@ -51680,13 +51680,13 @@
 	    if (!(context instanceof Context)) {
 	        throw new TypeError("needs a 'context' argument.");
 	    }
-	    
+
 	    var iframe = document.createElement('iframe');
 	    if (!iframe.style) iframe.style = {};
 	    iframe.style.display = 'none';
-	    
+
 	    document.body.appendChild(iframe);
-	    
+
 	    var win = iframe.contentWindow;
 	    var wEval = win.eval, wExecScript = win.execScript;
 
@@ -51695,7 +51695,7 @@
 	        wExecScript.call(win, 'null');
 	        wEval = win.eval;
 	    }
-	    
+
 	    forEach(Object_keys(context), function (key) {
 	        win[key] = context[key];
 	    });
@@ -51704,11 +51704,11 @@
 	            win[key] = context[key];
 	        }
 	    });
-	    
+
 	    var winKeys = Object_keys(win);
 
 	    var res = wEval.call(win, this.code);
-	    
+
 	    forEach(Object_keys(win), function (key) {
 	        // Avoid copying circular objects like `top` and `window` by only
 	        // updating existing context properties or new properties in the `win`
@@ -51723,9 +51723,9 @@
 	            defineProp(context, key, win[key]);
 	        }
 	    });
-	    
+
 	    document.body.removeChild(iframe);
-	    
+
 	    return res;
 	};
 
@@ -56213,10 +56213,10 @@
 	const InputScript = __webpack_require__(123);
 
 
-	Transaction.P2SHFlags = Interpreter.SCRIPT_VERIFY_P2SH 
+	Transaction.P2SHFlags = Interpreter.SCRIPT_VERIFY_P2SH
 	    | Interpreter.SCRIPT_ENABLE_SIGHASH_FORKID
-	    | Interpreter.SCRIPT_ENABLE_CHECKDATASIG 
-	    | Interpreter.SCRIPT_VERIFY_STRICTENC 
+	    | Interpreter.SCRIPT_ENABLE_CHECKDATASIG
+	    | Interpreter.SCRIPT_VERIFY_STRICTENC
 	    | Interpreter.SCRIPT_VERIFY_COMPRESSED_PUBKEYTYPE;
 
 
@@ -56225,7 +56225,7 @@
 	 *
 	 * @param {Script} scriptPubKey - original Script
 	 * @param {number} satoshis - output amount
-	 * 
+	 *
 	 * @returns {Transaction}
 	 */
 	Transaction.prototype.toP2SH = function (scriptPubKey, satoshis) {
@@ -56251,7 +56251,7 @@
 	 * @param {Signature} refSig - the signature for the message and referee public key
 	 * @param {Script} subscript - the non-P2SH (original) scriptPubKey
 	 * @param {number} sighash - the type of signature
-	 * 
+	 *
 	 * @returns {Transaction}
 	 */
 	Transaction.prototype.signEscrow = function (inputIndex, winnerPrivKey, refMsg, refSig, subscript, sighash) {
@@ -56269,7 +56269,7 @@
 	        winnerScript: winnerScript,
 	        outputScript: subscript
 	    };
-	    
+
 	    inScript = new InputScript(inputScriptData);
 
 	    // Set scriptSig for inputIndex
@@ -56283,7 +56283,7 @@
 	 * Verify that a P2SH input is properly signed
 	 *
 	 * @param {number} inputIndex - the index of the input to be verified
-	 * 
+	 *
 	 * @returns {boolean}
 	 */
 	Transaction.prototype.verifyScriptSig = function (inputIndex) {
@@ -56301,7 +56301,7 @@
 	 * Merges transactions (must use SIGHASH_ANYONECANPAY)
 	 *
 	 * @param {Transaction[]} txArray
-	 * 
+	 *
 	 * @returns {Transaction}
 	 */
 	Transaction.mergeTransactionInputs = function (txArray) {
@@ -56324,7 +56324,7 @@
 	 * Format UTXOs for easy use with Transaction.to()
 	 *
 	 * @param {object[]} utxoArray
-	 * 
+	 *
 	 * @returns {UnspentOutput[][]}
 	 */
 	Transaction.formatUtxos = function (utxoArray) {
@@ -56347,7 +56347,7 @@
 	 * Get the satoshi total for an array of utxos
 	 *
 	 * @param {object[] | UnspentOutput[]} utxos
-	 * 
+	 *
 	 * @returns {number}
 	 */
 	Transaction.utxosTotalSatoshis = function (utxos) {
@@ -56374,7 +56374,7 @@
 	 * Generate an UnspentOutput from the output of a transaction
 	 * @param {Transaction} transaction
 	 * @param {number} outputIndex
-	 * 
+	 *
 	 * @returns {UnspentOutput}
 	 */
 	Transaction.utxoFromTxOutput = function (transaction, outputIndex) {
@@ -56410,11 +56410,11 @@
 	 * @param {string} data.parties[].message - message for this party
 	 * @param {PublicKey} data.parties[].pubKey - public key for this party
 	 * @param {Address} data.parties[].address - (optional instead of pubKey) P2PKH address for this party
-	 * 
+	 *
 	 * @constructor
 	 */
 	var OutputScript = function (data) {
-	    
+
 	    this.refereePubKey = data.refereePubKey;
 	    this.parties = data.parties;
 	};
@@ -56457,7 +56457,7 @@
 
 	/**
 	 * Return P2SH version of script
-	 * 
+	 *
 	 * @returns {Script}
 	 */
 	OutputScript.prototype.toScriptHash = function () {
@@ -56474,7 +56474,7 @@
 	/**
 	 * Return P2SH address
 	 * @param {Network|string=} network - a {@link Network} object, or a string with the network name ('livenet' or 'testnet')
-	 * 
+	 *
 	 * @returns {Address}
 	 */
 	OutputScript.prototype.toAddress = function (network) {
@@ -56497,7 +56497,7 @@
 	    }
 	    if(party.pubKey instanceof PublicKey)
 	        party.pubKey = party.pubKey.toAddress();
-	        
+
 	    let s = Script()
 	    .add('OP_DUP')
 	    .add(Buffer.from(party.message, 'utf-8'))
@@ -62944,39 +62944,18 @@
 
 	    event.preventDefault();
 
-	    openPasswordDialog(function(secret){
-	        const pubKeyInput = document.querySelector("#id_employer_pub_key");
-	        const privKeyInput = document.querySelector("#id_employer_priv_key");
+        const pubKeyInput = document.querySelector("#id_employer_pub_key");
+        const privKeyInput = document.querySelector("#id_employer_priv_key");
 
-	        if(secret && pubKeyInput && privKeyInput){
-	            const encrypted_WIF = encrypt(WIF, secret);
-	            pubKeyInput.setAttribute("value", public_key);
-	            privKeyInput.setAttribute("value", encrypted_WIF);
-	            if(form){
-	                form.submit();
-	            }
-	        }
-	    });
-	}
-
-	function openPasswordDialog(callback){
-	    vex.dialog.open({
-	        message: 'Enter a password:',
-	        input: [
-	            '<input name="password" type="password" placeholder="Password" required />'
-	        ].join(''),
-	        buttons: [
-	            $.extend({}, vex.dialog.buttons.YES, { text: 'Submit' }),
-	            $.extend({}, vex.dialog.buttons.NO, { text: 'Cancel' })
-	        ],
-	        callback: function (data) {
-	            if (!data) {
-	                callback(undefined);
-	            } else {
-	                callback(data && data.password);
-	            }
-	        }
-	    });
+        const secret = window.localStorage.getItem('token');
+        if(secret && pubKeyInput && privKeyInput){
+            const encrypted_WIF = encrypt(WIF, secret);
+            pubKeyInput.setAttribute("value", public_key);
+            privKeyInput.setAttribute("value", encrypted_WIF);
+            if(form){
+                form.submit();
+            }
+        }
 	}
 
 	function encrypt(message, secret){
