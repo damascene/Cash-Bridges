@@ -1,4 +1,5 @@
 from collections import defaultdict
+from decimal import Decimal
 import operator
 import logging
 
@@ -19,6 +20,7 @@ from django.core import cache
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 from django.contrib.contenttypes.models import ContentType
+from django.core.validators import MinValueValidator
 
 import askbot
 
@@ -460,7 +462,8 @@ class Post(models.Model):
     duration = models.PositiveIntegerField(blank=True, null=True)
     amount = models.DecimalField(max_digits=12,
                                  decimal_places=8,
-                                 null=True, blank=True)
+                                 validators=[MinValueValidator(Decimal("0.0006"))],
+                                 null=True, blank=True,)
 
     language_code = LanguageCodeField()
 

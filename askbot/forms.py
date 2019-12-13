@@ -1,5 +1,7 @@
 """Forms, custom form fields and related utility functions
 used in AskBot"""
+from decimal import Decimal
+
 import regex as re #todo: make explicit import
 import askbot
 import unicodedata
@@ -17,7 +19,7 @@ from django.utils.translation import ungettext_lazy
 from askbot.utils.translation import get_language
 from django.utils.text import get_text_list, format_lazy
 from django.contrib.auth.models import User
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MinValueValidator
 from django_countries import countries
 from askbot.utils.forms import NextUrlField, UserNameField
 from askbot.utils.forms import moderated_email_validator
@@ -1227,7 +1229,8 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         # empty label on purpose
         self.fields['text'] = AnswerEditorField(label='', user=user)
         self.fields['translate_text'] = AnswerEditorField(label='', user=user)
-        self.fields['amount'] = forms.DecimalField(max_digits=12, decimal_places=7)
+        self.fields['amount'] = forms.DecimalField(max_digits=12, decimal_places=7,
+                                                   validators=[MinValueValidator(Decimal("0.0006"))])
         self.fields['duration'] = forms.IntegerField()
 
         if should_use_recaptcha(user):

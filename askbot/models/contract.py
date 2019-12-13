@@ -1,8 +1,9 @@
 import requests
+from decimal import Decimal
 
 from django.db import models
 from django.conf import settings
-from django.core.validators import FileExtensionValidator, ValidationError
+from django.core.validators import FileExtensionValidator, ValidationError, MinValueValidator
 
 
 class Contract(models.Model):
@@ -20,7 +21,9 @@ class Contract(models.Model):
     duration = models.PositiveIntegerField()
     state = models.CharField(max_length=25, choices=STATE_CHOICES, default=STATE_CHOICES[0][0])
     contract_title = models.CharField(max_length=300)
-    amount = models.DecimalField(max_digits=12, decimal_places=8)
+    amount = models.DecimalField(
+        max_digits=12, decimal_places=8,
+        validators=[MinValueValidator(Decimal("0.0006"))])
     accepted_offer = models.CharField(max_length=3,
                                       choices=(("yes", "Yes"), ("no", "No")),
                                       verbose_name="Accept Offer")
