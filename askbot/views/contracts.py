@@ -202,6 +202,16 @@ class OpenDisputeView(ContractQuerysetMixin, UpdateView):  # TODO handle it bein
         "dispute_evidence",
     )
 
+    def form_valid(self, form):
+        contract = form.save(commit=False)
+        contract.state = Contract.STATE_CHOICES[4][0]
+        contract.save()
+        return HttpResponseRedirect(
+            reverse_lazy(
+                "contract_details", kwargs={"pk": contract.pk}
+            )
+        )
+
     template_name = "contracts/open_dispute.html"
 
 
