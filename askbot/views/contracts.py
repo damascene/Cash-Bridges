@@ -30,6 +30,14 @@ class ContractListView(ContractQuerysetMixin, ListView):
     model = Contract
     template_name = "contracts/contracts.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        contract_state = self.request.GET.get('contract_state')
+        contract_type = self.request.GET.get('contract_type')
+        context.update({'contract_state': contract_state})
+        context.update({'contract_type': contract_type})
+        return context
+
     def get_queryset(self):
         queryset = super().get_queryset()
         contract_type = self.request.GET.get('contract_type')
@@ -38,6 +46,20 @@ class ContractListView(ContractQuerysetMixin, ListView):
                 queryset = queryset.filter(maker=self.request.user)
             elif contract_type == "offers_received":
                 queryset = queryset.filter(taker=self.request.user)
+        contract_state = self.request.GET.get('contract_state')
+        if contract_state and contract_state == 'done':
+            queryset = queryset.filter(
+                Q(state="offer_denied") |
+                Q(state="escrow_released") |
+                Q(state="escrow_released_by_judge")
+            )
+        else:
+            queryset = queryset.filter(
+                Q(state="offer_made") |
+                Q(state="escrow_funded") |
+                Q(state="dispute")
+            )
+
         return queryset
 
 

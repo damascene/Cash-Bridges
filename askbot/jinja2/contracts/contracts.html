@@ -31,4 +31,9 @@
             {% endfor %}
         </tbody>
     </table>
+    {% if not contract_state or contract_state != "done" %}
+        <a href="{{ url ('contracts_list') }}?contract_state=done{% if contract_type %}&contract_type={{contract_type}}{% endif %}">
+            <button>{% trans %}Finished Contracts{% endtrans %}</button>
+        </a>
+    {% endif %}
 {% endblock %}
