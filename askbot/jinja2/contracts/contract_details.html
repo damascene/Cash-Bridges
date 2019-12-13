@@ -73,7 +73,10 @@
                     Contract is Done.
                 </strong>
             </p>
-            {% if request.user == contract.taker %}
+            {% if (not contract.user_whom_released_escrow or contract.user_whom_released_escrow == contract.taker) and request.user == contract.taker %}
+                <button onclick="withdraw()">Withdraw Funds</button>
+            {% endif %}
+            {% if contract.user_whom_released_escrow == contract.taker and request.user == contract.maker %}
                 <button onclick="withdraw()">Withdraw Funds</button>
             {% endif %}
         {% endif %}
