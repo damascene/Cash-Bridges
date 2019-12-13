@@ -20,7 +20,6 @@ class Contract(models.Model):
     duration = models.PositiveIntegerField()
     state = models.CharField(max_length=25, choices=STATE_CHOICES, default=STATE_CHOICES[0][0])
     contract_title = models.CharField(max_length=300)
-    offer_text = models.TextField()
     amount = models.DecimalField(max_digits=12, decimal_places=8)
     accepted_offer = models.CharField(max_length=3,
                                       choices=(("yes", "Yes"), ("no", "No")),

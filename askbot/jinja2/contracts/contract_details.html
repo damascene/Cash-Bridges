@@ -11,7 +11,6 @@
     {% if contract %}
         <p>
             <p><strong>Contract Title:</strong> {{contract.contract_title}}</p>
-            <p><strong>Offer Text:</strong> {{contract.offer_text}}</p>
             <p><strong>Offer amount:</strong> {{contract.amount}}</p>
             {% if request.user.is_staff %}
                 <p><strong>Employer:</strong> {{contract.maker}}</p>
