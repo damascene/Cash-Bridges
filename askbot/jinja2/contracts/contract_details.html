@@ -31,7 +31,7 @@
                 <p>
                     Please send {{contract.amount}} BCH to the address below and then press the "Escrow Funded" button:
                     <div id="qrcode" style="width:200px; height:200px; margin-top;15px"></div>
-                    <br>Address: {{contract.escrow_address}}?amount={{contract.amount}}&message=escrow
+                    <br>Address: {{contract.escrow_address}}?amount={{contract.amount}}&message="QA contract {{object.pk}}"
                 </p>
                 <a href="{{ url('escrow_funded',  contract.pk ) }}"><button>Escrow Funded</button></a>
             {% elif request.user == contract.taker %}
@@ -120,7 +120,7 @@
             width: 200,
             height: 200
          });
-         qrcode.makeCode("{{contract.escrow_address}}?amount={{contract.amount}}&message=escrow");
+         qrcode.makeCode('{{contract.escrow_address}}?amount={{contract.amount}}&message="QA contract {{object.pk}}"');
     </script>
     <script src="{{ '/vex/js/vex.combined.min.js'| media }}"></script>
     <script>vex.defaultOptions.className = 'vex-theme-os'</script>
