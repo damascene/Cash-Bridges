@@ -146,6 +146,65 @@
                 <td><strong class="darkred">{{ votes_today_left }}</strong> {% trans %}votes left{% endtrans %}</td>
             </tr>
             {% endif %}
+            <tr>
+                <td><strong>{% trans%}User Rating{% endtrans %}</strong></td>
+            </tr>
+            <tr>
+                <td>{% trans %}Contracts Done{% endtrans %}:</td>
+                <td>
+                    <strong>
+                        {{
+                            user.offers_accepted.filter(state="escrow_released").count()
+                            +
+                            user.offers_accepted.filter(state="escrow_released_by_judge", dispute_winner=user).count()
+                        }}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {% trans %}Contracts In Progress{% endtrans %}:
+                </td>
+                <td>
+                    <strong>
+                        {{user.offers_accepted.filter(state="escrow_funded").count()}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {% trans %}Contracts Failed{% endtrans %}:
+                </td>
+                <td>
+                    <strong>
+                        {{user.offers_accepted.filter(state="escrow_released_by_judge", dispute_winner=user).count()}}
+                    </strong>
+                </td>
+            </tr>
+            <br>
+            <tr>
+                <td>{% trans %}Jobs Posted{% endtrans %}:</td>
+                <td>
+                    <strong>
+                        {{user.posts.filter(post_type="question").count()}}
+                    </strong>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {% trans %}Hired{% endtrans %}:
+                </td>
+                <td>
+                    <strong>
+                        {{
+                            user.offers_made.filter(state="escrow_funded").count() +
+                            user.offers_made.filter(state="escrow_released").count() +
+                            user.offers_made.filter(state="escrow_released_by_judge", dispute_winner=user).count()
+                        }}
+                    </strong>
+                </td>
+            </tr>
+
         </table>
     </div>
     <div class="col3 user-about">
