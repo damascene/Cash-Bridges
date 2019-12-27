@@ -34,4 +34,4 @@ requirements-parser==0.2.0
 regex
 simplejson<=3.16.1
 unidecode<=1.0.23
-django-messages==0.6.0
+django-postman==3.6.2

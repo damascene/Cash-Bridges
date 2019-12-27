@@ -14,7 +14,7 @@
     title="{% trans %}Message the user{% endtrans %}"
 >
     <strong>
-        <a href="{{ url ('messages_compose_to', answer.author.username) }}" target="_blank">✉️</a>
+        <a href="{{ url ('postman:write')}}?recipients={{answer.author.username}}" target="_blank">✉️</a>
     </strong>
 </span>
 <span class="action-link dropdown-toggle">{% trans %}more{% endtrans %}

@@ -100,12 +100,12 @@
         {% endif %}
 
         {% if request.user == contract.maker or request.user.is_staff %}
-            <a href="{{ url ('messages_compose_to', contract.taker.username) }}" target="_blank">
+            <a href="{{ url ('postman:write')}}?recipients={{contract.taker.username}}" target="_blank">
                 <button>Message {{contract.taker.username}}</button>
             </a>
         {% endif %}
         {% if request.user == contract.taker or request.user.is_staff %}
-            <a href="{{ url ('messages_compose_to', contract.maker.username) }}" target="_blank">
+            <a href="{{ url ('postman:write')}}?recipients={{contract.maker.username}}" target="_blank">
                 <button>Message {{contract.maker.username}}</button>
             </a>
         {% endif %}

@@ -7,7 +7,7 @@
         ({{ macros.user_long_score_and_badge_summary(user) }})
     {%- endif -%}
     </span>
-    <a href="{{ url ('messages_inbox') }}">
+    <a href="{{ url ('postman:inbox') }}">
         {% trans %}inbox{% endtrans %} (unread: {{request.user.received_messages.filter(read_at=None).count()}})
     </a>
     <a href="{{ url ('contracts_list') }}?contract_type=offers_made">

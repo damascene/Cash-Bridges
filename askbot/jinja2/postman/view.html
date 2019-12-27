@@ -1,0 +1,40 @@
+{% extends "postman/base.html" %}
+{% block body %}
+<div id="postman">
+<h1>{% if pm_messages|length > 1 %}{% trans %}Conversation{% endtrans %}{% else %}{% trans %}Message{% endtrans %}{% endif %}</h1>
+<hr>
+{% for message in pm_messages %}
+    <div class="django-messages-wrapper-div">
+        <div class="row">
+            <div class="{% if message.sender == request.user %}alert alert-success pull-right{%else%}alert alert-info pull-left{% endif %}">
+                 <div class="pm_header">
+                     <strong>
+                         <span class="pm_sender">{{ message.obfuscated_sender }}</span> &raquo;
+                        <span class="pm_recipient">{{ message.obfuscated_recipient }}</span>
+                     </strong> |
+                     <span class="pm_date">{{ message.sent_at.ctime() }}</span> |
+                     <span class="pm_subject">{{ message.subject }}</span>
+                     {% if message.is_rejected() %}
+                        <div class="pm_status">
+                            {% trans %}Rejected{% endtrans %}
+                            {% if message.moderation_reason %}{% trans %} ":"{% endtrans %} {{ message.moderation_reason }}{% endif %}
+                        </div>
+                     {% endif %}
+                </div><br>
+                <div class="pm_body">{{ message.body|linebreaksbr }}</div>
+            </div>
+        </div>
+    </div>
+    {% if loop.last %}
+            {% if reply_to_pk %}<hr />
+                <h2>{% trans %}Reply{% endtrans%}</h2>
+                <form action="{{ url('postman:reply', reply_to_pk) }}?next={{ next_url|urlencode }}" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
+                    <div id="pm_reply">{{ form.body }}</div>
+                    <button type="submit" class="pm_btn pm_btn-reply">{% trans %}Reply{% endtrans%}</button>
+                </form>
+            {% endif %}
+    {% endif %}
+{% endfor %}
+    </div>
+{% endblock %}
