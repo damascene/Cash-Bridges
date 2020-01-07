@@ -222,6 +222,7 @@ def ask(request):#view used to ask a new question
             tagnames = form.cleaned_data['tags']
             text = form.cleaned_data['text']
             translate_text = form.cleaned_data['translate_text']
+            mode = form.cleaned_data['mode']
             translate_from = form.cleaned_data['translate_from']
             translate_to = form.cleaned_data['translate_to']
             translation_budget = form.cleaned_data['translation_budget']
@@ -265,6 +266,7 @@ def ask(request):#view used to ask a new question
                         language=language,
                         ip_addr=request.META.get('REMOTE_ADDR'),
                         translate_text=translate_text,
+                        mode=mode,
                         translate_from=translate_from,
                         translate_to=translate_to,
                         translation_budget=translation_budget,

@@ -1015,6 +1015,13 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
         ('ar', 'Arabic'),
         ('fr', 'French'),
     )
+    MODE_CHOICES = (
+        ('quick_mode', 'Quick Mode'),
+        ('contract_mode', 'Contract Mode'),
+        ('tr', 'Turkish'),
+        ('ar', 'Arabic'),
+        ('fr', 'French'),
+    )
 
     wiki = WikiField()
     group_id = forms.IntegerField(required=False, widget=forms.HiddenInput)
@@ -1036,6 +1043,7 @@ class AskForm(PostAsSomeoneForm, PostPrivatelyForm):
 
         self.fields['text'] = QuestionEditorField(user=user, label=label)
         self.fields['translate_text'] = QuestionEditorField(user=user, label="Translation Text")
+        self.fields['mode'] = forms.ChoiceField(choices=AskForm.MODE_CHOICES, label="Mode")
         self.fields['translate_from'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="From")
         self.fields['translate_to'] = forms.ChoiceField(choices=AskForm.TRANSLATION_LANGUAGE_CHOICES, label="To")
         self.fields['translation_budget'] = forms.DecimalField(required=False, max_digits=8, decimal_places=2, label="Budget")
@@ -1229,9 +1237,9 @@ class AnswerForm(PostAsSomeoneForm, PostPrivatelyForm):
         # empty label on purpose
         self.fields['text'] = AnswerEditorField(label='', user=user)
         self.fields['translate_text'] = AnswerEditorField(label='', user=user)
-        self.fields['amount'] = forms.DecimalField(max_digits=12, decimal_places=7,
+        self.fields['amount'] = forms.DecimalField(max_digits=12, decimal_places=7, required=False,
                                                    validators=[MinValueValidator(Decimal("0.0006"))])
-        self.fields['duration'] = forms.IntegerField()
+        self.fields['duration'] = forms.IntegerField(required=False)
 
         if should_use_recaptcha(user):
             self.fields['recaptcha'] = AskbotReCaptchaField()

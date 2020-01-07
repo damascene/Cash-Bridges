@@ -457,6 +457,12 @@ class Post(models.Model):
                                                        ('usd', 'USD',),
                                                        ('eur', 'EUR',)],
                                                    null=True, blank=True)
+    mode = models.CharField(max_length=14,
+                            choices=[
+                                ('quick_mode', 'Quick Mode',),
+                                ('contract_mode', 'Contract Mode',)
+                            ],
+                            null=True, blank=True)
     pub_key = models.CharField(max_length=67, blank=True, null=True)
     priv_key = models.TextField(blank=True, null=True)
     duration = models.PositiveIntegerField(blank=True, null=True)

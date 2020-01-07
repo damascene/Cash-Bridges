@@ -16,6 +16,18 @@
                 value="{% if form.initial.title %}{{form.initial.title|escape}}{% endif %}"/>
         </div>
     </div>
+    <div class="form-item form-group ask-form-bar">
+        <label for="#mode">Mode</label>
+        <select id="mode" name="mode" onchange="toggle_mode(this);">
+            <option value="quick_mode">Quick Mode</option>
+            <option value="contract_mode">Contract Mode</option>
+        </select>
+        <div class="js-title-error js-error">
+            {% if form.mode.errors %}
+                {{ form.mode.errors }}
+            {% endif %}
+        </div>
+    </div>
         <!-- ------------------------------------------------------------------ -->
     {% set translate_text_field_id = form.translate_text.field.widget.attrs.id %}
         <div class="ask-form--editor-container">
@@ -78,14 +90,27 @@
         </div>
 
     <!-- ------------------------------------------------------------------ -->
-    <a class="js-ask-form--show-details" type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
-        Show details field
-    </a>
-    <div id="toggle-input" style="display: none;">
-        {% set text_field_id = form.text.field.widget.attrs.id %}
-        {% if editor_is_folded %}
-            <a class="js-question-body-trigger">{{ form.text.label }}</a>
-            <div class="folded-editor">
+    <div id="advanced_options">
+        <a id="toggle_button" class="js-ask-form--show-details" type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
+            Show details field
+        </a>
+        <div id="toggle-input" style="display: none;">
+            {% set text_field_id = form.text.field.widget.attrs.id %}
+            {% if editor_is_folded %}
+                <a class="js-question-body-trigger">{{ form.text.label }}</a>
+                <div class="folded-editor">
+                    <label for="{{ text_field_id }}"
+                        class="js-text-label">{{ form.text.label }}</label>
+                    <div class="js-text-error js-error">
+                        {% if form.text.errors %}
+                            {{ form.text.errors }}
+                        {% endif %}
+                    </div>
+                    <div class="editor-proper">
+                        <div class="editor-placeholder"></div>
+                    </div>
+                </div>
+            {% else %}
                 <label for="{{ text_field_id }}"
                     class="js-text-label">{{ form.text.label }}</label>
                 <div class="js-text-error js-error">
@@ -93,22 +118,11 @@
                         {{ form.text.errors }}
                     {% endif %}
                 </div>
-                <div class="editor-proper">
-                    <div class="editor-placeholder"></div>
-                </div>
-            </div>
-        {% else %}
-            <label for="{{ text_field_id }}"
-                class="js-text-label">{{ form.text.label }}</label>
-            <div class="js-text-error js-error">
-                {% if form.text.errors %}
-                    {{ form.text.errors }}
-                {% endif %}
-            </div>
-            {{ macros.edit_post(form, settings) }}
-        {% endif %}
+                {{ macros.edit_post(form, settings) }}
+            {% endif %}
 
-        {% include "widgets/tags_field.html" %}
+            {% include "widgets/tags_field.html" %}
+        </div>
     </div>
     {{ form.group_id }}
     <div class="question-options">

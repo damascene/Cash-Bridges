@@ -165,7 +165,7 @@ class ThreadManager(BaseQuerySetManager):
     def create_new(self, title, author, added_at, wiki, text, tagnames=None,
                    is_anonymous=False, is_private=False, group_id=None,
                    by_email=False, email_address=None, language=None,
-                   ip_addr=None, translate_text=None,
+                   ip_addr=None, translate_text=None, mode=None,
                    translate_from=None, translate_to=None, translation_budget=None,
                    translation_budget_currency=None):
         """creates new thread"""
@@ -183,7 +183,7 @@ class ThreadManager(BaseQuerySetManager):
         question = Post(post_type='question', thread=thread, author=author,
                         added_at=added_at, wiki=wiki, is_anonymous=is_anonymous,
                         text=text, language_code=language, translate_text=translate_text,
-                        translate_from=translate_from, translate_to=translate_to,
+                        mode=mode, translate_from=translate_from, translate_to=translate_to,
                         translation_budget=translation_budget,
                         translation_budget_currency=translation_budget_currency)
         # html and summary fields are denormalized in .save() call

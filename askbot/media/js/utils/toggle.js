@@ -153,3 +153,23 @@ function toggle_display(button, id, hiddenText, visibleText) {
         button.innerText = visibleText
     }
 }
+
+
+function toggle_mode(element){
+    console.log(element.value);
+    translation_text = document.getElementsByClassName("ask-form--editor-container")[0];
+    advanced_options = document.getElementById("advanced_options");
+    toggle_button = document.getElementById("toggle_button");
+    toggle_input = document.getElementById("toggle-input");
+
+    if (element.value == "quick_mode"){
+        translation_text.style.display = "block";
+        advanced_options.style.display = "none";
+    }
+    else if (element.value == "contract_mode") {
+        translation_text.style.display = "none";
+        advanced_options.style.display = "block";
+        toggle_input.style.display = "block";
+        toggle_button.innerText = 'Hide details field'
+    }
+}
