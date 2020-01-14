@@ -158,6 +158,7 @@ function toggle_display(button, id, hiddenText, visibleText) {
 function toggle_mode(element){
     console.log(element.value);
     translation_text = document.getElementsByClassName("ask-form--editor-container")[0];
+    translation_text_text_area = document.getElementById("editor");
     advanced_options = document.getElementById("advanced_options");
     toggle_button = document.getElementById("toggle_button");
     toggle_input = document.getElementById("toggle-input");
@@ -170,6 +171,7 @@ function toggle_mode(element){
         translation_text.style.display = "none";
         advanced_options.style.display = "block";
         toggle_input.style.display = "block";
-        toggle_button.innerText = 'Hide details field'
+        toggle_button.innerText = 'Hide details field';
+        translation_text_text_area.value = " ";
     }
 }
