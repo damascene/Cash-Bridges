@@ -134,10 +134,12 @@ class Contract(models.Model):
             self.judgeSignature = res.json()['judgeSignature']
             self.fee_taken = res.json()['feeTaken']
             self.judge_pub_key = res.json()['judgePubKey']
-            if to == "employee":
-                self.state = self.STATE_CHOICES[3][0]
-            if to == "employer" or self.state == self.STATE_CHOICES[4][0]:
+
+            if self.state == self.STATE_CHOICES[4][0]:
                 self.state = self.STATE_CHOICES[5][0]
+            else:
+                self.state = self.STATE_CHOICES[3][0]
+
             if user:
                 self.user_whom_released_escrow = user
             self.save()
