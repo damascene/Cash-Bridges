@@ -204,7 +204,7 @@ class ReleaseEscrowView(ContractQuerysetMixin, UpdateView):  # TODO handle it be
         if self.request.user == contract.maker:
             success = contract.release_escrow("employee", self.request.user)
         elif self.request.user == contract.taker:
-            success = contract.release_escrow("employee", self.request.user)
+            success = contract.release_escrow("employer", self.request.user)
         if success:
             messages.success(self.request, messages.SUCCESS, "Escrow successfully released!")
             return HttpResponseRedirect(self.get_success_url())
