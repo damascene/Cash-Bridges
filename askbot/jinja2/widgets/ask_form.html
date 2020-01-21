@@ -29,9 +29,8 @@
         </div>
     </div>
         <!-- ------------------------------------------------------------------ -->
-    {% set translate_text_field_id = form.translate_text.field.widget.attrs.id %}
         <div class="ask-form--editor-container">
-            <label for="{{ translate_text_field_id }}"
+            <label for="#translate_text_id"
                 class="js-text-label">{{ form.translate_text.label }}</label>
             <div class="js-text-error js-error">
                 {% if form.translate_text.errors %}
@@ -39,7 +38,9 @@
                 {% endif %}
             </div>
             <div class="editor-proper">
-                {{form.translate_text}}
+                <div class="resizable-textarea">
+                    <textarea style="width: 100%" name="translate_text" cols="40" rows="10" id="translate_text_id" required="" class="processed"></textarea>
+                </div>
             </div>
         </div>
         <div class="translation-form-container">
