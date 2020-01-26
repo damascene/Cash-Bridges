@@ -32,7 +32,7 @@ Attacklab.wmdBase = function(){
     var toolbar_emphasis_label = gettext('italic') + " <em> Ctrl-I";
     var toolbar_hyperlink_label = gettext('link') + " <a> Ctrl-L";
     var toolbar_blockquote_label = gettext('quote') + " <blockquote> Ctrl-.";
-    var toolbar_code_label = gettext('preformatted text') + " <pre><code> Ctrl-K";
+    var toolbar_code_label = gettext('translation text'); // + " <pre><code> Ctrl-K";
     var toolbar_image_label = gettext('image') + " <img> Ctrl-G";
     var toolbar_attachment_label = gettext('attachment') + " Ctrl-F";
     var toolbar_numbered_label = gettext('numbered list') + " <ol> Ctrl-O";
@@ -2259,7 +2259,7 @@ util.prompt = function(text, defaultInputText, makeLinkMarkdown, dialogType){
 
 		// Use 'four space' markdown if the selection is on its own
 		// line or is multiline.
-		if((!hasTextAfter && !hasTextBefore) || /\n/.test(chunk.selection)){
+		if(false && ((!hasTextAfter && !hasTextBefore) || /\n/.test(chunk.selection))){
 
 			chunk.before = chunk.before.replace(/[ ]{4}$/,
 				function(totalMatch){
@@ -2281,7 +2281,7 @@ util.prompt = function(text, defaultInputText, makeLinkMarkdown, dialogType){
 
 			if(!chunk.selection){
 				chunk.startTag = "    ";
-				chunk.selection = gettext("enter code here");
+				chunk.selection = gettext("enter translation here");
 			}
 			else {
 				if(/^[ ]{0,3}\S/m.test(chunk.selection)){
@@ -2301,7 +2301,7 @@ util.prompt = function(text, defaultInputText, makeLinkMarkdown, dialogType){
 			if(!chunk.startTag && !chunk.endTag){
 				chunk.startTag = chunk.endTag="`";
 				if(!chunk.selection){
-					chunk.selection = gettext("enter code here");
+					chunk.selection = gettext("enter translation here");
 				}
 			}
 			else if(chunk.endTag && !chunk.startTag){
