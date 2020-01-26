@@ -29,6 +29,7 @@
         </div>
     </div>
         <!-- ------------------------------------------------------------------ -->
+        <!--
         <div class="ask-form--editor-container">
             <label for="#translate_text_id"
                 class="js-text-label">{{ form.translate_text.label }}</label>
@@ -43,6 +44,7 @@
                 </div>
             </div>
         </div>
+        -->
         <div class="translation-form-container">
             <div class="form-item form-group ask-form-bar">
                 <label for="id_title">{{ form.translate_from.label }}</label>
@@ -92,10 +94,13 @@
 
     <!-- ------------------------------------------------------------------ -->
     <div id="advanced_options">
+        <!--
         <a id="toggle_button" class="js-ask-form--show-details" type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
             Show details field
         </a>
         <div id="toggle-input" style="display: none;">
+        -->
+        <div>
             {% set text_field_id = form.text.field.widget.attrs.id %}
             {% if editor_is_folded %}
                 <a class="js-question-body-trigger">{{ form.text.label }}</a>

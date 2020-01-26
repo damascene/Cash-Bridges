@@ -21,16 +21,20 @@
         </label>
         {{ form.title }}
     </div>
+    <!--
     <div class="form-group">
         <div class="wmd-container">
             <label for="translate-text">Translation Text:</label>
             <textarea id="translate-text" name="translate_text">{{revision.post.translate_text}}</textarea>
         </div>
     </div>
+
     <a type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
         Show details field
     </a>
     <div id="toggle-input" style="display: none;">
+    -->
+    <div>
         {{ macros.edit_post(form, settings, post_html=revision.text) }}
         {% include "widgets/tags_field.html" %}
     </div>

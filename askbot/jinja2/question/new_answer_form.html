@@ -28,10 +28,12 @@
             <input name="pub_key" id="id_pub_key" type="hidden">
             <input name="priv_key" id="id_priv_key" type="hidden">
             {% if question.mode == "quick_mode" %}
+            <!--
                 <label>Translation Text:</label>
                 <div class="wmd-container">
                     <textarea name="translate_text" style="height: 188px;"></textarea>
                 </div>
+            -->
             {% else %}
                 <div class="form-group ask-form-bar form-item">
                     <label for="id_amount">Amount:</label>
@@ -42,11 +44,16 @@
                 <br>
             {% endif %}
             {% if question.mode == "quick_mode" %}
+                <!--
                 <a class="folded-editor--show-details" type="button" onclick="toggle_display(this, 'toggle-input', 'Show details field', 'Hide details field')">
                     Show details field
                 </a>
+                -->
             {% endif%}
+            <!--
             <div {% if question.mode == "quick_mode" %}id="toggle-input" style="display: none;"{% endif %}>
+            -->
+            <div>
                 <div class="form-group editor-placeholder"
                     {% if draft_answer %}data-draft-answer="{{ draft_answer|escape }}"{% endif %}>
                         <div class="wmd-container">
