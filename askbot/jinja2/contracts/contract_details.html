@@ -100,12 +100,38 @@
         {% endif %}
 
         {% if request.user == contract.maker or request.user.is_staff %}
-            <a href="{{ url ('postman:write')}}?recipients={{contract.taker.username}}" target="_blank">
+            {% if request.user.sent_messages.filter(recipient=contract.taker) %}
+                {% set message_thread=request.user.sent_messages.filter(recipient=contract.taker).first() %}
+            {% elif request.user.received_messages.filter(sender=contract.taker) %}
+                {% set message_thread=request.user.received_messages.filter(sender=contract.taker).first() %}
+            {% endif %}
+            {% set taker_maker_message_url=url ('write')+"?recipients=" + contract.taker.username %}
+            {% if message_thread %}
+                {% if message_thread.thread_id %}
+                    {% set taker_maker_message_url=url ('postman:view_conversation', message_thread.thread_id) %}
+                {% else %}
+                    {% set taker_maker_message_url=url ('postman:view', message_thread.id) %}
+                {% endif %}
+            {% endif %}
+            <a href="{{taker_maker_message_url}}" target="_blank">
                 <button>Message {{contract.taker.username}}</button>
             </a>
         {% endif %}
         {% if request.user == contract.taker or request.user.is_staff %}
-            <a href="{{ url ('postman:write')}}?recipients={{contract.maker.username}}" target="_blank">
+            {% if request.user.sent_messages.filter(recipient=contract.maker) %}
+                {% set message_thread=request.user.sent_messages.filter(recipient=contract.maker).first() %}
+            {% elif request.user.received_messages.filter(sender=contract.maker) %}
+                {% set message_thread=request.user.received_messages.filter(sender=contract.maker).first() %}
+            {% endif %}
+            {% set maker_message_url=url ('postman:write')+"?recipients=" + contract.maker.username %}
+            {% if message_thread %}
+                {% if message_thread.thread_id %}
+                    {% set maker_message_url=url ('postman:view_conversation', message_thread.thread_id) %}
+                {% else %}
+                    {% set maker_message_url=url ('postman:view', message_thread.id) %}
+                {% endif %}
+            {% endif %}
+            <a href="{{maker_message_url}}" target="_blank">
                 <button>Message {{contract.maker.username}}</button>
             </a>
         {% endif %}

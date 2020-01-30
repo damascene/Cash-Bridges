@@ -16,7 +16,20 @@
     title="{% trans %}Message the user{% endtrans %}"
 >
     <strong>
-        <a href="{{ url ('postman:write')}}?recipients={{answer.author.username}}" target="_blank">✉️</a>
+        {% if request.user.sent_messages.filter(recipient=answer.author) %}
+            {% set message_thread=request.user.sent_messages.filter(recipient=answer.author).first() %}
+        {% elif request.user.received_messages.filter(sender=answer.author) %}
+            {% set message_thread=request.user.received_messages.filter(sender=answer.author).first() %}
+        {% endif %}
+        {% set message_url=url ('postman:write')+"?recipients=" + answer.author.username %}
+        {% if message_thread %}
+            {% if message_thread.thread_id %}
+                {% set message_url=url ('postman:view_conversation', message_thread.thread_id) %}
+            {% else %}
+                {% set message_url=url ('postman:view', message_thread.id) %}
+            {% endif %}
+        {% endif %}
+        <a href="{{message_url}}" target="_blank">✉️</a>
     </strong>
 </span>
 <span class="action-link dropdown-toggle">{% trans %}more{% endtrans %}

@@ -14,6 +14,11 @@ from askbot.views.error import internal_error as handler500
 from django.conf import settings
 from django.contrib import admin
 from django.views import static as StaticViews
+from django.urls import re_path
+
+from askbot.utils import postman_filters
+
+from postman.views import WriteView
 
 admin.autodiscover()
 
@@ -33,6 +38,9 @@ urlpatterns += [
     #(r'^settings/', include('askbot.deps.livesettings.urls')),
     url(r'^followit/', include('followit.urls')),
     url(r'^tinymce/', include('tinymce.urls')),
+    re_path(r'^messages/write/(?:(?P<recipients>[^/#]+)/)?$',
+            WriteView.as_view(exchange_filter=postman_filters.postman_exchange_filter),
+            name='write'),
     url(r'^messages/', include('postman.urls')),
     url(r'^robots.txt$', include('robots.urls')),
     url( # TODO: replace with django.conf.urls.static ?
