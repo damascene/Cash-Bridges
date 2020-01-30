@@ -9,11 +9,35 @@
 {% block body %}
 <div id="postman">
 <h1>{% block pm_write_title %}{% endblock %}</h1>
+{{form.errors}}
 <form action="{% if next_url %}?next={{ next_url|urlencode }}{% endif %}" method="post">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}" />
 <table>
 {% block pm_write_recipient %}{% endblock %}
-{{ form }}
+    <tbody>
+    <tr>
+        <th>
+            <label class="required" for="id_subject">Recipient:</label>
+        </th>
+        <td>{{form.recipients.value()}}</td>
+        <td>
+            <input name="recipients" value="{{form.recipients.value()}}" required="" id="id_recipients" type="hidden" readonly>
+        </td>
+    </tr>
+    <tr class="required">
+        <td>
+            <input name="subject" maxlength="120" value="subject" required="" id="id_subject" type="hidden">
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="id_body">Body:</label>
+        </th>
+        <td>
+            <textarea name="body" cols="55" rows="12" id="id_body"></textarea>
+        </td>
+    </tr>
+    </tbody>
 </table>
 <button type="submit" class="pm_btn pm_btn-send">{% trans %}Send{% endtrans %}</button>
 </form>

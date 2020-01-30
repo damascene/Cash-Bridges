@@ -27,7 +27,6 @@
                         <th>{% trans %}Action{% endtrans %}</th>
                         <th><a href="">{% trans %}Sender{% endtrans %}</a></th>
                         <th><a href="">{% trans %}Recipient{% endtrans %}</a></th>
-                        <th><a href="">{% trans %}Subject{% endtrans %}</a></th>
                         <th><a href="">{% trans %}Date{% endtrans %}</a></th>
                         <th><a href="">{% trans %}View Thread{% endtrans %}</a></th>
                     </tr>
@@ -43,12 +42,6 @@
                             </td>
                             <td>
                                 {{ message.obfuscated_recipient }}{% if message.count %} ({{ message.count }}){% endif %}
-                            </td>
-                            <td>
-                                {{message.subject}}
-                                {% if message.is_new %}<strong>{% endif %}{% if message.is_replied %}<em>{% endif %}
-
-                                {% if message.is_replied %}</em>{% endif %}{% if message.is_new %}</strong>{% endif %}
                             </td>
                             <td>
                                 {{ message.sent_at.date() }}
