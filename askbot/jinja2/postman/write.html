@@ -1,2 +1,7 @@
 {% extends "postman/base_write.html" %}
 {% block pm_write_title %}{% trans %}Write{% endtrans%}{% endblock %}
+{% block warning %}
+<p style="color: red;">
+    Note: You'll not be able to send another message until they respond.
+</p>
+{% endblock %}
