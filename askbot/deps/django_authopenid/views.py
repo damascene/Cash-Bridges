@@ -486,7 +486,8 @@ def signin(request, template_name='authopenid/signin.html'):
         return HttpResponseRedirect(next_url)
 
     if next_url == reverse('user_signin'):
-        next_url = '%(next)s?next=%(next)s' % {'next': next_url}
+        # next_url = '%(next)s?next=%(next)s' % {'next': next_url}
+        next_url = '/'
 
     login_form = forms.LoginForm(initial={'next': next_url})
 
@@ -1304,12 +1305,12 @@ def verify_email_and_register(request):
             else:
                 raise NotImplementedError()
 
-            login(request, user)
+            # login(request, user)
             email_verifier.verified = True
             email_verifier.save()
             cleanup_post_register_session(request)
 
-            return HttpResponseRedirect(get_next_url(request))
+            return HttpResponseRedirect(reverse('user_signin'))
         except Exception as error:
             logging.critical('Could not verify account: %s', unicode(error).encode('utf-8'))
             message = _(
@@ -1353,9 +1354,9 @@ def signup_with_password(request):
                     bch_address=bch_address,
                     request=request
                 )
-                login(request, user)
+                # login(request, user)
                 cleanup_post_register_session(request)
-                return HttpResponseRedirect(get_next_url(request))
+                return HttpResponseRedirect(reverse('user_signin'))
             else:
                 email_verifier = UserEmailVerifier(key=generate_random_key())
                 email_verifier.value = {'username': username,
