@@ -1,22 +1,22 @@
 ====================================
-Askbot - a Django Q&A forum platform
+Cash Bridges - a Django Q&A forum platform
 ====================================
 
-This is Askbot project - open source Q&A system, like StackOverflow, Yahoo Answers and some others.
-Askbot is based on code of CNPROG, originally created by Mike Chen
+This is Cash Bridges project - open source translation request system, it uses style similar to StackOverflow, Yahoo Answers and some others. It adds donations and contract creating cabilites using crypto currency.
+
+Birdges Cash is based on code of Askbot. Askbot is based on code of CNPROG, originally created by Mike Chen
 and Sailing Cai and some code written for OSQA.
 
-Demos and hosting are available at http://askbot.com.
+Project main page is: https://googol.cash.
 
-Branch `0.7.x` - is the latest version supporting Django 1.5
+Project is built by
+=================
 
-Branch `0.8.x` - transitional version for the upgrade of the database to Django 1.7
+- Askbot 0.11 - https://github.com/ASKBOT/askbot-devel/tree/0.11.x
+- Jetonlib Nodejs lib - https://github.com/jeton-tech/jeton-lib
+- Django Postman - https://bitbucket.org/psam/django-postman/src 
 
-Branch `0.9.x` - supports Django 1.7
-
-Branch `master` - supports Django 1.8
-
-Branch `0.11.x` - supports Django 2.2
+Licenced AGPL v3, used GPL v3 code from askbot 
 
 How to contribute
 =================
@@ -38,9 +38,8 @@ Follow https://help.github.com/articles/fork-a-repo to to learn how to use
 
 License, copyright and trademarks
 =================================
+Cash Bridges software is licensed under AGPL, version 3
 Askbot software is licensed under GPL, version 3.
+All contribution to the project code will be released under the AGPL with the same copyright notice.
 
-Copyright Askbot S.p.A and the project contributors, 2010-2019.
-
-"Askbot" is a trademark and service mark registered in the United States, number 4323777.
-
+Copyright @damascene ,2019-2020.
